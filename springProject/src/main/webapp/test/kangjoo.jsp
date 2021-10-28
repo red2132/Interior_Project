@@ -28,6 +28,7 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
+<<<<<<< HEAD
 <!-- 
      출력 : {{변수}}
    Vue를 생성 => new Vue({
@@ -96,5 +97,8 @@
 	  }
   })
 </script>
+=======
+	<h1>테스트</h1>
+>>>>>>> branch 'master' of https://github.com/sistSpringProject/springProject.git
 </body>
 </html>
