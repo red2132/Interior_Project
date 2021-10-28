@@ -110,7 +110,7 @@
                         <p>Premium Quality</p>
                         <h3>가전</h3>
                         <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="../template/img/feature/3.png" alt="">
+                        <img src="../template/img/feature/101.png" alt="">
                     </div>
                 </div>
                 <div class="col-lg-5 col-sm-6">
@@ -118,7 +118,7 @@
                         <p>Premium Quality</p>
                         <h3>가구</h3>
                         <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="../template/img/feature/feature_2.png" alt="">
+                        <img src="../template/img/feature/201.png" alt="">
                     </div>
                 </div>
                 <div class="col-lg-5 col-sm-6">
@@ -126,15 +126,15 @@
                         <p>Premium Quality</p>
                         <h3>침구</h3>
                         <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="../template/img/feature/feature_3.png" alt="">
+                        <img src="../template/img/feature/301.png" alt="">
                     </div>
-                </div>
+                </iv>
                 <div class="col-lg-7 col-sm-6">
                     <div class="single_feature_post_text">
                         <p>Premium Quality</p>
                         <h3>조명</h3>
                         <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="../template/img/feature/feature_4.png" alt="">
+                        <img src="../template/img/feature/401.png" alt="">
                     </div>
                 </div>
             </div>
