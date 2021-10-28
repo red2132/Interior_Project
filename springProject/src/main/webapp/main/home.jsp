@@ -128,7 +128,7 @@
                         <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
                         <img src="../template/img/feature/301.png" alt="">
                     </div>
-                </iv>
+                </div>
                 <div class="col-lg-7 col-sm-6">
                     <div class="single_feature_post_text">
                         <p>Premium Quality</p>
