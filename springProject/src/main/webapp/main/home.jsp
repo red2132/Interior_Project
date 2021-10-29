@@ -5,6 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
 <body>
 <!-- banner part start-->
@@ -372,47 +377,21 @@
             <div class="row justify-content-center">
                 <div class="col-lg-12">
                     <div class="section_tittle text-center">
-                        <h2>커뮤니티부분~! <span>shop</span></h2>
+                        <h2>커뮤니티</h2>
                     </div>
                 </div>
             </div>
-            <div class="row align-items-center justify-content-between">
+            <div class="row align-items-center justify-content-between" id="comm">
                 <div class="col-lg-12">
-                    <div class="best_product_slider owl-carousel">
-                        <div class="single_product_item">
-                            <img src="../template/img/product/product_1.png" alt="">
+                    <div class="best_product_slider owl-carousel" >
+                    	<div >
+                        <div class="single_product_item" v-for="vo in comm_data" >
+                            <img :src="vo.filename" alt="" height="200px" width="300px">
                             <div class="single_product_text">
-                                <h4>제목</h4>
-                                <h3>작성자</h3>
+                                <h4>{{vo.subject}}</h4>
+                                <h3>{{vo.id}}</h3>
                             </div>
                         </div>
-                        <div class="single_product_item">
-                            <img src="../template/img/product/product_2.png" alt="">
-                            <div class="single_product_text">
-                                <h4>제목</h4>
-                                <h3>작성자</h3>
-                            </div>
-                        </div>
-                        <div class="single_product_item">
-                            <img src="../template/img/product/product_3.png" alt="">
-                            <div class="single_product_text">
-                                <h4>제목</h4>
-                                <h3>작성자</h3>
-                            </div>
-                        </div>
-                        <div class="single_product_item">
-                            <img src="../template/img/product/product_4.png" alt="">
-                            <div class="single_product_text">
-                                <h4>제목</h4>
-                                <h3>작성자</h3>
-                            </div>
-                        </div>
-                        <div class="single_product_item">
-                            <img src="../template/img/product/product_5.png" alt="">
-                            <div class="single_product_text">
-                                <h4>제목</h4>
-                                <h3>작성자</h3>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -475,5 +454,20 @@
         </div>
     </section>
     <!--::subscribe_area part end::-->
+<script>
+new Vue({
+	el:'#comm',
+	data:{
+		comm_data:[]
+	},
+	mounted:function(){
+		axios.get("http://localhost:8080/web/main/rest_comm.do")
+		.then(res => {
+			console.log(res.data);
+			this.comm_data=res.data;
+		})
+	}
+})
+</script>
 </body>
 </html>

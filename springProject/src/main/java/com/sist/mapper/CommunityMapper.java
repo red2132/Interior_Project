@@ -30,7 +30,7 @@ public interface CommunityMapper {
 			+ "FROM (SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags,rownum as num "
 			+ "FROM (SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags "
 			+ "FROM house_community)) "
-			+ "WHERE num BETWEEN 1 AND 6 "
+			+ "WHERE num BETWEEN 1 AND 5 "
 			+ "ORDER BY hit desc")
 	public List<CommunityVO> home_cList();
 	
