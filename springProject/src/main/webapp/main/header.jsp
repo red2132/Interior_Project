@@ -49,13 +49,14 @@
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_3"
+                                    <a class="nav-link dropdown-toggle" href="../second/list.do?cate1=OA" id="navbarDropdown_3"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         중고거래
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                    	<a class="dropdown-item" href="#"> 대분류 foreach로??</a>
-                                    	<a class="dropdown-item" href="#"> ...</a>
+                                    	<c:forEach var="cate" items="${secondCateList }">
+                                        	<a class="dropdown-item" href="../second/list.do?cate1=${cate }">${cate }</a>
+                                        </c:forEach>
                                     </div>
                                 </li>
                                 <li class="nav-item">
