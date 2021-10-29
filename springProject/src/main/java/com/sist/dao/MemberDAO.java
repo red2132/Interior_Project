@@ -22,7 +22,7 @@ public class MemberDAO {
     	}
     	else
     	{
-    		MemberVO dbVO=mapper.memberGetPassword(id);
+    		MemberVO dbVO = mapper.memberGetPassword(id);
     		if(pwd.equals(dbVO.getPwd())) // 비밀번호 확인
     		{
     			vo.setMsg("OK");

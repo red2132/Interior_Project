@@ -1,30 +1,34 @@
 package com.sist.vo;
 
 /*
+  
    	  - 회원정보 관련 데이터 테이블 -
    
-    ID       NOT NULL VARCHAR2(20)  
-	PWD      NOT NULL VARCHAR2(10)  
+	    이름       널?       유형        비고   
+	-------- -------- ------------- -------
+	ID       NOT NULL VARCHAR2(30)  
+	PWD      NOT NULL VARCHAR2(30)  
 	NAME     NOT NULL VARCHAR2(34)  
-	SEX               VARCHAR2(10)  
-	BIRTHDAY NOT NULL VARCHAR2(20)  
-	EMAIL    NOT NULL VARCHAR2(100) 
+	SEX      NOT NULL VARCHAR2(10)  
+	BIRTHDAY NOT NULL DATE          
+	EMAIL             VARCHAR2(100) UNIQUE
+	ADDR1    NOT NULL VARCHAR2(200) 
+	ADDR2    NOT NULL VARCHAR2(200) 
+	TEL               VARCHAR2(20)  UNIQUE
 	POST     NOT NULL VARCHAR2(7)   
-	ADDR1    NOT NULL VARCHAR2(300) 
-	ADDR2             VARCHAR2(300) 
-	TEL      NOT NULL VARCHAR2(20)  
-	ADMIN             CHAR(1)       
-	CONTENT           CLOB      
+	ADMIN             CHAR(1)      
+	 
  */
 
 public class MemberVO {
 
 	private String id, pwd, name, sex, birthday,
 				   email, post, addr1, addr2, tel,
-				   admin, content;
-				   
+				   admin;
+	
 	private String msg;
 
+	
 	public String getId() {
 		return id;
 	}
@@ -111,14 +115,6 @@ public class MemberVO {
 
 	public void setAdmin(String admin) {
 		this.admin = admin;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
 	}
 
 	public String getMsg() {
