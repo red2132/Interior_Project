@@ -43,7 +43,7 @@
                             </div>
 
                             <div class="blog_details">
-                                <a class="d-inline-block" href="single-blog.html">
+                                <a class="d-inline-block" href="detail.do?no=${vo.no }&page=${curpage}">
                                     <h2>${vo.subject }</h2>
                                 </a>
                                 <ul class="blog-info-link">
@@ -55,22 +55,31 @@
 					</c:forEach>
                         <nav class="blog-pagination justify-content-center d-flex">
                             <ul class="pagination">
+                             <c:if test="${startPage>1 }">
                                 <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Previous">
+                                    <a href="list.do?page=${startPage-1 }" class="page-link" aria-label="Previous">
                                         <i class="ti-angle-left"></i>
                                     </a>
                                 </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">1</a>
+                              </c:if>
+                               <c:forEach var="i" begin="${startPage }" end="${endPage }">
+                               	<c:if test="${i==curpage }">
+                               		<c:set var="style" value="page-item active"/>
+                               	</c:if>
+                               	 <c:if test="${i!=curpage }">
+            						<c:set var="style" value="page-item"/>
+          						</c:if>
+                                <li class="${style }">
+                                    <a href="list.do?page=${i }" class="page-link">${i }</a>
                                 </li>
-                                <li class="page-item active">
-                                    <a href="#" class="page-link">2</a>
-                                </li>
+                                 </c:forEach> 
+                              <c:if test="${endPage<totalpage }">
                                 <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Next">
+                                    <a href="list.do?page=${endPage+1 }" class="page-link" aria-label="Next">
                                         <i class="ti-angle-right"></i>
                                     </a>
-                                </li>
+                                </lI>
+                              </c:if>
                             </ul>
                         </nav>
                     </div>

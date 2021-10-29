@@ -28,4 +28,8 @@ public class CommunityDAO {
 	{
 		return mapper.cDetail(no);
 	}
+	public List<CommunityVO> home_cList()
+	{
+		return mapper.home_cList();
+	}
 }

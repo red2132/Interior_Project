@@ -51,10 +51,11 @@ public class CommunityController {
 		return "main/main";
 	}
 	@RequestMapping("comm/detail.do")
-	public String detail(int no,Model model)
+	public String detail(int no, int page, Model model)
 	{		
 		// 목록 정보
 		CommunityVO vo=dao.cDetail(no);
+		model.addAttribute("page",page);
 		model.addAttribute("vo", vo);
 		model.addAttribute("main_jsp", "../comm/detail.jsp");
 		return "main/main";
