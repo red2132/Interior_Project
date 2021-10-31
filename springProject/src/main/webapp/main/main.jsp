@@ -29,11 +29,12 @@
     <link rel="stylesheet" href="../template/css/price_rangs.css">
 </head>
 <body>
-	<jsp:include page="header.jsp"></jsp:include>
+
+    <jsp:include page="header.jsp"></jsp:include>
 	<jsp:include page="${main_jsp }"></jsp:include>
 	<jsp:include page="footer.jsp"></jsp:include>
-    
-    <!-- jquery plugins here-->
+	
+	<!-- jquery plugins here-->
     <script src="../template/js/jquery-1.12.1.min.js"></script>
     <!-- popper js -->
     <script src="../template/js/popper.min.js"></script>
@@ -61,5 +62,9 @@
     <script src="../template/js/price_rangs.js"></script>
     <!-- custom js -->
     <script src="../template/js/custom.js"></script>
+    
+    <!-- member part : jquery ui js -->
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    
 </body>
 </html>
