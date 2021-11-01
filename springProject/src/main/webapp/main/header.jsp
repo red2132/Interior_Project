@@ -6,6 +6,82 @@
 <head>
 <meta content="charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script>
+  $( function() {
+   // 로그인 메뉴 클릭 => 다이얼로그를 보여준다 
+   $('#login').click(function(){
+	   $("#dialog").dialog({
+	         autoOpen:false,
+	         width:280,
+	         height:230,
+	         modal : true
+	    }).dialog("open");
+   });
+   // 다이얼로그가 닫기는 부분
+   $('#canBtn').click(function(){
+	   $('#dialog').dialog("close");
+   });
+   
+   // 로그인 버튼 클릭 (hong / shim)
+   $('#logBtn').click(function(){
+	  // ID 입력 확인  var => let , const (상수) => JavaScript (버전 : 5.0 , 6.0 => 8.0)
+	  let id=$('#id').val();// 사용자가 입력한 값 읽기
+	  if(id.trim()=="") // trim() => 좌우의 공백 제거 (사용자 실수 space)
+	  {
+		  $('#id').focus();
+		  return; 
+	  }
+	  // Password 입력 확인 
+	  let pwd=$('#pwd').val(); 
+	  //  $('#pwd') ==> 태그 <input type=password id=pwd> : Jquery (DOMScript) DOM(HTML)
+	  // 태그를 제어하는 프로그램 => id(),class속성
+	  // 실무 (입사) => Jquery , CSS => 6개월 후 (Spring , DB)
+	  if(pwd.trim()=="")
+	  {
+		  $('#pwd').focus();
+		  return;
+	  }
+	  
+	  // 데이터를 전송하고 (id,pwd) => 응답을 받아 본다 (결과값 => @ResponseBody) => JSP출력하고 출력된 내용을 읽기 
+	  // 클라이언트(브라우저) ==== 서버(Spring:DispatcherServlet)
+	  // 서버  ===== 클라이언트 
+	  $.ajax({
+		  type:'post', // @PostMapping
+		  url:'../member/login_ok.do',
+		  data:{"id":id,"pwd":pwd}, // ?id=hong&pwd=1234
+		  success:function(res) // @ResponseBody에 보낸값을 가지고 온다 (res) => NOID,NOPWD,OK
+		  {
+			  let result=res;
+			  if(result=='NOID')
+			  {
+				  alert("아이디가 존재하지 않습니다\n다시 입력하세요!!");
+				  $('#id').val("");
+				  $('#pwd').val(""); // <input value="">
+				  $('#id').focus();
+			  }
+			  else if(result=='NOPWD')
+			  {
+				  alert("비밀번호가 틀립니다\n다시입력하세요!!");
+				  $('#pwd').val("");
+				  $('#pwd').focus();
+			  }
+			  else
+			  {
+				  // 로그인 된 상태 (완료) => main으로 이동 
+				  location.href="../main/main.do";
+			  }
+		  }
+	  })
+	  
+   });
+   $('#logout').click(function(){
+	  location.href="../member/logout.do"; // MemberController (처리)
+   });
+  });
+</script>
 </head>
 <body>
 <!--::header part start::-->
@@ -37,7 +113,7 @@
                                         </c:forEach>
                                     </div>
                                 </li>
-                                <li class="nav-item dropdown">
+                                	<li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_1"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         인테리어
@@ -93,21 +169,37 @@
                                     	<a class="dropdown-item" href="../template/contact.html">Contact</a>
                                     </div>
                                 </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_1"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        회원
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                        <a class="dropdown-item" href="../member/join.do">회원가입</a> 
+                                        <a class="dropdown-item" href="../member/idfind.do">아이디찾기</a> 
+                                        <a class="dropdown-item" href="../member/pwdfind.do">비밀번호찾기</a> 
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                         <div class="hearer_icon d-flex">
-							<a id="search_1" href="javascript:void(0)" style="color:#000000"><i class="ti-search"></i>검색</a>
-								&nbsp;&nbsp;
 							<c:if test="${sessionScope.id==null }">
-								<i class="ti-pencil"></i><a href="../member/join.do" style="color:#000000">&nbsp;회원가입</a>
-								&nbsp;&nbsp;
-								<i class="ti-unlock"></i><a href="../member/login.do" style="color:#000000">&nbsp;로그인</a>
+								<!-- <i class="ti-pencil"></i><a href="../member/join.do" style="color:#000000">&nbsp;회원가입</a>
+								&nbsp;&nbsp; -->
+								<i class="ti-unlock"></i><a href="#" id="login" style="color:#000000" >로그인</a>
+								<!-- <li><a href="#" id="login">로그인</a></li> -->
 							</c:if>
 							<c:if test="${sessionScope.id!=null }">
 								<i class="ti-user"></i><a href="../member/detail.do" style="color:#000000">&nbsp;마이페이지</a>
 								&nbsp;&nbsp;
 								<i class="ti-lock"></i><a href="../member/logout.do" style="color:#000000">로그아웃</a>
 							</c:if>
+					</div>
+					
+					
+					<div class="hearer_icon d-flex">
+							<a id="search_1" href="javascript:void(0)" style="color:#000000"><i class="ti-search"></i>검색</a>
+								&nbsp;&nbsp;
                             <div class="dropdown cart">
                                 <a class="dropdown-toggle" href="#" id="navbarDropdown3" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -136,5 +228,25 @@
         </div>
     </header>
     <!-- Header part end-->
+    <div id="dialog" title="로그인" style="display:none">
+  
+  <table class="table">
+   <tr>
+    <th width=20% align="right">ID</th>
+    <td width=80%><input type=text id="id" size=15 class="input-sm"></td>
+   </tr>
+   <tr>
+    <th width=20% align="right">PW</th>
+    <td width=80%><input type=password id="pwd" size=15 class="input-sm"></td>
+   </tr>
+   <tr>
+     <td colspan="2" align="center">
+      <input type=button value="로그인" id="logBtn" style="float: left">
+      <input type=button value="취소" id="canBtn" style="float: left">
+     </td>
+   </tr>
+  </table>
+ 
+</div>
 </body>
 </html>
