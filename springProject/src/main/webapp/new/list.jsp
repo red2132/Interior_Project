@@ -203,15 +203,20 @@
                     </div>
                 </div>
             </div>
-            <div class="row align-items-center justify-content-between">
-                <div class="col-lg-12">
-                    <div class="best_product_slider owl-carousel">
-                        <c:forEach var="nvo" items="nList">
-                        <div class="single_product_item">
-                            <a href="../new/list.do?no=${nvo.no }"><img src="${nvo.img }" alt=""></a>
-                            <div class="single_product_text">
-                                <a href="../new/list.do?no=${nvo.no }"><h4>${nvo.title }</h4></a>
-                                <h3>${nvo.price }</h3>
+            <div class="row align-items-center latest_product_inner">
+                        <c:forEach var="vo" items="${clist }">
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="single_product_item">
+                                <a href="#">
+                                <img src="${vo.img }" style="width:300px; height:250px;">
+                                <div class="single_product_text">
+                                	<h4>${vo.title }</h4>
+                                    <h3>${vo.price }원</h3>
+                                </div>
+                                </a>
+                                <div class="single_product_text">
+                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                </div>
                             </div>
                         </div>
                         </c:forEach>
