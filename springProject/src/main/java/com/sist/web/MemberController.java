@@ -100,7 +100,6 @@ public class MemberController {
 	   vo.setTel3(tel3.trim());
 	   
 	   model.addAttribute("vo", vo);
-	   
 	   model.addAttribute("main_jsp", "../member/join_update.jsp");
 	   return "main/main";
    }

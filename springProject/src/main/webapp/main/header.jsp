@@ -10,77 +10,67 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script>
-  $( function() {
-   // 로그인 메뉴 클릭 => 다이얼로그를 보여준다 
-   $('#login').click(function(){
-	   $("#dialog").dialog({
-	         autoOpen:false,
-	         width:280,
-	         height:230,
-	         modal : true
+$(function(){
+	$('#login').click(function(){
+		$("#dialog").dialog({
+	    	autoOpen : false,
+	        width : 280,
+	        height : 230,
+	        modal : true
 	    }).dialog("open");
-   });
-   // 다이얼로그가 닫기는 부분
-   $('#canBtn').click(function(){
-	   $('#dialog').dialog("close");
-   });
+	});
    
-   // 로그인 버튼 클릭 (hong / shim)
-   $('#logBtn').click(function(){
-	  // ID 입력 확인  var => let , const (상수) => JavaScript (버전 : 5.0 , 6.0 => 8.0)
-	  let id=$('#login_id').val();// 사용자가 입력한 값 읽기
-	  if(id.trim()=="") // trim() => 좌우의 공백 제거 (사용자 실수 space)
-	  {
-		  $('#login_id').focus();
-		  return; 
-	  }
-	  // Password 입력 확인 
-	  let pwd=$('#login_pwd').val(); 
-	  //  $('#pwd') ==> 태그 <input type=password id=pwd> : Jquery (DOMScript) DOM(HTML)
-	  // 태그를 제어하는 프로그램 => id(),class속성
-	  // 실무 (입사) => Jquery , CSS => 6개월 후 (Spring , DB)
-	  if(pwd.trim()=="")
-	  {
-		  $('#login_pwd').focus();
-		  return;
-	  }
-	  
-	  // 데이터를 전송하고 (id,pwd) => 응답을 받아 본다 (결과값 => @ResponseBody) => JSP출력하고 출력된 내용을 읽기 
-	  // 클라이언트(브라우저) ==== 서버(Spring:DispatcherServlet)
-	  // 서버  ===== 클라이언트 
-	  $.ajax({
-		  type:'post', // @PostMapping
-		  url:'../member/login_ok.do',
-		  data:{"id":id,"pwd":pwd}, // ?id=hong&pwd=1234
-		  success:function(res) // @ResponseBody에 보낸값을 가지고 온다 (res) => NOID,NOPWD,OK
-		  {
-			  let result=res;
-			  if(result=='NOID')
-			  {
-				  alert("아이디가 존재하지 않습니다\n다시 입력하세요!!");
-				  $('#login_id').val("");
-				  $('#login_pwd').val(""); // <input value="">
-				  $('#login_id').focus();
-			  }
-			  else if(result=='NOPWD')
-			  {
-				  alert("비밀번호가 틀립니다\n다시입력하세요!!");
-				  $('#login_pwd').val("");
-				  $('#login_pwd').focus();
-			  }
-			  else
-			  {
-				  // 로그인 된 상태 (완료) => main으로 이동 
-				  location.href="../main/main.do";
-			  }
-		  }
-	  })
-	  
-   });
-   $('#logout').click(function(){
-	  location.href="../member/logout.do"; // MemberController (처리)
-   });
-  });
+	$('#canBtn').click(function(){
+		$('#dialog').dialog("close");
+	});
+   
+	$('#logBtn').click(function(){
+		let id = $('#login_id').val();
+		if(id.trim() == "")
+		{
+			$('#login_id').focus();
+			return; 
+		}
+		let pwd = $('#login_pwd').val();
+		if(pwd.trim() == "")
+		{
+			$('#login_pwd').focus();
+			return;
+		}
+
+		$.ajax({
+			type : 'post',
+			url : '../member/login_ok.do',
+			data : {"id" : id, "pwd" : pwd},
+			success : function(res)
+			{
+				let result = res;
+				if(result == 'NOID')
+				{
+					alert("아이디가 존재하지 않습니다.\n다시 입력하세요!");
+					$('#login_id').val("");
+					$('#login_pwd').val("");
+					$('#login_id').focus();
+				}
+				else if(result == 'NOPWD')
+				{
+					alert("비밀번호가 틀립니다.\n다시 입력하세요!");
+					$('#login_pwd').val("");
+					$('#login_pwd').focus();
+				}
+				else
+				{
+					location.href = "../main/main.do";
+				}
+			}
+		})
+	});
+	
+	$('#logout').click(function(){
+		location.href="../member/logout.do";
+	});
+
+});
 </script>
 </head>
 <body>
@@ -175,7 +165,10 @@
                                         회원
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="../member/join.do">회원가입</a> 
+                                        <a class="dropdown-item" href="../member/join.do">회원가입</a>
+                                        <c:if test="${sessionScope.id!=null }">
+                                        	<a class="dropdown-item" href="../member/join_update.do">회원정보수정</a>
+                                        </c:if>
                                         <a class="dropdown-item" href="../member/idfind.do">아이디찾기</a> 
                                         <a class="dropdown-item" href="../member/pwdfind.do">비밀번호찾기</a> 
                                     </div>

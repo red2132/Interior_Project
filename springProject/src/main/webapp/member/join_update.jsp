@@ -19,6 +19,98 @@ function postfind()
 		}
 	}).open();
 }
+
+</script>
+<script type="text/javascript">
+$(function()
+{	
+    $('#joinBtn').click(function(){ // 유효성 검사
+    	let id=$('#id_1').val();
+		if(id.trim()=="")
+		{
+			$('#id_1').focus();
+			return;
+		}
+    	let pwd=$('#pwd').val();
+		if(pwd.trim()=="")
+		{
+			$('#pwd').focus();
+			return;
+		}
+		let pwd2=$('#pwd2').val(); // * 제안사항 => JQUERY 이용 실시간 값 비교
+		if(pwd != pwd2)
+		{
+			alert("비밀번호가 확인과 일치하지 않습니다!\n다시 입력하세요.");
+			$('#pwd2').focus();
+			return;
+		}
+		let name = $('#name').val();
+		if(name.trim()=="")
+		{
+			$('#name').focus();
+			return;
+		}
+		let birthday = $('#birthday').val();
+		if(birthday.trim()=="")
+		{
+			$('#birthday').focus();
+			return;
+		}
+		let email = $('#email').val();
+		if(email.trim()=="")
+		{
+			$('#email').focus();
+			return;
+		}
+		let addr1 = $('#addr1').val();
+		if(addr1.trim()=="")
+		{
+			$('#addr1').focus();
+			return;
+		}
+		let addr2 = $('#addr2').val();
+		if(addr2.trim()=="")
+		{
+			$('#addr2').focus();
+			return;
+		}
+		let tel_v = $('#tel_v').val();
+		if(tel_v.trim()=="")
+		{
+			$('#tel_v').focus();
+			return;
+		}
+		let tel2 = $('#tel2').val();
+		if(tel2.trim()=="")
+		{
+			$('#tel2').focus();
+			return;
+		}
+		let tel3 = $('#tel3').val();
+		if(tel3.trim()=="")
+		{
+			$('#tel3').focus();
+			return;
+		}
+		$('#joinFrm').submit(); 
+    });
+    
+    $('#tel1').change(function(){
+		$('#tel1 option:selected').each(function(){
+			if($(this).val() == 'direct')
+			{ 
+				$('#tel_v').val('');
+				$('#tel_v').attr('disabled', false);
+			}
+			else
+			{
+				$('#tel_v').val($(this).text());
+				$('#tel_v').attr('disabled', true);
+			} 
+		})
+	});
+	
+});
 </script>
 
 </head>
@@ -112,7 +204,7 @@ function postfind()
 				<!-- <tr>
 					<th align="right" width=20%>소개</th>
 					<td width=80% class="inline">
-						<textarea rows="10" cols="55" name=content>${vo.content }</textarea>
+						<textarea rows="10" cols="55" name=content>VO.CONTENT</textarea>
 					</td>
 				</tr>  -->
 				<tr>
