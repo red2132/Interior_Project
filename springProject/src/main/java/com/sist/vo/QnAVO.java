@@ -1,7 +1,7 @@
 package com.sist.vo;
 import java.util.*;
 
-public class QandAVO {
+public class QnAVO {
 	private int no,hit,g_id,g_step,g_tab,root,depth;
 	private String id,subject,content,pwd,dbday;
 	private Date regdate;

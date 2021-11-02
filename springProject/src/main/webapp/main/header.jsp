@@ -127,7 +127,7 @@ $(function(){
                                 </li>
                                 <li class="nav-item">
                                 	<!-- QnA 모아보기(비밀게시글은 admin,본인만 보기 가능 / 분류별 글쓰기(배송,물품,시공,등등...) / 검색가능(제목,내용) / 첫페이지는 모두 출력, 분류 선택시 해당 분류 문의만 모아보기) -->
-                                    <a class="nav-link" href="../main/main.do">QnA</a>
+                                    <a class="nav-link" href="../qna/list.do">QnA</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_1"

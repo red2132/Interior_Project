@@ -17,7 +17,7 @@ public class QnADAO {
 	private QnAMapper mapper;
 	
 	//1-1. Q&A 게시글 리스트
-	public List<QandAVO> qnaBoardListData(Map map){
+	public List<QnAVO> qnaBoardListData(Map map){
 		return mapper.qnaBoardListData(map);
 	}
 	//1-2. 총페이지 구하기
@@ -29,7 +29,7 @@ public class QnADAO {
 	
 	
 	//2. Q&A 게시글 작성
-	public void qnaBoardInsert(QandAVO vo) {
+	public void qnaBoardInsert(QnAVO vo) {
 		mapper.qnaBoardInsert(vo);
 	}
 	
@@ -37,7 +37,7 @@ public class QnADAO {
 	
 	
 	//3. Q&A 게시글/답변게시글 상세보기(hit+1 증가 후 게시글 상세페이지 출력)
-	public QandAVO qnaBoardDetailData(int no) {
+	public QnAVO qnaBoardDetailData(int no) {
 		mapper.hitIncrement(no);
 		return mapper.qnaBoardDetailData(no);
 	}
@@ -46,9 +46,9 @@ public class QnADAO {
 	
 	
 	//4. Q&A 답변게시글 작성
-	public void qnaBoardReplyInsert(int pno, QandAVO vo) {
+	public void qnaBoardReplyInsert(int pno, QnAVO vo) {
 		//4-1. 답변할 게시글의 정보 읽어오기
-		QandAVO qvo=mapper.qnaParentInfoData(pno);
+		QnAVO qvo=mapper.qnaParentInfoData(pno);
 		//4-2. group_step+1 증가
 		mapper.qnaBoardGroupStepIncrement(qvo);
 		//4-3. 데이터 추가(g_stap, g_tab 각각+1)
@@ -65,11 +65,11 @@ public class QnADAO {
 	
 	//5. Q&A 게시글/답변게시글 수정
 	//5-1. 수정할 게시글 원본 데이터 불러오기
-	public QandAVO qnaBoardUpdateData(int no) {
+	public QnAVO qnaBoardUpdateData(int no) {
 		return mapper.qnaBoardDetailData(no);
 	}
 	//5-2. 실제 수정
-	public int qnaBoardUpdate(QandAVO vo) {
+	public int qnaBoardUpdate(QnAVO vo) {
 		int result=0;
 		//5-2-1. 비밀번호 읽기
 		String db_pwd=mapper.qnaBoardGetPassword(vo.getNo());
@@ -93,11 +93,11 @@ public class QnADAO {
 		if(db_pwd.equals(pwd)) {
 			result=1;
 			//6-2-1. depth 읽어와서 depth==0이면 삭제, depth!=이면 삭제x
-			QandAVO vo=mapper.qnaBoardGetDepth(no);
+			QnAVO vo=mapper.qnaBoardGetDepth(no);
 			if(vo.getDepth()==0) {
 				mapper.qnaBoardDelete(no);
 			}else {
-				QandAVO pvo=new QandAVO();
+				QnAVO pvo=new QnAVO();
 				pvo.setSubject("관리자가 삭제한 게시물입니다.");
 				pvo.setContent("관리자가 삭제한 게시물입니다.");
 				pvo.setNo(no);
