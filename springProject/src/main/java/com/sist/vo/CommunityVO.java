@@ -1,8 +1,19 @@
 package com.sist.vo;
 
+import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
+
 public class CommunityVO {
 	private int no;
-	private String id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,fammily,tags;
+	private String id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags;
+	private List<MultipartFile> files;
+	
+	public List<MultipartFile> getFiles() {
+		return files;
+	}
+	public void setFiles(List<MultipartFile> files) {
+		this.files = files;
+	}
 	public String getRstyle() {
 		return rstyle;
 	}
@@ -75,11 +86,11 @@ public class CommunityVO {
 	public void setHsize(String hsize) {
 		this.hsize = hsize;
 	}	
-	public String getFammily() {
-		return fammily;
+	public String getFamily() {
+		return family;
 	}
-	public void setFammily(String fammily) {
-		this.fammily = fammily;
+	public void setFammily(String family) {
+		this.family = family;
 	}
 	public String getTags() {
 		return tags;

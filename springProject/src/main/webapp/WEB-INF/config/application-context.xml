@@ -33,74 +33,17 @@
           p:prefix="/"
           p:suffix=".jsp"
     />
+    
+    <bean id="multipartResolver"
+       class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+    <bean id="messageSource"
+       class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+       p:basename="/WEB-INF/message"
+       p:defaultEncoding="UTF-8"
+    />    
     <!-- tiles설정 : order=0 -->
-    <!-- 
-        return "board/list";   => /board/list.jsp
-        
-        public class ViewResolver
-        {
-           private String prefix;
-           private String suffix;
-           
-           public void setPrefix(String prefix)
-           {
-               this.prefix=prefix;
-           }
-           public void setSuffix(String suffix)
-           {
-              this.suffix=suffix;
-           }
-           
-           public String createJsp(String jspName => Model에서 넘겨는 return)
-           {
-               return prefix+jspName+suffix;
-           }
-           
-        }
-        
-        public class Model
-        {
-           HttpServletRequest request; => DispatcherServlet에서 설정 
-           public Model(HttpServletRequest request)
-           {
-              this.request=request;
-           }
-           public void addAttribute(String key,Object obj)
-           {
-              request.setAttribute(key,obj);
-           }
-        }
-        XML 파싱 ==> List<String> clsList=new ArrayList<String>();
-                   clsList.add("com.sist.dao")
-                   clsList.add("com.sist.web")
-                   clsList.add("com.sist.manager")
-        class HandlerMapping 
-        {
-            List<String> clsList=new ArrayList<String>();
-            public String methodFind(String uri) uri="board/list.do"
-            {
-               for(String clsName:clsList)
-               {
-                  Controller controller=clsName.getDeclareAnnotation();
-                  if(controller!=null)
-                  {
-                      Class c=Class.forName(clsName);
-                      Object obj=c.newInstance();
-                      Method[] methods=c.getDeclareMethod();
-                      for(Method m:methods)
-                      {
-                         RequestMapping m=m.getAnnotation();
-                         if(m.value().equals(uri))
-                         {
-                             m.invoke(request,response,session...)
-                         }
-                      }
-                      
-                  }
-               }
-            }
-        }
-     -->
+
 </beans>
 
 
