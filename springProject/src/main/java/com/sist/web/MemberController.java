@@ -52,7 +52,8 @@ public class MemberController {
    @PostMapping("join_ok.do")
    public String member_join_ok(MemberVO vo)
    {
-	   vo.setTel(vo.getTel());
+	   vo.setTel(vo.getTel1() + "-" + vo.getTel2() + "-" + vo.getTel3());
+	   
 	   dao.memberInsert(vo);
 	   return "redirect:../main/main.do";
    }
@@ -86,8 +87,18 @@ public class MemberController {
 	   
 	   MemberVO vo = dao.memberUpdateData(id);
 	   String tel = vo.getTel();
-	   tel = tel.substring(4);
-	   vo.setTel(tel.trim());
+	   // tel = tel.substring(4);
+	   // vo.setTel(tel.trim());
+	   
+	   String[] telArray = tel.split("-");
+	   String tel1 = String.valueOf(telArray[0]);
+	   String tel2 = String.valueOf(telArray[1]);
+	   String tel3 = String.valueOf(telArray[2]);
+	   
+	   vo.setTel1(tel1.trim());
+	   vo.setTel2(tel2.trim());
+	   vo.setTel3(tel3.trim());
+	   
 	   model.addAttribute("vo", vo);
 	   
 	   model.addAttribute("main_jsp", "../member/join_update.jsp");
@@ -97,7 +108,7 @@ public class MemberController {
    @PostMapping("join_update_ok.do")
    public String member_join_update_ok(MemberVO vo, HttpSession session, Model model)
    {
-	   vo.setTel(vo.getTel());
+	   vo.setTel(vo.getTel1() + "-" + vo.getTel2() + "-" + vo.getTel3());
 	   boolean bCheck = dao.memberJoinUpdate(vo);
 	   if(bCheck == true)
 	   {

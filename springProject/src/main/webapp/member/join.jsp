@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>aaa : 회원 가입 페이지</title>
+<title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -71,21 +71,91 @@ $(function()
 	    $('#dialog_idcheck').dialog("close");
     });
 	
-    $('#joinBtn').click(function(){
-	   
+    $('#joinBtn').click(function(){ // 유효성 검사
+    	let id=$('#id_1').val();
+		if(id.trim()=="")
+		{
+			$('#id_1').focus();
+			return;
+		}
+    	let pwd=$('#pwd').val();
+		if(pwd.trim()=="")
+		{
+			$('#pwd').focus();
+			return;
+		}
+		let pwd2=$('#pwd2').val(); // * 제안사항 => JQUERY 이용 실시간 값 비교
+		if(pwd != pwd2)
+		{
+			alert("비밀번호가 확인과 일치하지 않습니다!\n다시 입력하세요.");
+			$('#pwd2').focus();
+			return;
+		}
+		let name = $('#name').val();
+		if(name.trim()=="")
+		{
+			$('#name').focus();
+			return;
+		}
+		let birthday = $('#birthday').val();
+		if(birthday.trim()=="")
+		{
+			$('#birthday').focus();
+			return;
+		}
+		let email = $('#email').val();
+		if(email.trim()=="")
+		{
+			$('#email').focus();
+			return;
+		}
+		let addr1 = $('#addr1').val();
+		if(addr1.trim()=="")
+		{
+			$('#addr1').focus();
+			return;
+		}
+		let addr2 = $('#addr2').val();
+		if(addr2.trim()=="")
+		{
+			$('#addr2').focus();
+			return;
+		}
+		let tel_v = $('#tel_v').val();
+		if(tel_v.trim()=="")
+		{
+			$('#tel_v').focus();
+			return;
+		}
+		let tel2 = $('#tel2').val();
+		if(tel2.trim()=="")
+		{
+			$('#tel2').focus();
+			return;
+		}
+		let tel3 = $('#tel3').val();
+		if(tel3.trim()=="")
+		{
+			$('#tel3').focus();
+			return;
+		}
+		$('#joinFrm').submit(); 
     });
     
-    $('#tel1BoxDirect').hide();
-    
-    $('#tel1Box').change(function() {
-    	if($('#tel1Box').val() == "direct") {
-        	$('#tel1BoxDirect').show();
-        }
-    	else
-    	{
-        	$('#tel1BoxDirect').hide();
-        }
-	});​
+    $('#tel1').change(function(){
+		$('#tel1 option:selected').each(function(){
+			if($(this).val() == 'direct')
+			{ 
+				$('#tel_v').val('');
+				$('#tel_v').attr('disabled', false);
+			}
+			else
+			{
+				$('#tel_v').val($(this).text());
+				$('#tel_v').attr('disabled', true);
+			} 
+		})
+	});
     
 })
 </script>
@@ -103,6 +173,7 @@ $(function()
 	<div class="wrapper row3">
 		<main class="hoc container clear"> 
 			<h1 class="text-center">회원 가입</h1>
+			<div style="height:50px"></div>
 			<form method=post action="join_ok.do" id="joinFrm">
 			<table class="table">
 				<tr>
@@ -115,14 +186,14 @@ $(function()
 				<tr>
 					<th align="right" width=20%>비밀번호</th>
 					<td width=80% class="inline">
-						<input type=password name=pwd size=15 class="input-sm">
-						&nbsp;&nbsp;비밀번호 확인 : <input type=password name=pwd2 size=15 class="input-sm">
+						<input type=password name=pwd size=15 class="input-sm" id=pwd>
+						&nbsp;&nbsp;비밀번호 확인 : <input type=password name=pwd2 size=15 class="input-sm" id=pwd2>
 					</td>
 				</tr>
 				<tr>
 					<th align="right" width=20%>이름</th>
 					<td width=80% class="inline">
-						<input type=text name=name size=15 class="input-sm">
+						<input type=text name=name size=15 class="input-sm" id=name>
 					</td>
 				</tr>
 				<tr>
@@ -135,13 +206,13 @@ $(function()
 				<tr>
 					<th align="right" width=20%>생년월일</th>
 					<td width=80% class="inline">
-						<input type="date" size=20 name=birthday>
+						<input type="date" size=20 name=birthday id=birthday>
 					</td>
 				</tr>
 				<tr>
 					<th align="right" width=20%>이메일</th>
 					<td width=80% class="inline">
-						<input type=text name=email size=50 class="input-sm">
+						<input type=text name=email size=50 class="input-sm" id=email>
 					</td>
 				</tr>
 				<tr>
@@ -160,24 +231,22 @@ $(function()
 				<tr>
 					<th align="right" width=20%>상세주소</th>
 					<td width=80% class="inline">
-						<input type=text name=addr2 size=50 class="input-sm">
+						<input type=text name=addr2 size=50 class="input-sm" id=addr2>
 					</td>
 				</tr>
 				<tr>
 					<th align="right" width=20%>전화번호</th>
 					<td width=80% class="inline">
-						<!-- <input type=text name=tel1 size=10 class="input-sm" readonly value="010">-  -->
-						
-						<select id="tel1Box" name="tel1">
-							<option value="">선택</option>
+						<input type=text name=tel_v id=tel_v size=5 class="input-sm" disabled value="">
+						<select name="tel1" id="tel1">
+							<option value="" selected>선택하세요</option>
 							<option value="010">010</option>
-							<option value="070">070</option>
 							<option value="02">02</option>
+							<option value="031">031</option>
 							<option value="direct">직접입력</option>
 						</select>
-						<input type="text" id="tel1BoxDirect" name="tel1BoxDirect"/>
-						
-						<input type=text name=tel2 size=20 class="input-sm">
+						- <input type=text name=tel2 size=15 class="input-sm" id=tel2>
+						- <input type=text name=tel3 size=15 class="input-sm" id=tel3>
 					</td>
 				</tr>
 				<!-- 
@@ -190,7 +259,7 @@ $(function()
 				 -->
 				<tr>
 					<td colspan="2" align="center">
-						<input type=submit class="btn" value="가입" id="joinBtn">
+						<input type=button class="btn" value="가입" id="joinBtn">
 						<input type=button class="btn" value="취소" 
 						 onclick="javascript:history.back()">
 					</td>
