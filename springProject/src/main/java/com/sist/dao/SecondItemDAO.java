@@ -26,7 +26,29 @@ public class SecondItemDAO {
 	public int secondItemCnt(Map map){
 		return mapper.secondItemCnt(map);
 	}	
-	public int secondTotalPage(Map map){
-		return mapper.secondTotalPage(map);
+	
+	public int secondItemFindcnt(Map map){
+		return mapper.secondItemFindcnt(map);
 	}
+	
+	public int secondItemTotalPage(Map map){
+		return mapper.secondItemTotalPage(map);
+	}
+
+	public List<SecondItemVO> secondItemFindData(Map map){
+		return mapper.secondItemFindData(map);
+	}
+	
+	public List<SecondItemVO> secondItemPriceASC(Map map){
+		return mapper.secondItemPriceASC(map);
+	}
+	
+	public List<SecondItemVO> secondItemPriceDESC(Map map){
+		return mapper.secondItemPriceDESC(map);
+	}
+	
+	public List<SecondItemVO> categorySelectData(Map map){
+		return mapper.categorySelectData(map);
+	}
+
 }
