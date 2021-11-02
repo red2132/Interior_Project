@@ -16,20 +16,20 @@ public class MemberDAO {
     {
     	MemberVO vo = new MemberVO();
     	int count = mapper.memberIdCount(id);
-    	if(count == 0) // IDê°€ DBì— ì—†ìŒ
+    	if(count == 0) // ID°¡ ¾ø´Â »óÅÂ 
     	{
     		vo.setMsg("NOID");
     	}
     	else
     	{
     		MemberVO dbVO = mapper.memberGetPassword(id);
-    		if(pwd.equals(dbVO.getPwd())) // ë¹„ë°€ë²ˆí˜¸ í™•ì¸
+    		if(pwd.equals(dbVO.getPwd())) //  ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡
     		{
     			vo.setMsg("OK");
     			vo.setId(id);
     			vo.setName(dbVO.getName());
     		}
-    		else // ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦´ë•Œ
+    		else //ºñ¹Ğ¹øÈ£°¡ Æ²¸±¶§
     		{
     			vo.setMsg("NOPWD");
     		}
@@ -37,43 +37,43 @@ public class MemberDAO {
     	return vo;
     }
     
-    // ì•„ì´ë”” ì¤‘ë³µì²´í¬ 
+    // ¾ÆÀÌµğ Áßº¹Ã¼Å© 
     public int memberIdCheck(String id)
     {
     	return mapper.memberIdCount(id);
     }
     
-    // íšŒì›ê°€ì…
+    // È¸¿ø°¡ÀÔ
     public void memberInsert(MemberVO vo)
     {
     	mapper.memberInsert(vo);
     }
     
-    // íšŒì›íƒˆí‡´
+    // È¸¿øÅ»Åğ
     public void memberDelete(String id)
     {
     	mapper.memberDelete(id);
     }
     
-    // íšŒì› ìˆ˜ì • ë°ì´í„° ì½ê¸°
+    // È¸¿ø ¼öÁ¤ µ¥ÀÌÅÍ ÀĞ±â
     public MemberVO memberUpdateData(String id)
     {
     	return mapper.memberUpdateData(id);
     }
     
-    // ì‹¤ì œ ìˆ˜ì • 
+    // ½ÇÁ¦ ¼öÁ¤ 
     public boolean memberJoinUpdate(MemberVO vo)
     {
     	boolean bCheck = false;
     	MemberVO dbVO = mapper.memberGetPassword(vo.getId());
     	if(dbVO.getPwd().equals(vo.getPwd()))
     	{
-    		bCheck = true; // ë¹„ë°€ë²ˆí˜¸ê°€ ë§ëŠ” ê²½ìš°
+    		bCheck = true; // ºñ¹Ğ¹øÈ£°¡ ¸Â´Â °æ¿ì
     		mapper.memberJoinUpdate(vo);
     	}
     	else
     	{
-    		bCheck = false; // ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦° ê²½ìš°
+    		bCheck = false; //ºñ¹Ğ¹øÈ£°¡ Æ²¸° °æ¿ì
     	}
     	return bCheck;
     }
@@ -83,10 +83,10 @@ public class MemberDAO {
     	String msg = "";
     	int count=mapper.memberIdFindTel(tel);
     	
-    	// ì „í™”ë²ˆí˜¸ ì¡´ì¬ì—¬ë¶€ í™•ì¸
+    	// ÀüÈ­¹øÈ£ Á¸Àç¿©ºÎ È®ÀÎ
     	if(count == 0)
     	{
-    		msg = "ì „í™”ë²ˆí˜¸ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤!!";
+    		msg="ÀüÈ­¹øÈ£°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù!!";
     	}
     	else
     	{
@@ -95,16 +95,16 @@ public class MemberDAO {
     	return msg;
     }
     
-    // ì „í™”ë²ˆí˜¸ / email => UNIQUE 
+    // tel / email => UNIQUE 
     public String memberIdFindEmailData(String email)
     {
     	String msg = "";
     	int count = mapper.memberIdFindEmail(email);
     	
-    	// ì´ë©”ì¼ ì¡´ì¬ì—¬ë¶€ í™•ì¸
+    	// ÀüÈ­¹øÈ£ Á¸Àç¿©ºÎ È®ÀÎ
     	if(count == 0)
     	{
-    		msg = "ì´ë©”ì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤!!";
+    		msg="ÀÌ¸ŞÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù!!";
     	}
     	else
     	{
@@ -118,10 +118,10 @@ public class MemberDAO {
     	String msg = "";
     	int count = mapper.memberIdCount(id);
     	
-    	// ì•„ì´ë”” ì¡´ì¬ì—¬ë¶€ í™•ì¸
+    	// ¾ÆÀÌµğ Á¸Àç¿©ºÎ È®ÀÎ
     	if(count == 0)
     	{
-    		msg = "ì•„ì´ë””ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤!!";
+    		msg="¾ÆÀÌµğ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù!!";
     	}
     	else
     	{

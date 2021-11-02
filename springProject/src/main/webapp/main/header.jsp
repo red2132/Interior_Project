@@ -160,18 +160,31 @@ $(function(){
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
+                                    
+                                    
                                     <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_1"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         회원
                                     </a>
+                                    
+	                                    
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                    
+                                        <c:if test="${sessionScope.id==null }">
                                         <a class="dropdown-item" href="../member/join.do">회원가입</a>
-                                        <c:if test="${sessionScope.id!=null }">
-                                        	<a class="dropdown-item" href="../member/join_update.do">회원정보수정</a>
-                                        </c:if>
                                         <a class="dropdown-item" href="../member/idfind.do">아이디찾기</a> 
                                         <a class="dropdown-item" href="../member/pwdfind.do">비밀번호찾기</a> 
+                                        </c:if>
+                                        
+                                        <c:if test="${sessionScope.id!=null }">
+                                        <a class="dropdown-item" href="../page/mypage.do">마이페이지</a>
+                                        <a class="dropdown-item" href="../member/join_update.do">회원정보수정</a>
+                                        </c:if>
+                                        
                                     </div>
+                                    
+                                    
+                                    
                                 </li>
                             </ul>
                         </div>
@@ -183,8 +196,8 @@ $(function(){
 								<!-- <li><a href="#" id="login">로그인</a></li> -->
 							</c:if>
 							<c:if test="${sessionScope.id!=null }">
-								<i class="ti-user"></i><a href="../member/detail.do" style="color:#000000">&nbsp;마이페이지</a>
-								&nbsp;&nbsp;
+								<!-- <i class="ti-user"></i><a href="../page/mypage.do" style="color:#000000">&nbsp;마이페이지</a>
+								&nbsp;&nbsp; -->
 								<i class="ti-lock"></i><a href="../member/logout.do" style="color:#000000">로그아웃</a>
 							</c:if>
 					</div>
