@@ -55,7 +55,7 @@
     
     <bean class="org.mybatis.spring.mapper.MapperFactoryBean"
        p:sqlSessionFactory-ref="ssf"
-       p:mapperInterface="com.sist.mapper.QandAMapper"
+       p:mapperInterface="com.sist.mapper.QnAMapper"
     />
     <bean class="org.mybatis.spring.mapper.MapperFactoryBean"
        p:sqlSessionFactory-ref="ssf"
