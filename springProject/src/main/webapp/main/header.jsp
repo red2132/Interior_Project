@@ -28,20 +28,20 @@
    // 로그인 버튼 클릭 (hong / shim)
    $('#logBtn').click(function(){
 	  // ID 입력 확인  var => let , const (상수) => JavaScript (버전 : 5.0 , 6.0 => 8.0)
-	  let id=$('#id').val();// 사용자가 입력한 값 읽기
+	  let id=$('#login_id').val();// 사용자가 입력한 값 읽기
 	  if(id.trim()=="") // trim() => 좌우의 공백 제거 (사용자 실수 space)
 	  {
-		  $('#id').focus();
+		  $('#login_id').focus();
 		  return; 
 	  }
 	  // Password 입력 확인 
-	  let pwd=$('#pwd').val(); 
+	  let pwd=$('#login_pwd').val(); 
 	  //  $('#pwd') ==> 태그 <input type=password id=pwd> : Jquery (DOMScript) DOM(HTML)
 	  // 태그를 제어하는 프로그램 => id(),class속성
 	  // 실무 (입사) => Jquery , CSS => 6개월 후 (Spring , DB)
 	  if(pwd.trim()=="")
 	  {
-		  $('#pwd').focus();
+		  $('#login_pwd').focus();
 		  return;
 	  }
 	  
@@ -58,15 +58,15 @@
 			  if(result=='NOID')
 			  {
 				  alert("아이디가 존재하지 않습니다\n다시 입력하세요!!");
-				  $('#id').val("");
-				  $('#pwd').val(""); // <input value="">
-				  $('#id').focus();
+				  $('#login_id').val("");
+				  $('#login_pwd').val(""); // <input value="">
+				  $('#login_id').focus();
 			  }
 			  else if(result=='NOPWD')
 			  {
 				  alert("비밀번호가 틀립니다\n다시입력하세요!!");
-				  $('#pwd').val("");
-				  $('#pwd').focus();
+				  $('#login_pwd').val("");
+				  $('#login_pwd').focus();
 			  }
 			  else
 			  {
@@ -176,7 +176,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="../member/join.do">회원가입</a> 
-                                        <a class="dropdown-item" href="../member/idfind.do">아이디찾기</a> 
+                                        <a class="dropdown-item" href="../member/find_id_form.do">아이디찾기</a> 
                                         <a class="dropdown-item" href="../member/pwdfind.do">비밀번호찾기</a> 
                                     </div>
                                 </li>
@@ -233,11 +233,11 @@
   <table class="table">
    <tr>
     <th width=20% align="right">ID</th>
-    <td width=80%><input type=text id="id" size=15 class="input-sm"></td>
+    <td width=80%><input type=text id="login_id" size=15 class="input-sm"></td>
    </tr>
    <tr>
     <th width=20% align="right">PW</th>
-    <td width=80%><input type=password id="pwd" size=15 class="input-sm"></td>
+    <td width=80%><input type=password id="login_pwd" size=15 class="input-sm"></td>
    </tr>
    <tr>
      <td colspan="2" align="center">
