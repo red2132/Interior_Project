@@ -45,7 +45,9 @@
 <!-- ################################################################################################ -->
 <div class="wrapper row3">
   <main class="hoc container clear"> 
+  <br><br><br><br><br><br><br>
   <h1 class="text-center">비밀번호 찾기</h1><%-- RPAD --%>
+  <br><br><br>
   <div id="tabs">
   <ul>
     <li><a href="#tabs-1">아이디</a></li>

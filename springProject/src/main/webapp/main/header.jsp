@@ -176,7 +176,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="../member/join.do">회원가입</a> 
-                                        <a class="dropdown-item" href="../member/find_id_form.do">아이디찾기</a> 
+                                        <a class="dropdown-item" href="../member/idfind.do">아이디찾기</a> 
                                         <a class="dropdown-item" href="../member/pwdfind.do">비밀번호찾기</a> 
                                     </div>
                                 </li>
