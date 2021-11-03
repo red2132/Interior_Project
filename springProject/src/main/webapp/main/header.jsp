@@ -176,9 +176,12 @@ $(function(){
                                         <a class="dropdown-item" href="../member/pwdfind.do">비밀번호찾기</a> 
                                         </c:if>
                                         
-                                        <c:if test="${sessionScope.id!=null }">
+                                        <c:if test="${sessionScope.id!=null && sessionScope.admin=='n' }">
                                         <a class="dropdown-item" href="../page/mypage.do">마이페이지</a>
                                         <a class="dropdown-item" href="../member/join_update.do">회원정보수정</a>
+                                        </c:if>
+                                        <c:if test="${sessionScope.id!=null && sessionScope.admin=='y' }">
+                                        <a class="dropdown-item" href="../page/mypage.do">관리자페이지</a>
                                         </c:if>
                                         
                                     </div>

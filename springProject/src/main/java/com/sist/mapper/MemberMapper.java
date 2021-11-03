@@ -12,7 +12,7 @@ public interface MemberMapper {
 		  + "WHERE id = #{id}")
 	public int memberIdCount(String id);
 	// (1-2). 비밀번호 체크 
-	@Select("SELECT pwd, name FROM member "
+	@Select("SELECT pwd, name, admin FROM member "
 		  + "WHERE id = #{id}")
 	public MemberVO memberGetPassword(String id);
 	   
