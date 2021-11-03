@@ -3,6 +3,8 @@ package com.sist.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.*;
@@ -56,10 +58,50 @@ public class QnAController {
 		model.addAttribute("main_jsp", "../qna/insert.jsp");
 		return "main/main";
 	}
+	@PostMapping("qna/insert_ok.do")
+	public String qnaBoardInsert_ok(QnAVO vo) {
+		dao.qnaBoardInsert(vo);
+		return "redirect:../qna/list.do";
+	}
+	
+	
+	//3. 상세보기
+	@GetMapping("qna/detail.do")
+	public String qnaBoardDetail(int page,int no,Model model) {
+		model.addAttribute("main_jsp", "../qna/detail.jsp");
+		return "main/main";
+	}
+	
+	
+	//4. 수정하기
+	//4-1. 기존 게시글 데이터 읽어오기
+	@GetMapping("qna/update.do")
+	public String qna_update(int page,int no,Model model) {
+		QnAVO vo=dao.qnaBoardUpdateData(no);
+		
+		model.addAttribute("vo",vo);
+		model.addAttribute("page",page);
+		model.addAttribute("main_jsp", "../qna/update.jsp");
+		return "main/main";
+	}
+	//4-2. 비밀번호 일치여부 파악 후 실제 수정하기
+	@RequestMapping("qna/update_ok.do")
+	public String qna_update_ok() {
+		
+		return "return:../qna/detail.do";
+	}
 	
 	
 	
-	
+	//5. 삭제하기
+	@GetMapping("qna/delete.do")
+	public String qna_delete(int no,int page,Model model) {
+		
+		model.addAttribute("no",no);
+		model.addAttribute("page",page);
+		model.addAttribute("main_jsp","../qna/delete.jsp");
+		return "main/main";
+	}
 	
 	
 }

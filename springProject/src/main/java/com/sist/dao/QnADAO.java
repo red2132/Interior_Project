@@ -84,10 +84,12 @@ public class QnADAO {
 	
 	
 	
+	
 	//6. Q&A 게시글/답변게시글 삭제(트랜젝션으로 비번일치,하위 답변게시글 없을 때만 한 번에 수정 처리)
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public int qnaBoardDelete(int no, String pwd) {
 		int result=0;
+		//6-1. 비밀번호 읽어오기
 		String db_pwd=mapper.qnaBoardGetPassword(no);
 		//6-2. 비밀번호 일치 시
 		if(db_pwd.equals(pwd)) {
