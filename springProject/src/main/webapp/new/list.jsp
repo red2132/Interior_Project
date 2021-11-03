@@ -204,7 +204,7 @@
                 </div>
             </div>
             <div class="row align-items-center latest_product_inner">
-                        <c:forEach var="vo" items="${clist }">
+                        <c:forEach var="vo" items="${nlist }">
                         <div class="col-lg-4 col-sm-6">
                             <div class="single_product_item">
                                 <a href="#">
