@@ -15,7 +15,7 @@ public class QnAController {
 	private QnADAO dao;
 	
 	//1. QandA 게시글 목록 출력
-	@RequestMapping("qna/list1.do")
+	@RequestMapping("qna/list.do")
 	public String qnaList(String page,Model model) {
 		//1-1. 페이지 설정
 		if(page==null)
@@ -48,11 +48,18 @@ public class QnAController {
 		return "main/main";
 	}
 	
-	//임시
-	@RequestMapping("qna/list.do")
-	public String list_do(Model model) {
-		model.addAttribute("main_jsp", "../qna/list.jsp");
+	
+	
+	//2. Q&A 게시글 작성
+	@RequestMapping("qna/insert.do")
+	public String qnaBoardInsert(Model model) {
+		model.addAttribute("main_jsp", "../qna/insert.jsp");
 		return "main/main";
 	}
+	
+	
+	
+	
+	
 	
 }
