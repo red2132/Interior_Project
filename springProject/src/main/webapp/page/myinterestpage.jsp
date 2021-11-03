@@ -26,7 +26,7 @@
 <div class="wrapper row3">
   <main class="hoc container clear">
   <div class="row">
-    <h1>마이페이지</h1>
+    <h1>관심목록</h1>
     <hr>
     <table class="table">
       <tr>

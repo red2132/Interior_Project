@@ -162,26 +162,39 @@ $(function(){
                                 <li class="nav-item dropdown">
                                     
                                     
+                                        <c:if test="${sessionScope.id==null }">
                                     <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_1"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         회원
                                     </a>
                                     
-	                                    
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                    
-                                        <c:if test="${sessionScope.id==null }">
                                         <a class="dropdown-item" href="../member/join.do">회원가입</a>
                                         <a class="dropdown-item" href="../member/idfind.do">아이디찾기</a> 
                                         <a class="dropdown-item" href="../member/pwdfind.do">비밀번호찾기</a> 
                                         </c:if>
                                         
                                         <c:if test="${sessionScope.id!=null && sessionScope.admin=='n' }">
+                                    <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_1"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        마이페이지
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="../page/mypage.do">마이페이지</a>
+                                        <a class="dropdown-item" href="../page/myinterestpage.do">관심목록</a>
+                                        <a class="dropdown-item" href="../page/mybuypage.do">구매내역</a>
+                                        <a class="dropdown-item" href="../page/mysellpage.do">판매내역</a>
                                         <a class="dropdown-item" href="../member/join_update.do">회원정보수정</a>
                                         </c:if>
+                                        
                                         <c:if test="${sessionScope.id!=null && sessionScope.admin=='y' }">
-                                        <a class="dropdown-item" href="../page/mypage.do">관리자페이지</a>
+                                        <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_1"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        관리자페이지
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                        <a class="dropdown-item" href="../page/mypage.do">마이페이지</a>
+                                        <a class="dropdown-item" href="../page/adminpage.do">관리자페이지</a>
                                         </c:if>
                                         
                                     </div>
@@ -204,24 +217,24 @@ $(function(){
 								<i class="ti-lock"></i><a href="../member/logout.do" style="color:#000000">로그아웃</a>
 							</c:if>
 					</div>
-					
-					
+					<c:if test="${sessionScope.id!=null && sessionScope.admin=='n' }">
+					 <div class="dropdown cart">
+                                <a class="dropdown-toggle" href="../page/mycartpage.do">
+                                <!-- <a class="dropdown-toggle" href="../page/mycartpage.do" id="navbarDropdown3" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+                                    <i class="fas fa-cart-plus"></i>
+                                </a>
+                            </div>
+					</c:if>
 					<div class="hearer_icon d-flex">
 							<a id="search_1" href="javascript:void(0)" style="color:#000000"><i class="ti-search"></i>검색</a>
 								&nbsp;&nbsp;
-                            <div class="dropdown cart">
-                                <a class="dropdown-toggle" href="#" id="navbarDropdown3" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-cart-plus"></i>
-                                </a>
-                                <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <div class="single_product">
-    
-                                    </div>
-                                </div> -->
-                                
-                            </div>
-                        </div>
+                            
+                             </div>
+                           
+                            
+                            
+                       
                     </nav>
                 </div>
             </div>
