@@ -1,11 +1,11 @@
 package com.sist.web;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -112,7 +112,7 @@ public class CommunityController {
     		vo.setFilesize("");
     	}
 		dao.communityInsert(vo);
-		return "redirect:list.do";
+		return "redirect:../comm/list.do";
 	}
 	
 	//수정하기
@@ -149,19 +149,30 @@ public class CommunityController {
 	}
 	
 	//삭제
-	@GetMapping("comm/delete.do")
-	public String delete(int no,Model model)
-	{
-		model.addAttribute("no", no);
+	@GetMapping("comm/delete_ok.do")
+	@ResponseBody  
+	   public String delete_ok(int no,String pwd)
+	   {
+		   int result=0;	
+
+		   result=dao.communityDelete(no, pwd);
+		   return String.valueOf(result);
+	   }
+	
+	//필터
+	@PostMapping("comm/filter.do")
+	 public String board_find(String fs1,String fs2,String fs3,Model model)
+    {
+		fs1.equals(fs3);
+    	Map map=new HashMap();
+    	map.put("fs1", fs1);
+    	map.put("fs2", fs2);
+    	map.put("fs3", fs3);
+    	List<CommunityVO> list=dao.communityFilter(map);
+    	model.addAttribute("list", list);
+    	model.addAttribute("main_jsp","../comm/filter.jsp");
+		
 		return "main/main";
 	}
-	@PostMapping("board/delete_ok.do")
-	public String board_delete_ok(int no,String pwd,Model model,HttpServletRequest request)
-	{
-		 
-		// Model model => JSP값을 전송하는 객체 (request)
-		boolean bCheck=dao.communityDelete(no, pwd);
-		model.addAttribute("bCheck", bCheck); 
-		return "board/delete_ok";
-	}
+
 }

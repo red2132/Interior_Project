@@ -48,7 +48,7 @@ public class CommunityDAO {
 	 {
 		 boolean bCheck=false;
 		   // 비밀번호 읽기 
-		   String db_pwd=mapper.boardGetPassword(vo.getNo());
+		   String db_pwd=mapper.GetPassword(vo.getNo());
 		   if(db_pwd.equals(vo.getPwd()))
 		   {
 			   bCheck=true;
@@ -60,18 +60,27 @@ public class CommunityDAO {
 		   }
 		   return bCheck;
 	 }
-	 public boolean communityDelete(int no,String pwd)
-	 {
-		 boolean bCheck=false; // default
-		   // 비밀번호 검색 
-		   String db_pwd=mapper.boardGetPassword(no);
-		   System.out.println(pwd+"|"+db_pwd);
+	 
+	 
+	 
+	 public int communityDelete(int no,String pwd)
+		{
+		 int result=0;
+		   String db_pwd=mapper.GetPassword(no);
 		   if(db_pwd.equals(pwd))
 		   {
-			   bCheck=true;
-			   // 실제 삭제 
+			   result=1;
 			   mapper.communityDelete(no);
 		   }
-		   return bCheck;
+		   else
+		   {
+			   result=0;
+		   }
+		   return result;
+	   }
+	 
+	 public List<CommunityVO> communityFilter(Map map)
+	 {
+		return mapper.communityFilter(map);
 	 }
 }

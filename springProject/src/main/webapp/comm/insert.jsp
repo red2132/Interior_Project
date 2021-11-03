@@ -1,10 +1,10 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
 .form-group p_star{
@@ -57,7 +57,7 @@ $(function(){
       <div class="billing_details">
         <div class="row">
           <div class="col-lg-12">
-             <form method="post" action="insert_ok.do" enctype="multipart/form-data">
+             <form method="post" action="../comm/insert_ok.do" enctype="multipart/form-data">
               <div class="col-md-4 form-group p_star">
                <h3>주거형태</h3>
                 <select class="country_select" name="hstyle">
@@ -87,30 +87,25 @@ $(function(){
                 </select>
               </div>
               <h3>평수</h3>
-              <div class="col-md-12 form-group p_star">
-                <input type="text" class="form-control" name="hsize" />
-                <span class="placeholder" data-placeholder="평수 입력"></span>
+              <div class="col-md-12 form-group">
+                <input type="text" class="form-control" name="hsize" placeholder="평수 입력"/>
               </div>
-              <div></div>
               <h3>글작성</h3>
-              <div class="col-md-6 form-group p_star">
-                <input type="text" class="form-control" name="id" />
-                <span class="placeholder" data-placeholder="아이디 입력"></span>
+              <div class="col-md-6 form-group">
+                <input type="text" class="form-control" name="id" placeholder="아이디 입력"/>
               </div>
-              <div class="col-md-6 form-group p_star">
-                <input type="text" class="form-control" name="pwd" />
-                <span class="placeholder" data-placeholder="비밀번호 입력"></span>
+              <div class="col-md-6 form-group">
+                <input type="text" class="form-control" name="pwd" placeholder="비밀번호 입력"/>
               </div>
               <div class="col-md-12 form-group">
                 <input type="text" class="form-control" name="subject" placeholder="제목 입력" />
               </div>
                <div class="col-md-12 form-group">
-                <textarea class="form-control" name="content" rows="5"
-                  placeholder="내용 입력"></textarea>
-              </div>
-              <div class="col-md-12 form-group p_star">
-                <input type="text" class="form-control" name="tags" />
-                <span class="placeholder" data-placeholder="태그 입력"></span>
+                <textarea class="form-control" name="content" rows="5" placeholder="내용 입력">
+                </textarea>
+             </div>
+              <div class="col-md-12 form-group">
+                <input type="text" class="form-control" name="tags" placeholder="태그 입력" />
               </div>
               <table class="table">
 	           <tr>

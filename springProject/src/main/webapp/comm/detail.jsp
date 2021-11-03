@@ -6,6 +6,55 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script>
+$(function(){
+	$('#delBtn').click(function(){
+		$("#checkDialog").dialog({
+	    	autoOpen : false,
+	        width : 400,
+	        height : 180,
+	        modal : true
+	    }).dialog("open");
+	});
+   
+	$('#noBtn').click(function(){
+		$('#checkDialog').dialog("close");
+	});
+   
+	$('#okBtn').click(function(){
+		let pwd=$('#check_pwd').val();
+		if(pwd.trim()=="")
+		{
+			$('#check_pwd').focus();
+			return; 
+		}
+		let no=$('#no').val();
+		let page=$('#page').val();
+		$.ajax({
+			type:'get', 
+			url:'../comm/delete_ok.do',
+			data:{"no":no,"pwd":pwd},
+		    success:function(res)
+		    {
+		    	//let result=res.trim();
+		    	let result=Number(res.trim());
+		    	if(result==0)
+		    	{
+		    		alert("비밀번호가 틀립니다!!");
+		    		$('#check_pwd').val("");
+		    		$('#check_pwd').focus();
+		    	}
+		    	else
+		    	{
+		    		location.href="../comm/list.do?page="+page;//정상수행시에 목록으로 이동 
+		    	}
+		    }
+		})
+	})
+})
+</script>
 </head>
 <body>
    <!--================Blog Area =================-->
@@ -34,7 +83,9 @@
                      <div class="col-sm-4 text-center my-2 my-sm-0">
                         <!-- <p class="comment-count"><span class="align-middle"><i class="far fa-comment"></i></span> 06 Comments</p> -->
                      </div>
-						 <a href="list.do?page=${page }" class="btn btn-sm btn-warning">목록</a>
+                     	<a href="list.do?page=${page }" class="genric-btn success">목록</a>
+						<a href="update.do?no=${vo.no }&page=${page}" class="genric-btn info">수정</a>
+						<a href="#" id="delBtn"  class="genric-btn danger">삭제</a>
                   </div>
                </div>
                <div class="comments-area">
@@ -275,54 +326,30 @@
                         </li>
                      </ul>
                   </aside>
-                  <aside class="single_sidebar_widget instagram_feeds">
-                     <h4 class="widget_title">Instagram Feeds</h4>
-                     <ul class="instagram_row flex-wrap">
-                        <li>
-                           <a href="#">
-                              <img class="img-fluid" src="img/post/post_5.png" alt="">
-                           </a>
-                        </li>
-                        <li>
-                           <a href="#">
-                              <img class="img-fluid" src="img/post/post_6.png" alt="">
-                           </a>
-                        </li>
-                        <li>
-                           <a href="#">
-                              <img class="img-fluid" src="img/post/post_7.png" alt="">
-                           </a>
-                        </li>
-                        <li>
-                           <a href="#">
-                              <img class="img-fluid" src="img/post/post_8.png" alt="">
-                           </a>
-                        </li>
-                        <li>
-                           <a href="#">
-                              <img class="img-fluid" src="img/post/post_9.png" alt="">
-                           </a>
-                        </li>
-                        <li>
-                           <a href="#">
-                              <img class="img-fluid" src="img/post/post_10.png" alt="">
-                           </a>
-                        </li>
-                     </ul>
-                  </aside>
-                  <aside class="single_sidebar_widget newsletter_widget">
-                     <h4 class="widget_title">Newsletter</h4>
-                     <form action="#">
-                        <div class="form-group">
-                           <input type="email" class="form-control" onfocus="this.placeholder = ''"
-                              onblur="this.placeholder = 'Enter email'" placeholder='Enter email' required>
-                        </div>
-                        <button class="button rounded-0 primary-bg text-white w-100 btn_1"
-                           type="submit">Subscribe</button>
-                     </form>
-                  </aside>
                </div>
             </div>
          </div>
       </div>
    </section>
+   <!-- Header part end-->
+    <div id="checkDialog" title="비밀번호 확인" style="display:none">
+  
+  <table class="table">
+   <tr>
+    <th width=40% align="right">비밀번호 확인</th>
+    <td width=60%><input type=password id="check_pwd" size=15 class="input-sm">
+    	 <input type=hidden name=no value="${no }" id="no">
+	     <input type=hidden name=page value="${page }" id="page">
+    </td>
+   </tr>
+   <tr>
+     <td colspan="2" align="center">
+      <input type=button value="입력" id="okBtn" style="float: left">
+      <input type=button value="취소" id="noBtn" style="float: left">
+     </td>
+   </tr>
+  </table>
+ 
+</div>
+</body>
+</html>
