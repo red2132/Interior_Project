@@ -185,6 +185,7 @@ $(function(){
                                         <a class="dropdown-item" href="../page/mybuypage.do">구매내역</a>
                                         <a class="dropdown-item" href="../page/mysellpage.do">판매내역</a>
                                         <a class="dropdown-item" href="../member/join_update.do">회원정보수정</a>
+                                        <a class="dropdown-item" href="../member/join_delete.do">회원탈퇴</a>
                                         </c:if>
                                         
                                         <c:if test="${sessionScope.id!=null && sessionScope.admin=='y' }">
