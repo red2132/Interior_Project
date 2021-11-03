@@ -14,8 +14,8 @@
         <div class="col-lg-8">
           <div class="breadcrumb_iner">
             <div class="breadcrumb_iner_item">
-              <h2>Shop Single</h2>
-              <p>Home <span>-</span> Shop Single</p>
+              <h2>Shop Category</h2>
+              <p> 인기상품 <i class="ti-arrow-right"></i></span> ${cate1 } <span><i class="ti-arrow-right"></i></span> ${cate2 }</p>
             </div>
           </div>
         </div>
@@ -32,6 +32,7 @@
         <div class="col-lg-7 col-xl-7">
           <div class="product_slider_img">
             <div id="vertical">
+            <!-- 상품디테일/상품 이미지 -->
               <div data-thumb="img/product/single-product/product_1.png">
                 <img src="img/product/single-product/product_1.png" />
               </div>
@@ -49,13 +50,13 @@
         </div>
         <div class="col-lg-5 col-xl-4">
           <div class="s_product_text">
-            <h5>previous <span>|</span> next</h5>
-            <h3>Faded SkyBlu Denim Jeans</h3>
-            <h2>$149.99</h2>
+            <h5>이전 <span>|</span> 다음</h5>
+            <h3>상품명</h3>
+            <h2>$149.99(가격)</h2>
             <ul class="list">
               <li>
                 <a class="active" href="#">
-                  <span>Category</span> : Household</a>
+                  <span>카테고리 </span> : Household</a>
               </li>
               <li>
                 <a href="#"> <span>Availibility</span> : In Stock</a>
@@ -71,7 +72,7 @@
                 <input class="input-number" type="text" value="1" min="0" max="10">
                 <span class="number-increment"> <i class="ti-plus"></i></span>
               </div>
-              <a href="#" class="btn_3">add to cart</a>
+              <a href="#" class="btn_3">장바구니에 추가</a>
               <a href="#" class="like_us"> <i class="ti-heart"></i> </a>
             </div>
           </div>
@@ -87,24 +88,25 @@
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
           <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-            aria-selected="true">Description</a>
+            aria-selected="true">상품정보</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-            aria-selected="false">Specification</a>
+            aria-selected="false">상품리뷰</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-            aria-selected="false">Comments</a>
+            aria-selected="false">Q&A</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
-            aria-selected="false">Reviews</a>
+            aria-selected="false">평점</a>
         </li>
       </ul>
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
           <p>
+         <!-- 하단 컨테츠 영역 -->
             Beryl Cook is one of Britain’s most talented and amusing artists
             .Beryl’s pictures feature women of all shapes and sizes enjoying
             themselves .Born between the two world wars, Beryl Cook eventually
@@ -501,7 +503,7 @@
       <div class="row justify-content-center">
         <div class="col-lg-12">
           <div class="section_tittle text-center">
-            <h2>Best Sellers <span>shop</span></h2>
+            <h2>베스트 <span>abc</span></h2>
           </div>
         </div>
       </div>
@@ -511,12 +513,13 @@
             <div class="single_product_item">
               <img src="img/product/product_1.png" alt="">
               <div class="single_product_text">
-                <h4>Quartz Belt Watch</h4>
-                <h3>$150.00</h3>
+                <h4>상품명</h4>
+                <h3>$150.00(가격)</h3>
               </div>
             </div>
             <div class="single_product_item">
               <img src="img/product/product_2.png" alt="">
+              <!-- 베스트 상품 이미지 입력 구역  -->
               <div class="single_product_text">
                 <h4>Quartz Belt Watch</h4>
                 <h3>$150.00</h3>
