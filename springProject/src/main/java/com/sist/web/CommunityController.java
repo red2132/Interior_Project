@@ -160,7 +160,7 @@ public class CommunityController {
 	   }
 	
 	//필터
-	@PostMapping("comm/filter.do")
+	/*@PostMapping("comm/filter.do")
 	 public String board_find(String fs1,String fs2,String fs3,Model model)
     {
 		fs1.equals(fs3);
@@ -173,6 +173,6 @@ public class CommunityController {
     	model.addAttribute("main_jsp","../comm/filter.jsp");
 		
 		return "main/main";
-	}
+	}*/
 
 }

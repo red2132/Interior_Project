@@ -68,7 +68,7 @@ public interface CommunityMapper {
 	 
 	  // 필터 => 동적 쿼리 (마이바티스)
 	 //<select id="getList" resultType="productDto" parameterType="java.util.HashMap">
-	 @Select({
+	 /*@Select({
 		  "<script>"
 		  +"SELECT * FROM house_community WHERE "
 		  +"<trim prefix=\"(\" suffix=\")\" prefixOverrides=\"AND\">"
@@ -83,7 +83,7 @@ public interface CommunityMapper {
 		  + "</if>"		 				  
 		  +"</script>"
 	  })
-	  public List<CommunityVO> communityFilter(Map map);
+	  public List<CommunityVO> communityFilter(Map map);*/
 	 
 	 
 	 
