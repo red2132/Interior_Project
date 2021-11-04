@@ -15,7 +15,6 @@ import com.sist.vo.*;
 public class QnADAO {
 	@Autowired
 	private QnAMapper mapper;
-	
 	//1-1. Q&A 게시글 리스트
 	public List<QnAVO> qnaBoardListData(Map map){
 		return mapper.qnaBoardListData(map);
