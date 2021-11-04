@@ -136,7 +136,7 @@ $(function(){
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="#"> 공지</a> <!-- 일반적인 오피셜한 공지 -->
-                                    	<a class="dropdown-item" href="#"> 이벤트</a> <!-- 이벤트 공지 - 댓글, 하트 등 -->
+                                    	<a class="dropdown-item" href="../event/list.do">이벤트</a> <!-- 이벤트 공지 - 댓글, 하트 등 -->
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
