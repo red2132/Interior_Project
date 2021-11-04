@@ -33,10 +33,9 @@ public interface QnAMapper {
 	
 	//2. Q&A 게시글 작성
 	//2-1. no 자동증가 시퀀스 설정, 게시글 추가
-	@SelectKey(keyProperty="no", resultType=int.class,before=true,
-			statement="SELECT NVL(MAX(no)+1,1) as no FROM qna")
+	@SelectKey(keyProperty="no", resultType=int.class,before=true,statement="SELECT NVL(MAX(no)+1,1) as no FROM qna")
 	@Insert("INSERT INTO qna(no,id,subject,content,pwd,g_id) VALUES("
-			+ "#{no},#{id},#{subject},#{content},#{pwd},(SELECT NVL(MAX(g_id)+1,1 FROM qna))")
+			+ "#{no},#{id},#{subject},#{content},#{pwd},(SELECT NVL(MAX(g_id)+1,1) FROM qna))")
 	public void qnaBoardInsert(QnAVO vo);
 	
 	
@@ -45,7 +44,7 @@ public interface QnAMapper {
 	@Update("UPDATE qna SET hit=hit+1 WHERE no=#{no}")
 	public void hitIncrement(int no);
 	//3-2. 게시글 상세보기
-	@Select("SELECT no,id,subject,content,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday,hit "
+	@Select("SELECT no,id,subject,content,regdate,hit "
 			+ "FROM qna "
 			+ "WHERE no=#{no}")
 	public QnAVO qnaBoardDetailData(int no);

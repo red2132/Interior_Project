@@ -71,10 +71,10 @@ public class QnAController {
 		//1. 게시물 상세보기 데이터 전송
 		QnAVO vo=dao.qnaBoardDetailData(no);
 		//2. 게시물의 댓글 전송
-		List<QnaReplyVO> list=dao.qnaBoardReplyList(no);
+//		List<QnaReplyVO> list=dao.qnaBoardReplyList(no);
 		
 		model.addAttribute("vo",vo);
-		model.addAttribute("list",list);
+//		model.addAttribute("list",list);
 		model.addAttribute("page",page);
 		model.addAttribute("main_jsp", "../qna/detail.jsp");
 		return "main/main";

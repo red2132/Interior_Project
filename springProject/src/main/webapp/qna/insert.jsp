@@ -3,10 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <!-- Required meta tags -->
+<html lang="zxx">
+<head>
+<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>aranoz</title>
     <link rel="icon" href="img/favicon.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -25,12 +27,6 @@
     <link rel="stylesheet" href="css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="css/style.css">
-<!-- style -->
-<style type="text/css">
-.h1{
-	margin-top:0px auto;
-}
-</style>
 </head>
 <body>
 <section class="blog_area padding_top">
@@ -45,7 +41,7 @@
        <tr>
          <th width=25%>이름</th>
          <td width=75%>
-          <input type=text name=name size=15 class="input-sm">
+          <input type=text name=id size=15 class="input-sm" value="${sessionScope.id}" readonly>
          </td> 
        </tr>
        <tr>

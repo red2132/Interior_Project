@@ -1,11 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
+<html lang="zxx">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>aranoz</title>
+    <link rel="icon" href="img/favicon.png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- animate CSS -->
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- owl carousel CSS -->
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="css/all.css">
+    <!-- flaticon CSS -->
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/themify-icons.css">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <!-- swiper CSS -->
+    <link rel="stylesheet" href="css/slick.css">
+    <!-- style CSS -->
+    <link rel="stylesheet" href="css/style.css">
+	
+<!-- 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <style type="text/css">
 .row{
@@ -51,41 +74,52 @@ $(function(){
 	})
 })
 </script>
+ -->
 </head>
 <body>
-<div class="row">
-	<h1 class="text-center">내용보기</h1>
-	<table class="table">
-		<tr>
-			<th width="20%" class="text-center">번호</th>
-			<td width="30%" class="text-center">${vo.no }</td>
-			<th width="20%" class="text-center">작성일</th>
-			<td width="30%" class="text-center">${vo.dbday }</td>
-		</tr>
-		<tr>
-			<th width="20%" class="text-center">이름</th>
-			<td width="30%" class="text-center">${vo.name }</td>
-			<th width="20%" class="text-center">조회수</th>
-			<td width="30%" class="text-center">${vo.hit }</td>
-		</tr>
-		<tr>
-			<th width="20%" class="text-center">제목</th>
-			<td colspan="3">${vo.subject }</td>
-		</tr>
-		<tr>
-			<td colspan="4" class="text-left" valign="top" height="200">
-				<pre style="white-space:pre-wrap;background-color:white;border:none">${vo.content }</pre>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="4" class="text-right">
-				<a href="../qna/update.do?no=${vo.no }&page=${page }" class="btn btn-xs btn-info">수정</a>
-				<a href="../qna/delete.do?no=${vo.no }&page=${page }" class="btn btn-xs btn-success">삭제</a>
-				<a href="../qna/list.do?no=page=${page }" class="btn btn-xs btn-primary">목록</a>
-			</td>
-		</tr>
-	</table>
-</div>
+	<!--================Home Banner Area =================-->
+    <!--================Blog Area =================-->
+    <section class="blog_area padding_top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mb-5 mb-lg-0">
+                    <div class="blog_left_sidebar">
+						<table class="table">
+							<tr>
+								<th width="20%" class="text-center">번호</th>
+								<td width="30%" class="text-center">${vo.no }</td>
+								<th width="20%" class="text-center">작성일</th>
+								<td width="30%" class="text-center"><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd"/></td>
+							</tr>
+							<tr>
+								<th width="20%" class="text-center">이름</th>
+								<td width="30%" class="text-center">${vo.id }</td>
+								<th width="20%" class="text-center">조회수</th>
+								<td width="30%" class="text-center">${vo.hit }</td>
+							</tr>
+							<tr>
+								<th width="20%" class="text-center">제목</th>
+								<td colspan="3">${vo.subject }</td>
+							</tr>
+							<tr>
+								<td colspan="4" class="text-left" valign="top" height="200">
+									<pre style="white-space:pre-wrap;background-color:white;border:none">${vo.content }</pre>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" class="text-right">
+									<a href="../qna/update.do?no=${vo.no }&page=${page }" class="btn btn-xs btn-info">수정</a>
+									<a href="../qna/delete.do?no=${vo.no }&page=${page }" class="btn btn-xs btn-success">삭제</a>
+									<a href="../qna/list.do?no=page=${page }" class="btn btn-xs btn-primary">목록</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+<!--
 	<%-- 댓글 출력 --%>
 	<div class="row">
 		<table class="table">
@@ -168,5 +202,6 @@ $(function(){
 			</table>
 		</div>
 	</c:if>
+	 -->
 </body>
 </html>
