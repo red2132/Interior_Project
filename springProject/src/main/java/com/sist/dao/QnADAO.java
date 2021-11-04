@@ -46,7 +46,7 @@ public class QnADAO {
 	
 	
 	//4. Q&A 답변게시글 작성
-	public void qnaBoardReplyInsert(int pno, QnAVO vo) {
+	public void qnaBoardReplyBoardInsert(int pno, QnAVO vo) {
 		//4-1. 답변할 게시글의 정보 읽어오기
 		QnAVO qvo=mapper.qnaParentInfoData(pno);
 		//4-2. group_step+1 증가
@@ -56,7 +56,7 @@ public class QnADAO {
 		vo.setG_step(qvo.getG_step()+1);
 		vo.setG_tab(qvo.getG_tab()+1);
 		vo.setRoot(pno);
-		mapper.qnaBoardReplyInsert(vo);
+		mapper.qnaBoardReplyBoardInsert(vo);
 		//4-4. depth 증가
 		mapper.qnaBoardDepthIncrement(pno);
 	}
@@ -116,4 +116,47 @@ public class QnADAO {
 	}
 	
 	
+	///////////////////////////////////////////////////////////
+	// 1.댓글 업로드
+	public void qnaBoardReplyInsert(QnaReplyVO vo) {
+		mapper.qnaBoardReplyInsert(vo);
+	}
+	
+	// 2.댓글 목록
+	public List<QnaReplyVO> qnaBoardReplyList(int bno){
+		return mapper.qnaBoardReplyList(bno);
+	}
+	
+	// 3.댓글 수정
+	public void qnaBoardReplyUpdate(QnaReplyVO vo) {
+		mapper.qnaBoardReplyUpdate(vo);
+	}
+	
+	// 4.대댓글 추가
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public void qnaBoareReplyReplyInsert(int pno,QnaReplyVO vo) {
+		QnaReplyVO pvo=mapper.qnaBoardReplyParentInfoData(pno);
+		vo.setG_id(pvo.getG_id());
+		vo.setG_step(pvo.getG_step()+1); //출력 순서
+		vo.setG_tab(pvo.getG_tab()+1); //답변 들여쓰기
+		vo.setRoot(pno);
+		mapper.qnaBoareReplyReplystepIncrement(pvo);
+		mapper.qnaBoareReplyReplyInsert(vo);
+		mapper.qnaBoardReplyDepthIncrement(pno);
+	}
+	
+	
+	
+	
+	//5. 댓글/대댓글 삭제
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public void qnaBoardReplyDelete(int no) {
+		QnaReplyVO vo=mapper.qnaBoardReplyDepthInfoData(no);
+		if(vo.getDepth()==0) {
+			mapper.qnaBoardReplyDelete(no);
+		}else {
+			mapper.qnaBoardReplyMsgUpdate(no);
+		}
+		mapper.qnaBoardReplyDepthDecrement(vo.getRoot());
+	}
 }

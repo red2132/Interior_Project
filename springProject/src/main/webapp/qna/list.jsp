@@ -4,7 +4,6 @@
 <!doctype html>
 <html lang="zxx">
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -55,23 +54,23 @@
 				        <th class="text-center" width=20%>작성일</th>
 				        <th class="text-center" width=10%>조회수</th>
 				       </tr>
-				       <c:forEach var="vo" items="${list }">
+				       <c:forEach var="vo" items="${qnaList }">
 				         <tr>
 					        <td class="text-center" width=10%>${vo.no }</td>
 					        <td width=45%>
 					          <c:if test="${vo.g_tab>0 }">
 					            <c:forEach var="i" begin="1" end="${vo.g_tab }">
-					              &nbsp;&nbsp;
+					              &nbsp;&nbsp;&nbsp;
 					            </c:forEach>
-					            <img src="re_icon.png">
+					            <img src="../qna/re_icon.png">
 					          </c:if>
 					          <a href="../replyboard/detail.do?no=${vo.no }&page=${curpage}">${vo.subject }</a>
-					          <c:if test="${today==vo.dbday }">
+					          <c:if test="${today==vo.regdate }">
 					            &nbsp;<sup style="color:red">new</sup>
 					          </c:if>
 					        </td>
 					        <td class="text-center" width=15%>${vo.name }</td>
-					        <td class="text-center" width=20%>${vo.dbday }</td>
+					        <td class="text-center" width=20%>${vo.regdate }</td>
 					        <td class="text-center" width=10%>${vo.hit }</td>
 					       </tr>
 				       </c:forEach>

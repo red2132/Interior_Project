@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sist.vo.*;
 
@@ -20,7 +21,7 @@ public interface QnAMapper {
 	//1. Q&A 게시글 리스트
 	//1-1. 게시글 목록 출력하기
 	@Select("SELECT no,subject,id,regdate,hit,g_tab,num "
-			+ "FROM (SELECT no,subject,id,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,g_tab,rownum as num "
+			+ "FROM (SELECT no,subject,id,regdate,hit,g_tab,rownum as num "
 			+ "FROM (SELECT no,subject,id,regdate,hit,g_tab "
 			+ "FROM qna ORDER BY g_id DESC,g_step ASC)) "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
@@ -66,7 +67,7 @@ public interface QnAMapper {
 			statement="SELECT NVL(MAX(no)+1,1) as no FROM qna")
 	@Insert("INSERT INTO qna(no,id,subject,content,pwd,g_id,g_step,g_tab,root,depth) VALUES("
 			+ "#{no},#{id},#{subject},#{content},#{pwd},#{g_id},#{g_step},#{g_tab},#{root},0)")
-	public void qnaBoardReplyInsert(QnAVO vo);
+	public void qnaBoardReplyBoardInsert(QnAVO vo);
 	//4-4. depth 증가
 	@Update("UPDATE qna SET depth=depth+1 WHERE no=#{no}")
 	public void qnaBoardDepthIncrement(int no);
@@ -103,4 +104,59 @@ public interface QnAMapper {
 	public int qnaBoardRootGetDepth(int no);
 	  
 	
+	/////////////////////////////////////////////////////////////////////////////////
+	//1.댓글 업로드
+	@Insert("INSERT INTO qna_reply(no,bno,id,name,msg,g_id) "
+			+ "qr_no_seq.nextval,#{bno},#{id},#{name},#{msg},"
+			+ "(SELECT NVL(MAX(g_id)+1,1)) FROM qna_reply")
+	public void qnaBoardReplyInsert(QnaReplyVO vo);
+	
+	
+	//2.댓글 출력
+	@Select("SELECT no,bno,id,name,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday,msg,g_tab "
+			+ "FROM qna_reply "
+			+ "WHERE bno=#{bno} "
+			+ "ORDER BY g_id DESC, g_step ASC")
+	public List<QnaReplyVO> qnaBoardReplyList(int bno);
+	
+	
+	//3.댓글 수정
+	@Update("UPDATE qna_reply SET msg=#{msg} WHERE no=#{no}")
+	public void qnaBoardReplyUpdate(QnaReplyVO vo);
+	
+	
+	
+	//4.답변댓글 추가(4-1~4가 모두 완료되었을 때 트랜젝션 실행)
+	//4-1. 답변할 댓글의 정보 읽어오기(g_id,g_step,g_tab)
+	@Select("SELECT g_id,g_step,g_tab FROM qna_reply WHERE no=#{no}")
+	public QnaReplyVO qnaBoardReplyParentInfoData(int no);
+	//4-2. 답변댓글의 step 변경
+	@Update("UPDATE qna_reply SET "
+			+ "g_step=g_step+1 "
+			+ "WHERE g_id=#{g_id} AND g_step>#{g_step}")
+	public void qnaBoareReplyReplystepIncrement(QnaReplyVO vo);
+	//4-3. 실제 답변댓글 추가
+	@Insert("INSERT INTO qna_reply(no,bno,id,name,msg,g_id,g_step,g_tab,root) "
+			+ "VALUES(qr_no_seq.nextval,#{bno},#{id},#{name},#{msg},#{g_id},#{g_step},#{g_tab},#{root})")
+	public QnaReplyVO qnaBoareReplyReplyInsert(QnaReplyVO vo);
+	//4-4. depth 증가
+	@Update("UPDATE qna_reply SET "
+			+ "depth=depth+1 "
+			+ "WHERE no=#{no}")
+	public void qnaBoardReplyDepthIncrement(int no);
+	
+	
+	
+	//5. 댓글/답변댓글 삭제
+	//4-1. depth,root 읽어오기
+	@Select("SELECT depth,root FROM qna_reply WHERE no=#{no}")
+	public QnaReplyVO qnaBoardReplyDepthInfoData(int no);
+	//4-1-1. depth=0이면 삭제, depth!=0이면 수정
+	@Delete("DELETE FROM qna_reply WHERE no=#{no}")
+	public void qnaBoardReplyDelete(int no);
+	@Update("UPDATE qna_reply SET msg='관리자가 삭제한 댓글입니다.' WHERE no=#{no}")
+	public QnaReplyVO qnaBoardReplyMsgUpdate(int no);
+	//4-2. depth-1 감소
+	@Update("UPDATE qna_reply SET depth=depth-1 WHERE no=#{no}")
+	public void qnaBoardReplyDepthDecrement(int no);
 }
