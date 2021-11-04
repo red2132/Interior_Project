@@ -66,6 +66,7 @@ public class CommunityController {
 	public String detail(int no, int page, Model model)
 	{		
 		// 목록 정보
+		
 		CommunityVO vo=dao.cDetail(no);
 		model.addAttribute("page",page);
 		model.addAttribute("vo", vo);
@@ -128,14 +129,14 @@ public class CommunityController {
 	
 	@PostMapping("comm/update_ok.do")
 	@ResponseBody
-	public String update_ok(CommunityVO vo)
+	public String update_ok(int page,CommunityVO vo)
 	{
 		boolean bCheck=dao.communityUpdate(vo);
 		String js="";
 		if(bCheck==true)
 		{
 			js="<script>"
-		      +"location.href=\"detail.do?no="+vo.getNo()+"\""
+		      +"location.href=\"../comm/detail.do?no="+vo.getNo()+"&page="+page+"\";"
 		      +"</script>";
 		}
 		else
@@ -153,26 +154,28 @@ public class CommunityController {
 	@ResponseBody  
 	   public String delete_ok(int no,String pwd)
 	   {
-		   int result=0;	
-
-		   result=dao.communityDelete(no, pwd);
+		    System.out.println(no);
+		    System.out.println(pwd);
+		   int result=0;
+		   result=dao.communityDelete(no, pwd);		 
 		   return String.valueOf(result);
 	   }
 	
 	//필터
-	/*@PostMapping("comm/filter.do")
+	@PostMapping("comm/filter.do")
 	 public String board_find(String fs1,String fs2,String fs3,Model model)
     {
-		fs1.equals(fs3);
+		System.out.println("filter.do");
     	Map map=new HashMap();
     	map.put("fs1", fs1);
     	map.put("fs2", fs2);
     	map.put("fs3", fs3);
-    	List<CommunityVO> list=dao.communityFilter(map);
-    	model.addAttribute("list", list);
-    	model.addAttribute("main_jsp","../comm/filter.jsp");
+    	List<CommunityVO> flist=dao.communityFilter(map);
+    	System.out.println(flist.get(0).getId());
+    	model.addAttribute("flist", flist);
+    	model.addAttribute("main_jsp","../comm/filter_ok.jsp");
 		
 		return "main/main";
-	}*/
+	}
 
 }

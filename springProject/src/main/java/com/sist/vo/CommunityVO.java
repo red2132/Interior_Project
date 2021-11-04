@@ -89,7 +89,7 @@ public class CommunityVO {
 	public String getFamily() {
 		return family;
 	}
-	public void setFammily(String family) {
+	public void setFamily(String family) {
 		this.family = family;
 	}
 	public String getTags() {

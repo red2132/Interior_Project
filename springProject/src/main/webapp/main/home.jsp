@@ -401,17 +401,17 @@
 			</div>
 			<div class="row align-items-center justify-content-between" id="comm">
 				<div class="col-lg-12">
-					<div class="best_product_slider owl-carousel">
+
 						<div>
-							<div class="single_product_item" v-for="vo in comm_data">
+							<div class="single_product_item col-lg-3"  v-for="vo in comm_data">
 								<img :src="vo.filename" alt="" height="200px" width="300px">
 								<div class="single_product_text">
-									<h4>{{vo.subject}}</h4>
+									<a :href="'../comm/detail.do?no='+vo.no+'&page=1'"><h4>{{vo.subject}}</h4></a>
 									<h3>{{vo.id}}</h3>
 								</div>
 							</div>
 						</div>
-					</div>
+
 				</div>
 			</div>
 		</div>

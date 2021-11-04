@@ -40,7 +40,7 @@ public interface CommunityMapper {
 			+ "FROM (SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags,rownum as num "
 			+ "FROM (SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags "
 			+ "FROM house_community)) "
-			+ "WHERE num BETWEEN 1 AND 5 "
+			+ "WHERE num BETWEEN 1 AND 4 "
 			+ "ORDER BY hit desc")
 	public List<CommunityVO> home_cList();
 	
@@ -48,8 +48,8 @@ public interface CommunityMapper {
 	 @SelectKey(keyProperty="no", resultType=int.class, before=true,
 		     statement="SELECT NVL(MAX(no)+1,1) as no FROM house_community")
    // 자동 증가 번호
-   @Insert("INSERT INTO house_community(no,subject,content,pwd,hit,filename,filesize,hstyle,hsize,rstyle,family,tags) VALUES("
-   		+ "#{no},#{subject},#{content},#{pwd},0,#{filename},#{filesize},'','','','',#{tags})")
+   @Insert("INSERT INTO house_community(no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags) VALUES("
+   		+ "#{no},#{id},#{subject},#{content},#{pwd},SYSDATE,0,#{filename},#{filesize},#{hstyle},#{hsize},#{rstyle},#{family},#{tags})")
 	 public void communityInsert(CommunityVO vo);
 	
 	//게시물 수정
@@ -58,33 +58,30 @@ public interface CommunityMapper {
 	  public String GetPassword(int no);
 	 //실제 수정
 	 @Update("UPDATE house_community SET "
-			 +"#{id},#{subject},#{content},#{filename},#{filesize},#{hstyle},#{hsize},#{rstyle},#{family},#{tags} "
+			 +"id=#{id}, subject=#{subject}, content=#{content}, "
+			 + "hstyle=#{hstyle}, hsize=#{hsize}, rstyle=#{rstyle}, family=#{family}, tags=#{tags} "
 			 +"WHERE no=#{no}")
-	  public boolean communityUpdate(CommunityVO vo);
+	  public void communityUpdate(CommunityVO vo);
 	 
 	 //게시물 삭제
 	 @Delete("DELETE FROM house_community WHERE no=#{no}")
 	 public void communityDelete(int no);
 	 
 	  // 필터 => 동적 쿼리 (마이바티스)
-	 //<select id="getList" resultType="productDto" parameterType="java.util.HashMap">
-	 /*@Select({
+	 @Select({
 		  "<script>"
-		  +"SELECT * FROM house_community WHERE "
-		  +"<trim prefix=\"(\" suffix=\")\" prefixOverrides=\"AND\">"
-		  + "<if test=\"fs1 !='a'\">"
-		  + "hstyle like #{fs1}"
+		  +"SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags "
+		  +"FROM house_community WHERE hit>=0 "
+		  + "<if test=\"fs1 !='a'.toString()\">"
+		  + "AND hstyle like '%'||#{fs1}||'%'"
 		  + "</if>"
-		  + "<if test=\"fs2 !='b'\">"
-		  + "rstyle like #{fs2}"
+		  + "<if test=\"fs2 !='b'.toString()\">"
+		  + "AND rstyle like '%'||#{fs2}||'%'"
 		  + "</if>"
-		  + "<if test=\"fs3 !='c'\">"
-		  + "family like #{fs3}"
-		  + "</if>"		 				  
+		  + "<if test=\"fs3 !='c'.toString()\">"
+		  + "AND family like '%'||#{fs3}||'%'"
+		  + "</if>"	
 		  +"</script>"
 	  })
-	  public List<CommunityVO> communityFilter(Map map);*/
-	 
-	 
-	 
+	  public List<CommunityVO> communityFilter(Map map);	 	 	 
 }

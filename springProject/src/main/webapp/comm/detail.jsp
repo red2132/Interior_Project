@@ -38,8 +38,8 @@ $(function(){
 			data:{"no":no,"pwd":pwd},
 		    success:function(res)
 		    {
-		    	//let result=res.trim();
-		    	let result=Number(res.trim());
+		    	let result=res
+		    	//let result=Number(res.trim());
 		    	if(result==0)
 		    	{
 		    		alert("비밀번호가 틀립니다!!");
@@ -338,7 +338,7 @@ $(function(){
    <tr>
     <th width=40% align="right">비밀번호 확인</th>
     <td width=60%><input type=password id="check_pwd" size=15 class="input-sm">
-    	 <input type=hidden name=no value="${no }" id="no">
+    	 <input type=hidden name=no value="${vo.no }" id="no">
 	     <input type=hidden name=page value="${page }" id="page">
     </td>
    </tr>

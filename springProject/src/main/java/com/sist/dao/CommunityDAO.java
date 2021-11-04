@@ -79,8 +79,8 @@ public class CommunityDAO {
 		   return result;
 	   }
 	 
-	 /*public List<CommunityVO> communityFilter(Map map)
+	 public List<CommunityVO> communityFilter(Map map)
 	 {
 		return mapper.communityFilter(map);
-	 }*/
+	 }
 }
