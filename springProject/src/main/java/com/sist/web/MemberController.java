@@ -71,6 +71,7 @@ public class MemberController {
    }
    
    
+   // @GetMapping("join_delete.do")
    @GetMapping("join_delete.do")
    public String member_join_delete(HttpSession session)
    {
