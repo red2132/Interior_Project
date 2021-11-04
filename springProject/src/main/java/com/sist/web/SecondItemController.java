@@ -123,4 +123,12 @@ public class SecondItemController {
 	
 		   return "main/main";
 	   }	
+	 @RequestMapping("second/detail.do")
+	 public String second_detail(Model model, int no) {
+		 SecondItemVO vo=dao.secondItemData(no);
+		 model.addAttribute("vo", vo);
+		 
+		 model.addAttribute("main_jsp", "../second/detail.jsp");
+		 return "main/main";
+	 }
 }

@@ -117,7 +117,8 @@ public interface SecondItemMapper {
 		   +"</script>"
 		})
 	    public List<SecondItemVO> categorySelectData(Map map);  //cate1,2,3, start,end 
-	  
+	  @Select("SELECT no,img,title,cmt,price,cate1,cate2,cate3 FROM secondhand_item WHERE no=#{no}")
+	  public SecondItemVO secondItemData(int no);
 }
 /*
  * 	SELECT title,price FROM secondhand_item

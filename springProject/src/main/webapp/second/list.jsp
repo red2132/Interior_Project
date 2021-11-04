@@ -150,7 +150,7 @@
                         <c:forEach var="vo" items="${clist }">
                         <div class="col-lg-4 col-sm-6" id=aa>
                             <div class="single_product_item">
-                                <a href="#">
+                                <a href="../second/detail.do?no=${vo.no }">
                                 <img src="${vo.img }" style="width:300px; height:250px;">
                                 <div class="single_product_text">
                                 	<h4>${vo.title }</h4>

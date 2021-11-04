@@ -13,8 +13,16 @@ C2NUM          NUMBER(4)
 C3NUM          NUMBER(6)      
  */
 public class SecondItemVO {
-	private int c1num,c2num,c3num;
+	private int no,c1num,c2num,c3num;
 	private String img,title,cmt,price,cate1,cate2,cate3;
+	
+	
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
 	public int getC1num() {
 		return c1num;
 	}

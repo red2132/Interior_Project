@@ -50,5 +50,8 @@ public class SecondItemDAO {
 	public List<SecondItemVO> categorySelectData(Map map){
 		return mapper.categorySelectData(map);
 	}
+	public SecondItemVO secondItemData(int no) {
+		return mapper.secondItemData(no);
+	}
 
 }
