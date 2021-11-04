@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,7 @@
           <div class="breadcrumb_iner">
             <div class="breadcrumb_iner_item">
               <h2>Shop Category</h2>
-              <p> 인기상품 <i class="ti-arrow-right"></i></span> ${cate1 } <span><i class="ti-arrow-right"></i></span> ${cate2 }</p>
+             <p>인기상품 <span><i class="ti-arrow-right"></i></span> ${cate1 } <span><i class="ti-arrow-right"></i></span> ${cate2 }</p>
             </div>
           </div>
         </div>
@@ -33,18 +34,10 @@
           <div class="product_slider_img">
             <div id="vertical">
             <!-- 상품디테일/상품 이미지 -->
-              <div data-thumb="img/product/single-product/product_1.png">
-                <img src="img/product/single-product/product_1.png" />
+              <div data-thumb="${vo.img }">
+                <img src="${vo.img }" width="400px" height="400px" />
               </div>
-              <div data-thumb="img/product/single-product/product_1.png">
-                <img src="img/product/single-product/product_1.png" />
-              </div>
-              <div data-thumb="img/product/single-product/product_1.png">
-                <img src="img/product/single-product/product_1.png" />
-              </div>
-              <div data-thumb="img/product/single-product/product_1.png">
-                <img src="img/product/single-product/product_1.png" />
-              </div>
+             
             </div>
           </div>
         </div>
