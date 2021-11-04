@@ -83,4 +83,10 @@ public class CommunityDAO {
 	 {
 		return mapper.communityFilter(map);
 	 }
+	 
+	 public List<CommunityVO> communityTag(String tag)
+	 {
+		 return mapper.communityTag(tag);
+	 }
+		
 }

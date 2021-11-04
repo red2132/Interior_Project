@@ -31,6 +31,50 @@ $(function(){
 		   	fileIndex--;
 		}
 	})
+	
+	$('#insertBtn').click(function(){
+		let vhsize=$('#hsize').val();
+		if(vhsize.trim()=="")
+		{
+			$('#hsize').focus();
+			return; 
+		}
+		
+		let vid=$('#id').val();
+		if(vid.trim()=="")
+		{
+			$('#id').focus();
+			return; 
+		}
+		
+		let vpwd=$('#pwd').val();
+		if(vpwd.trim()=="")
+		{
+			$('#pwd').focus();
+			return; 
+		}
+		
+		let vsubject=$('#subject').val();
+		if(vsubject.trim()=="")
+		{
+			$('#subject').focus();
+			return; 
+		}
+		
+		let vcontent=$('#content').val();
+		if(vcontent.trim()=="")
+		{
+			$('#content').focus();
+			return; 
+		}
+		
+		let vtags=$('#tags').val();
+		if(vtags.trim()=="")
+		{
+			$('#tags').focus();
+			return; 
+		}
+	})
 });
 </script>
 </head>
@@ -88,24 +132,24 @@ $(function(){
               </div>
               <h3>평수</h3>
               <div class="col-md-12 form-group">
-                <input type="text" class="form-control" name="hsize" placeholder="평수 입력"/>
+                <input type="text" class="form-control" name="hsize" id="hsize" placeholder="평수 입력"/>
               </div>
               <h3>글작성</h3>
               <div class="col-md-6 form-group">
-                <input type="text" class="form-control" name="id" placeholder="아이디 입력"/>
+                <input type="text" class="form-control" name="id" id="id" placeholder="아이디 입력"/>
               </div>
               <div class="col-md-6 form-group">
-                <input type="text" class="form-control" name="pwd" placeholder="비밀번호 입력"/>
+                <input type="text" class="form-control" name="pwd" id="pwd" placeholder="비밀번호 입력"/>
               </div>
               <div class="col-md-12 form-group">
-                <input type="text" class="form-control" name="subject" placeholder="제목 입력" />
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="제목 입력" />
               </div>
                <div class="col-md-12 form-group">
-                <textarea class="form-control" name="content" rows="5" placeholder="내용 입력">
+                <textarea class="form-control" name="content" id="content" rows="5" placeholder="내용 입력">
                 </textarea>
              </div>
               <div class="col-md-12 form-group">
-                <input type="text" class="form-control" name="tags" placeholder="태그 입력" />
+                <input type="text" class="form-control" name="tags" id="tags" placeholder="태그 입력" />
               </div>
               <table class="table">
 	           <tr>
@@ -118,7 +162,7 @@ $(function(){
           <table class="table" id="fileView">
           </table>
           <div class="text-center">
-          	<button class="genric-btn success-border circle">글쓰기</button>
+          	<input type="button" class="genric-btn success-border circle" id="insertBtn" value="글쓰기">
 			<a href="#" class="genric-btn danger-border circle" onclick="javascript:history.back()">취소</a>
 		</div>
             </form>

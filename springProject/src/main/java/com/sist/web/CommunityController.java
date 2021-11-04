@@ -177,5 +177,16 @@ public class CommunityController {
 		
 		return "main/main";
 	}
+	
+	//태그검색
+	@GetMapping("comm/tag.do")
+	public String tag(String tag,Model model)
+	{
+		List<CommunityVO> tList=dao.communityTag(tag);
+		model.addAttribute("tList",tList);
+		model.addAttribute("main_jsp","../comm/tag_ok.jsp");
+		return "main/main";
+	}
+	
 
 }

@@ -83,5 +83,12 @@ public interface CommunityMapper {
 		  + "</if>"	
 		  +"</script>"
 	  })
-	  public List<CommunityVO> communityFilter(Map map);	 	 	 
+	  public List<CommunityVO> communityFilter(Map map);	
+	 
+	 
+	 //태그검색
+	 @Select("SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags "
+	 		+ "FROM house_community "
+	 		+ "WHERE tags like '%'||#{tag}||'%'")
+	 public List<CommunityVO> communityTag(String tag);
 }
