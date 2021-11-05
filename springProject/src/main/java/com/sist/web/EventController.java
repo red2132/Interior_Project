@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sist.dao.*;
 import com.sist.vo.*;
@@ -81,6 +83,10 @@ public class EventController {
 	    	model.addAttribute("fList", fList);// a.jpg(1000bytes)
 	    	model.addAttribute("sList", sList);
     	}
+    	// 댓글
+    	List<HouseReplyVO> list=dao.eventReplyListData(no);
+    	model.addAttribute("list",list);
+    	
 		model.addAttribute("vo",vo);
 		model.addAttribute("page",page);
 		model.addAttribute("main_jsp","../event/detail.jsp");
@@ -196,5 +202,61 @@ public class EventController {
 		return "main/main";
 	}
 	
+	// 댓글
+	// 댓글 목록 => 글 상세보기
+	// 댓글 추가
+	@PostMapping("reply_insert.do")
+	public String event_reply_insert(int page,HouseReplyVO vo,HttpSession session,
+			RedirectAttributes attr)
+	{
+		String id=(String)session.getAttribute("id");
+		String name=(String)session.getAttribute("name"); 
+		vo.setId(id);
+		vo.setName(name);
+		dao.eventReplyInsert(vo);
+		attr.addAttribute("no", vo.getBno());
+		attr.addAttribute("page", page);
+		return "redirect:../event/detail.do";
+	}
+	
+	// 댓글 수정
+	@PostMapping("reply_update.do")
+	public String event_reply_update(HouseReplyVO vo,int page,RedirectAttributes attr)
+	{
+		 dao.eventReplyUpdate(vo);
+		 attr.addAttribute("no", vo.getBno());
+		 attr.addAttribute("page", page);
+		 return "redirect:../event/detail.do";
+	}
+	
+	// 대댓글 추가
+	@PostMapping("reply_reply_insert.do")
+	public String event_reply2_insert(int pno,int bno,int page,String msg,
+			HttpSession session,RedirectAttributes attr)
+	{
+		   // 댓글 -댓글 처리 
+		   HouseReplyVO vo=new HouseReplyVO(); 
+		   String id=(String)session.getAttribute("id");
+		   String name=(String)session.getAttribute("name");
+		   vo.setMsg(msg);
+		   vo.setId(id);
+		   vo.setName(name);
+		   vo.setBno(bno);
+		   // 상세보기로 다시 이동 
+		   dao.eventReplyReplyInsert(pno, vo);
+		   attr.addAttribute("no", bno);
+		   attr.addAttribute("page", page);
+		   return "redirect:../event/detail.do";
+	}
+	
+	// 댓글 삭제
+	@GetMapping("reply_delete.do")
+	public String event_reply_delete(int no,int bno,int page,RedirectAttributes attr)
+	{
+		   dao.eventReplyDelete(no);
+		   attr.addAttribute("no", bno);
+		   attr.addAttribute("page", page);
+		   return "redirect:../event/detail.do";
+	}
 	
 }

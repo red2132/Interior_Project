@@ -52,9 +52,6 @@
     border-color: #ff3368;
     color: #ffff !important;
 }
-#insertBtn{
-	
-}
 </style>
 </head>
 <body>
@@ -88,7 +85,7 @@
 		    <div class="card">
 		      <a href="../event/detail.do?no=${vo.no}&page=${curpage}"><center><img src="${vo.poster }"/></center></a>
 		  	</div>
-		  	<div class="card_detail">
+		  	<div class="card_detail" style="margin-left:10px;">
 		     <table>
 		      <tr>
 		      	<th><a href="../event/detail.do?no=${vo.no}&page=${curpage}">${vo.state }&nbsp;</a></th>

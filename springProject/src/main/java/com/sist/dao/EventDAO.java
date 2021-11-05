@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import com.sist.mapper.*;
 import com.sist.vo.*;
@@ -39,12 +40,13 @@ public class EventDAO {
 	{
 		return mapper.eventFileInfoData(no);
 	}
-	// 수정하기(값 불러오기)
+	
+	// 수정 전 폼에 값 불러오기
 	public EventVO eventUpdateData(int no)
 	{
 		return mapper.eventDetailData(no);
 	}
-	// 실제 수정
+	// 수정
 	public boolean eventUpadate(EventVO vo)
 	{
 		boolean bCheck=false;
@@ -65,6 +67,7 @@ public class EventDAO {
 	}
 	
 	// 삭제
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public boolean eventDelete(int no,String pwd)
 	{
 		boolean bCheck=false;
@@ -84,4 +87,50 @@ public class EventDAO {
 		return bCheck;
 	}
 	
+	// 댓글
+	// 댓글 목록
+	public List<HouseReplyVO> eventReplyListData(int bno)
+	{
+		return mapper.eventReplyListData(bno);
+	}
+	// 댓글 추가
+	public void eventReplyInsert(HouseReplyVO vo)
+	{
+		mapper.eventReplyInsert(vo);
+	}
+	// 댓글 수정
+	public void eventReplyUpdate(HouseReplyVO vo)
+	{
+		mapper.eventReplyUpdate(vo);
+	}
+	
+	// 대댓글 추가
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	  public void eventReplyReplyInsert(int pno,HouseReplyVO vo)
+	  {
+		  HouseReplyVO pvo=mapper.eventReplyParentInfoData(pno);
+		  vo.setGroup_id(pvo.getGroup_id());
+		  vo.setGroup_step(pvo.getGroup_step()+1); // 출력 순서 
+		  vo.setGroup_tab(pvo.getGroup_tab()+1); // 간격 
+		  vo.setRoot(pno);
+		  mapper.eventReplyStepIncrement(pvo);
+		  mapper.eventReply2Insert(vo);
+		  mapper.eventReplyDepthIncrement(pno);
+	  }
+	
+	// 댓글 삭제
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public void eventReplyDelete(int no)
+	{
+		 HouseReplyVO vo=mapper.eventDepthInfoData(no);
+		 if(vo.getDepth()==0)
+		 {
+			 mapper.eventDelete(no);
+		 }
+		 else
+		 {
+			 mapper.eventReplyMsgUpdate(no);
+		 }
+		  mapper.eventReplyDepthDecrement(vo.getRoot());
+	}
 }

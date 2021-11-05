@@ -68,4 +68,80 @@ public interface EventMapper {
 	// 삭제
 	@Delete("DELETE FROM HOUSE_EVENT WHERE no=#{no}")
 	public void eventDelete(int no);
+	
+	// 댓글
+	/*
+	 *  NO         NOT NULL NUMBER       
+	  	BNO                 NUMBER       
+		ID                  VARCHAR2(20) 
+		NAME       NOT NULL VARCHAR2(34) 
+		MSG        NOT NULL CLOB         
+		REGDATE             DATE         
+		GROUP_ID            NUMBER       
+		GROUP_STEP          NUMBER       
+		GROUP_TAB           NUMBER       
+		ROOT                NUMBER       
+		DEPTH               NUMBER       
+	 */
+	
+	// 댓글 리스트
+	@Select("SELECT no,bno,id,name,msg,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday,group_tab "
+			 +"FROM HOUSE_REPLY "
+			 +"WHERE bno=#{bno}"  
+			 +"ORDER BY group_id DESC , group_step ASC") // group_id DESC (최신순) group_step ASC(답변 순서)
+	public List<HouseReplyVO> eventReplyListData(int bno);
+	
+	// 댓글 추가
+	@Insert("INSERT INTO HOUSE_REPLY(no,bno,id,name,msg,group_id) VALUES("
+			 +"hr_no_seq.nextval,#{bno},#{id},#{name},#{msg},"
+			 +"(SELECT NVL(MAX(group_id)+1,1) FROM HOUSE_REPLY))")
+	public void eventReplyInsert(HouseReplyVO vo);
+	
+	// 댓글 수정
+	@Update("UPDATE HOUSE_REPLY SET "
+			 +"msg=#{msg} "
+			 +"WHERE no=#{no}")
+	public void eventReplyUpdate(HouseReplyVO vo);
+	
+	// 대댓글 => 트랜잭션 
+	// 1. 댓글 대상의 정보 : group_id,step,tab : SELECT
+	@Select("SELECT group_id,group_step,group_tab "
+			 +"FROM HOUSE_REPLY "
+			 +"WHERE no=#{no}")
+	public HouseReplyVO eventReplyParentInfoData(int no);
+	// 2. step 변경  : UPDATE 
+	@Update("UPDATE HOUSE_REPLY SET "
+			 +"group_step=group_step+1 "
+			 +"WHERE group_id=#{group_id} AND group_step>#{group_step}")
+	public void eventReplyStepIncrement(HouseReplyVO vo);
+	// 3. insert : INSERT
+	@Insert("INSERT INTO HOUSE_REPLY(no,bno,id,name,msg,group_id,group_step,group_tab,root) "
+			 +"VALUES(hr_no_seq.nextval,#{bno},#{id},#{name},#{msg},"
+			 +"#{group_id},#{group_step},#{group_tab},#{root})")
+	public void eventReply2Insert(HouseReplyVO vo);
+	// 4. depth 증가 : UPDATE 
+	@Update("UPDATE HOUSE_REPLY SET "
+			 +"depth=depth+1 "
+			 +"WHERE no=#{no}")
+	public void eventReplyDepthIncrement(int no);
+	
+	// 삭제 => 트랜잭션
+	// 1. depth,root 읽기  SELECT
+	@Select("SELECT depth,root "
+			 +"FROM HOUSE_REPLY "
+			 +"WHERE no=#{no}")
+	public HouseReplyVO eventDepthInfoData(int no);
+	// 2. depth==0 삭제, depth!=0 수정  DELETE/UPADTE
+	@Delete("DELETE FROM HOUSE_REPLY "
+			 +"WHERE no=#{no}")
+	public void eventReplyDelete(int no);
+	@Update("UPDATE HOUSE_REPLY SET "
+			 +"msg='삭제한 댓글입니다.' "
+			 +"WHERE no=#{no}")
+	public void eventReplyMsgUpdate(int no);
+	// 3. depth 감소  UPDATE 
+	@Update("UPDATE HOUSE_REPLY SET "
+			 +"depth=depth-1 "
+			 +"WHERE no=#{no}")
+	public void eventReplyDepthDecrement(int no);
 }

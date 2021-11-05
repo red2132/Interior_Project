@@ -1,13 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta charset="UTF-8">
 <title>이벤트-상세보기</title>
 <style type="text/css">
 .genric-btn.primary {
+    color: #fff;
+    background: #ff3368;
+    border: 1px solid transparent;
+}
+#Btn {
     color: #fff !important;
     background: #ff3368;
     border: 1px solid transparent;
@@ -15,12 +20,53 @@
 #buttons{
   margin-left:960px;
 }
-#listBtn {
-  margin-top:100px;
-  margin-bottom:30px;
-  margin-left:46%;
+.comment-list{
+	padding-bottom: 30px !important;
 }
 </style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+let u=0;
+let r=0;
+$(function(){
+	$('.updates').click(function(){
+		$('up').hide();
+		$('reply').hide();
+		// 수정창 열기
+		let no=$(this).attr("data-no");
+		if(u==0) // 보여주기
+		{
+			$(this).text("");
+			$('#u'+no).show();
+			u=1;
+		}
+		else // 숨기기
+		{
+			$('#u'+no).hide();
+			$(this).text("");
+			u=0;
+		}
+	})
+	$('.replys').click(function(){
+		$('.up').hide();
+		$('.reply').hide();
+		// 대댓글창을 연다 
+		let no=$(this).attr("data-no");
+		if(r==0) // 보여주기
+		{
+			$(this).text("");
+			$('#r'+no).show();
+			r=1;
+		}
+		else // 숨기기
+		{
+			$('#r'+no).hide();
+			$(this).text("");
+			r=0;
+		}
+	})
+})
+</script>
 </head>
 <body>
 	<!-- breadcrumb start-->
@@ -49,15 +95,15 @@
                   <div class="blog_details">
                   	 <c:if test="${sessionScope.admin=='y'}">
                   	 <div class="col-lg-12" id="buttons">
-                        <a href="../event/update.do?no=${vo.no }&page=${page}" class="genric-btn primary circle">수정</a>
-       				    <a href="../event/delete.do?no=${vo.no }&page=${page}" class="genric-btn primary circle">삭제</a>
+                        <a href="../event/update.do?no=${vo.no }&page=${page}" class="genric-btn primary circle" id="Btn">수정</a>
+       				    <a href="../event/delete.do?no=${vo.no }&page=${page}" class="genric-btn primary circle" id="Btn">삭제</a>
 			      	 </div>
 			      	 </c:if>
                      <h2>${vo.title }</h2>
                      <ul class="blog-info-link mt-3 mb-4">
                         <li><a href="#"><i class="far fa-user"></i>${vo.id }</a></li>
-                        <li><i class="fa fa-check-circle"></i>${vo.state }</a></li>
-                        <li><i class="fa fa-calendar"></i>${vo.period }</a></li>
+                        <li><i class="fa fa-check-circle"></i>${vo.state }</li>
+                        <li><i class="fa fa-calendar"></i>${vo.period }</li>
                      </ul>
                      
                      <c:if test="${vo.filecount>0 }">
@@ -77,7 +123,8 @@
                         <br>${vo.content}<br>
                      </p>
 			      	 <div class="col-lg-12">
-			      	 	<a href="../event/list.do?page=${page }" class="genric-btn primary radius" id="listBtn">목록</a>
+			      	 	<a href="../event/list.do?page=${page }" class="genric-btn primary1 radius"
+			      	 	id="Btn" style="margin-top:100px;margin-bottom:30px;margin-left:46%;">목록</a>
 			      	 </div>
 			      </div>
 			     </div>
@@ -112,114 +159,111 @@
                      </div>
                   </div>
                </div>
+               
              <!-- 댓글 -->
-               <div class="comments-area">
-                  <h4>05 Comments</h4>
+               <div class="comments-area"> 
+               	  <h4>댓글</h4>
+                  <!-- 댓글 출력 위치 -->
+                  <c:forEach var="rvo" items="${list }">
                   <div class="comment-list">
+                  <div class="buttons_reply">
+					<c:if test="${sessionScope.id!=null }">
+                    <c:if test="${sessionScope.id==rvo.id }">
+                         <a class="far fa-edit updates" data-no=${rvo.no } style="float:right; margin-top:3px; margin-left: 3px;"></a>
+                         <a href="../event/reply_delete.do?no=${rvo.no }&bno=${vo.no}&page=${page}"
+                         style="float:right;"><i class="far fa-trash-alt"></i></a>	
+					</c:if> 
+                         <a class="far fa-comment-dots replys" data-no=${rvo.no } style="float:right; margin-top:3px; margin-right: 3px;"></a>  
+					</c:if>
+					</div>
+				   </div>
+				   	 <c:if test="${rvo.group_tab>0 }">
+	               		<c:forEach var="i" begin="1" end="${rvo.group_tab }">
+	                 		&nbsp;&nbsp;
+	               		</c:forEach>
+	               	   		<i class="fas fa-reply" style="padding-bottom:5px;color:pink;"></i>
+	             	 </c:if>                           
                      <div class="single-comment justify-content-between d-flex">
                         <div class="user justify-content-between d-flex">
                            <div class="desc">
-                              <p class="comment">
-                                 Multiply sea night grass fourth day sea lesser rule open subdue female fill which them
-                                 Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
-                              </p>
+                              <p class="comment">${rvo.msg }</p>
                               <div class="d-flex justify-content-between">
                                  <div class="d-flex align-items-center">
                                     <h5>
-                                       <a href="#">Emilly Blunt</a>
+                                       <a href="#">${rvo.name }</a>
                                     </h5>
-                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                 </div>
-                                 <div class="reply-btn">
-                                    <a href="#" class="btn-reply text-uppercase">reply</a>
+                                    <p class="date" style="margin-top:10px;margin-left:10px !important;">${rvo.dbday }</p>
                                  </div>
                               </div>
                            </div>
                         </div>
                      </div>
-                  </div>
-                  <div class="comment-list">
-                     <div class="single-comment justify-content-between d-flex">
-                        <div class="user justify-content-between d-flex">
-                           <div class="desc">
-                              <p class="comment">
-                                 Multiply sea night grass fourth day sea lesser rule open subdue female fill which them
-                                 Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
-                              </p>
-                              <div class="d-flex justify-content-between">
-                                 <div class="d-flex align-items-center">
-                                    <h5>
-                                       <a href="#">Emilly Blunt</a>
-                                    </h5>
-                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                 </div>
-                                 <div class="reply-btn">
-                                    <a href="#" class="btn-reply text-uppercase">reply</a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="comment-list">
-                     <div class="single-comment justify-content-between d-flex">
-                        <div class="user justify-content-between d-flex">
-                           <div class="desc">
-                              <p class="comment">
-                                 Multiply sea night grass fourth day sea lesser rule open subdue female fill which them
-                                 Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
-                              </p>
-                              <div class="d-flex justify-content-between">
-                                 <div class="d-flex align-items-center">
-                                    <h5>
-                                       <a href="#">Emilly Blunt</a>
-                                    </h5>
-                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                 </div>
-                                 <div class="reply-btn">
-                                    <a href="#" class="btn-reply text-uppercase">reply</a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="comment-form">
-                  <h4>Leave a Reply</h4>
-                  <form class="form-contact comment_form" action="#" id="commentForm">
+               
+               <!-- 댓글 수정 -->
+               <div class="comment-form up" id="u${rvo.no}" style="display:none;margin-bottom:30px;" >
+                  <form class="form-contact comment_form" action="../event/reply_update.do" method="post">
                      <div class="row">
                         <div class="col-12">
                            <div class="form-group">
-                              <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9"
-                                 placeholder="Write Comment"></textarea>
-                           </div>
-                        </div>
-                        <div class="col-sm-6">
-                           <div class="form-group">
-                              <input class="form-control" name="name" id="name" type="text" placeholder="Name">
-                           </div>
-                        </div>
-                        <div class="col-sm-6">
-                           <div class="form-group">
-                              <input class="form-control" name="email" id="email" type="email" placeholder="Email">
-                           </div>
-                        </div>
+                           	  <input type="hidden" name="no" value="${rvo.no }">
+		        			  <input type="hidden" name="bno" value="${vo.no }">
+		        			  <input type="hidden" name="page" value="${page }">
+                              <textarea class="form-control w-100" name="msg" cols="30" rows="5"
+                                 placeholder="내용">${rvo.msg }</textarea>
+		                     <div class="form-group mt-3">
+		                        <input type=submit value="수정" class="genric-btn primary circle" style="float:right;" />
+		                     </div>
+                     		</div>
+                    	</div>
+                     </div>
+                  </form>
+               </div>
+               
+               <!-- 대댓글 폼 -->
+               <div class="comment-form reply" id="r${rvo.no}" style="display:none;margin-bottom:30px;" >
+                  <form class="form-contact comment_form" action="../event/reply_reply_insert.do" method="post">
+                     <div class="row">
                         <div class="col-12">
                            <div class="form-group">
-                              <input class="form-control" name="website" id="website" type="text" placeholder="Website">
+                           	  <input type="hidden" name="pno" value="${rvo.no }">
+		        			  <input type="hidden" name="bno" value="${vo.no }">
+		        			  <input type="hidden" name="page" value="${page }">
+                              <textarea class="form-control w-100" name="msg" cols="30" rows="5"
+                                 placeholder="내용"></textarea>
+                              <div class="form-group mt-3">
+                        		<input type=submit value="작성" class="genric-btn primary circle" style="float:right;" />
+                     		</div>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+               </c:forEach>
+                
+               <!-- 댓글 폼 -->
+               <c:if test="${sessionScope.id!=null }">
+               <div class="comment-form">
+                  <h4>작성</h4>
+                  <form class="form-contact comment_form" action="../event/reply_insert.do" method="post">
+                     <div class="row">
+                        <div class="col-12">
+                           <div class="form-group">
+                           	  <input type="hidden" name="bno" value="${vo.no }">
+		        			  <input type="hidden" name="page" value="${page }">
+                              <textarea class="form-control w-100" name="msg" cols="30" rows="5"
+                                 placeholder="내용"></textarea>
                            </div>
                         </div>
                      </div>
                      <div class="form-group mt-3">
-                        <a href="#" class="btn_3 button-contactForm">Send Message</a>
+                        <input type=submit class="genric-btn primary circle" value="작성"/>
                      </div>
                   </form>
                </div>
+               </c:if>
+              </div>
             </div>
           </div>
-      </div>
-     </div>
    </section>
 </body>
 </html>
