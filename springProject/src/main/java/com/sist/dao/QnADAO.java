@@ -121,15 +121,25 @@ public class QnADAO {
 		mapper.qnaBoardReplyInsert(vo);
 	}
 	
+	
+	
 	// 2.댓글 목록
+	// 2-1. 댓글 갯수
+	public int qnaBoardReplyCount(int bno) {
+		return mapper.qnaBoardReplyCount(bno);
+	}
+	// 2-2. 댓글 목록 출력
 	public List<QnaReplyVO> qnaBoardReplyList(int bno){
 		return mapper.qnaBoardReplyList(bno);
 	}
+	
+	
 	
 	// 3.댓글 수정
 	public void qnaBoardReplyUpdate(QnaReplyVO vo) {
 		mapper.qnaBoardReplyUpdate(vo);
 	}
+	
 	
 	// 4.대댓글 추가
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)

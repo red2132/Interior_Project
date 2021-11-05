@@ -68,16 +68,17 @@ public class QnAController {
 	}
 	
 	
-	//3. Q&A 게시글/답변게시글 상세보기
+	//3. Q&A 게시글/답변게시글 상세보기(게시글 내용, 댓글 내용)
 	@GetMapping("detail.do")
 	public String qnaBoardDetail(int page,int no,Model model) {
-		//1. 게시물 상세보기 데이터 전송
+		//1. 게시물 상세보기, 댓글 데이터 연결
 		QnAVO vo=dao.qnaBoardDetailData(no);
-		//2. 게시물의 댓글 전송
-//		List<QnaReplyVO> list=dao.qnaBoardReplyList(no);
+		List<QnaReplyVO> list=dao.qnaBoardReplyList(no);
+		int rCount=dao.qnaBoardReplyCount(no);
 		
 		model.addAttribute("vo",vo);
-//		model.addAttribute("list",list);
+		model.addAttribute("list",list);
+		model.addAttribute("rCount",rCount);
 		model.addAttribute("page",page);
 		model.addAttribute("main_jsp", "../qna/detail.jsp");
 		return "main/main";
@@ -141,16 +142,15 @@ public class QnAController {
 	
 	
 	
-	////////////////////////////////////////////////
-	
+	//////////////////////////////////////////////////////////////////////////////////////////////////
 	//2. 댓글 추가
 	@PostMapping("reply_insert.do")
 	public String qna_reply_insert(int page,QnaReplyVO vo,HttpSession session,RedirectAttributes attr) {
 		//2-1. 오라클에 id, name 추가
 		String id=(String)session.getAttribute("id");
-		String name=(String)session.getAttribute("name");
+//		String name=(String)session.getAttribute("name");
 		vo.setId(id);
-		vo.setName(name);
+//		vo.setName(name);
 		dao.qnaBoardReplyInsert(vo);
 		
 		attr.addAttribute("no",vo.getBno());

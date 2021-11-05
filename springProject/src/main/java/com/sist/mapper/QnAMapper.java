@@ -104,14 +104,19 @@ public interface QnAMapper {
 	
 	/////////////////////////////////////////////////////////////////////////////////
 	//1.댓글 업로드
-	@Insert("INSERT INTO qna_reply(no,bno,id,name,msg,g_id) "
-			+ "qr_no_seq.nextval,#{bno},#{id},#{name},#{msg},"
-			+ "(SELECT NVL(MAX(g_id)+1,1)) FROM qna_reply")
+	@Insert("INSERT INTO qna_reply(no,bno,id,msg,g_id) "
+			+ "VALUES(qr_no_seq.nextval,#{bno},#{id},#{msg},(SELECT NVL(MAX(g_id)+1,1) FROM qna_reply))")
 	public void qnaBoardReplyInsert(QnaReplyVO vo);
 	
 	
-	//2.댓글 출력
-	@Select("SELECT no,bno,id,name,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday,msg,g_tab "
+	
+	
+	//2.댓글 목록 출력
+	//2-1. 해당 게시글의 댓글 수
+	@Select("SELECT COUNT(no) FROM qna_reply WHERE bno=#{bno}")
+	public int qnaBoardReplyCount(int bno);
+	//2-2. 댓글 목록 출력
+	@Select("SELECT no,bno,id,regdate,msg,g_tab "
 			+ "FROM qna_reply "
 			+ "WHERE bno=#{bno} "
 			+ "ORDER BY g_id DESC, g_step ASC")
@@ -134,8 +139,8 @@ public interface QnAMapper {
 			+ "WHERE g_id=#{g_id} AND g_step>#{g_step}")
 	public void qnaBoareReplyReplystepIncrement(QnaReplyVO vo);
 	//4-3. 실제 답변댓글 추가
-	@Insert("INSERT INTO qna_reply(no,bno,id,name,msg,g_id,g_step,g_tab,root) "
-			+ "VALUES(qr_no_seq.nextval,#{bno},#{id},#{name},#{msg},#{g_id},#{g_step},#{g_tab},#{root})")
+	@Insert("INSERT INTO qna_reply(no,bno,id,msg,g_id,g_step,g_tab,root) "
+			+ "VALUES(qr_no_seq.nextval,#{bno},#{id},#{msg},#{g_id},#{g_step},#{g_tab},#{root})")
 	public QnaReplyVO qnaBoareReplyReplyInsert(QnaReplyVO vo);
 	//4-4. depth 증가
 	@Update("UPDATE qna_reply SET "
