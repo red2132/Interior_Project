@@ -87,13 +87,15 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
-                        <aside class="single_sidebar_widget search_widget">
+                      <c:if test="${sessionScope.id!=null && sessionScope.admin=='n' }">
+                        <aside class="single_sidebar_widget search_widget">                        
                         <a href="insert.do">
                         	<button class="button rounded-0 primary-bg text-white w-100 btn_1">
                         		글쓰기
                         	</button>
                        </a>
                         </aside>
+                        </c:if>
 
                      <aside class="single_sidebar_widget post_category_widget">
                       <form method=post action="filter.do">

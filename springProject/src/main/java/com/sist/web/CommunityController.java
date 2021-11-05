@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sist.dao.CommunityDAO;
+import com.sist.vo.CommReplyVO;
 import com.sist.vo.CommunityVO;
 
 @Controller
@@ -66,8 +69,12 @@ public class CommunityController {
 	public String detail(int no, int page, Model model)
 	{		
 		// 목록 정보
-		
+		//1. 게시물 상세보기 데이터
 		CommunityVO vo=dao.cDetail(no);
+		//2. 댓글 데이터
+		List<CommReplyVO> rList=dao.replyListData(no);
+		
+		model.addAttribute("rList",rList);
 		model.addAttribute("page",page);
 		model.addAttribute("vo", vo);
 		model.addAttribute("main_jsp", "../comm/detail.jsp");
@@ -193,5 +200,31 @@ public class CommunityController {
 		model.addAttribute("number",number);
 		model.addAttribute("main_jsp","../comm/tag_ok.jsp");
 		return "main/main";
-	}		
+	}	
+////////////////////////~여기서부터 댓글~/////////////////////////////////////////////
+	
+	//댓글 입력
+	@PostMapping("comm/reply_insert.do")
+	public String reply_insert(int page,CommReplyVO vo,HttpSession session,
+			RedirectAttributes attr)
+	{
+		String id=(String)session.getAttribute("id");
+		vo.setId(id);
+		dao.replyInsert(vo);
+		
+		attr.addAttribute("no",vo.getBno());
+		attr.addAttribute("page",page);
+		return "redirect:../comm/detail.do";
+	}
+	
+	//댓글 수정
+	@PostMapping("comm/reply_update.do")
+	public String reply_update(int page,CommReplyVO vo,RedirectAttributes attr)
+	{
+		dao.replyUpdate(vo);
+		attr.addAttribute("no",vo.getBno());
+		attr.addAttribute("page",page);
+		return "redirect:../comm/detail.do";
+	}
+	
 }

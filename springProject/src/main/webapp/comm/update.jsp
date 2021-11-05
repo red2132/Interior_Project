@@ -94,7 +94,7 @@ $(function(){
               </div>
               <h3>글작성</h3>
               <div class="col-md-6 form-group">
-                <input type="text" class="form-control" name="id" placeholder="아이디 입력" value="${vo.id }"/>
+                <input type="text" class="form-control" name="id" placeholder="아이디 입력" value="${vo.id }" readonly/>
               </div>
               <div class="col-md-6 form-group">
                 <input type="text" class="form-control" name="pwd" placeholder="비밀번호 입력"/>

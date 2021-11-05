@@ -5,8 +5,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sist.mapper.CommunityMapper;
+import com.sist.vo.CommReplyVO;
 import com.sist.vo.CommunityVO;
 
 @Repository
@@ -98,5 +100,21 @@ public class CommunityDAO {
 	 {
 		 return mapper.numberTagFind(tag);
 	 }
-		
+	 
+////////////////////////~여기서부터 댓글~/////////////////////////////////////////////
+	 
+	 public void replyInsert(CommReplyVO vo)
+	 {
+		 mapper.replyInsert(vo);
+	 }
+	 
+	 public List<CommReplyVO> replyListData(int bno)
+	 {
+		 return mapper.replyListData(bno);
+	 }
+	 
+	 public void replyUpdate(CommReplyVO vo)
+	 {
+		 mapper.replyUpdate(vo);
+	 }	 		
 }

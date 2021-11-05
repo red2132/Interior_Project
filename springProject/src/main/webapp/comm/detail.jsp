@@ -99,12 +99,17 @@ $(function(){
                         <!-- <p class="comment-count"><span class="align-middle"><i class="far fa-comment"></i></span> 06 Comments</p> -->
                      </div>
                      	<a href="list.do?page=${page }" class="genric-btn success">목록</a>
-						<a href="update.do?no=${vo.no }&page=${page}" class="genric-btn info">수정</a>
-						<a href="#" id="delBtn"  class="genric-btn danger">삭제</a>
+                      <c:if test="${sessionScope.id!=null && sessionScope.admin=='n' }">
+                      	<c:if test="${sessionScope.id==vo.id }">
+							<a href="update.do?no=${vo.no }&page=${page}" class="genric-btn info">수정</a>
+							<a href="#" id="delBtn"  class="genric-btn danger">삭제</a>
+						</c:if>
+					</c:if>
                   </div>
                </div>
                <div class="comments-area">
                   <h4>05 Comments</h4>
+                 <c:forEach var="rvo" items="${rList }">
                   <div class="comment-list">
                      <div class="single-comment justify-content-between d-flex">
                         <div class="user justify-content-between d-flex">
@@ -113,15 +118,12 @@ $(function(){
                            </div>
                            <div class="desc">
                               <p class="comment">
-                                 Multiply sea night grass fourth day sea lesser rule open subdue female fill which them
-                                 Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
+                                 ${rvo.msg }
                               </p>
                               <div class="d-flex justify-content-between">
                                  <div class="d-flex align-items-center">
-                                    <h5>
-                                       <a href="#">Emilly Blunt</a>
-                                    </h5>
-                                    <p class="date">December 4, 2017 at 3:12 pm </p>
+                                    <h5>${rvo.id }</h5>
+                                    <p class="date">${rvo.dbday } </p>
                                  </div>
                                  <div class="reply-btn">
                                     <a href="#" class="btn-reply text-uppercase">reply</a>
@@ -131,90 +133,29 @@ $(function(){
                         </div>
                      </div>
                   </div>
-                  <div class="comment-list">
-                     <div class="single-comment justify-content-between d-flex">
-                        <div class="user justify-content-between d-flex">
-                           <div class="thumb">
-                              <img src="img/comment/comment_2.png" alt="">
-                           </div>
-                           <div class="desc">
-                              <p class="comment">
-                                 Multiply sea night grass fourth day sea lesser rule open subdue female fill which them
-                                 Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
-                              </p>
-                              <div class="d-flex justify-content-between">
-                                 <div class="d-flex align-items-center">
-                                    <h5>
-                                       <a href="#">Emilly Blunt</a>
-                                    </h5>
-                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                 </div>
-                                 <div class="reply-btn">
-                                    <a href="#" class="btn-reply text-uppercase">reply</a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="comment-list">
-                     <div class="single-comment justify-content-between d-flex">
-                        <div class="user justify-content-between d-flex">
-                           <div class="thumb">
-                              <img src="img/comment/comment_3.png" alt="">
-                           </div>
-                           <div class="desc">
-                              <p class="comment">
-                                 Multiply sea night grass fourth day sea lesser rule open subdue female fill which them
-                                 Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
-                              </p>
-                              <div class="d-flex justify-content-between">
-                                 <div class="d-flex align-items-center">
-                                    <h5>
-                                       <a href="#">Emilly Blunt</a>
-                                    </h5>
-                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                 </div>
-                                 <div class="reply-btn">
-                                    <a href="#" class="btn-reply text-uppercase">reply</a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
+                </c:forEach>
                </div>
+               
+              <c:if test="${sessionScope.id!=null }">
                <div class="comment-form">
-                  <h4>Leave a Reply</h4>
-                  <form class="form-contact comment_form" action="#" id="commentForm">
+                  <form method="post" action="../comm/reply_insert.do">
                      <div class="row">
                         <div class="col-12">
                            <div class="form-group">
-                              <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9"
+                           	  <input type="hidden" name="bno" value="${vo.no }">
+                           	  <input type="hidden" name="page" value="${page }">
+                           	  <input type="hidden" name="id" value="${sessionScope.id }">
+                              <textarea class="form-control w-100" name=msg id="msg" cols="30" rows="9"
                                  placeholder="Write Comment"></textarea>
-                           </div>
-                        </div>
-                        <div class="col-sm-6">
-                           <div class="form-group">
-                              <input class="form-control" name="name" id="name" type="text" placeholder="Name">
-                           </div>
-                        </div>
-                        <div class="col-sm-6">
-                           <div class="form-group">
-                              <input class="form-control" name="email" id="email" type="email" placeholder="Email">
-                           </div>
-                        </div>
-                        <div class="col-12">
-                           <div class="form-group">
-                              <input class="form-control" name="website" id="website" type="text" placeholder="Website">
                            </div>
                         </div>
                      </div>
                      <div class="form-group mt-3">
-                        <a href="#" class="btn_3 button-contactForm">Send Message</a>
+                        <button class="btn_3 button-contactForm">댓글쓰기</button>
                      </div>
                   </form>
                </div>
+              </c:if>
             </div>
             <div class="col-lg-4">
                <div class="blog_right_sidebar">

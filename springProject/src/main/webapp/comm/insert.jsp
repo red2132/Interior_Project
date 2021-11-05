@@ -92,7 +92,7 @@ $(function(){
               </div>
               <h3>글작성</h3>
               <div class="col-md-6 form-group">
-                <input type="text" class="form-control" name="id" id="id" placeholder="아이디 입력"/>
+                <input type="text" class="form-control" name="id" id="id" value="${sessionScope.id}" readonly/>
               </div>
               <div class="col-md-6 form-group">
                 <input type="text" class="form-control" name="pwd" id="pwd" placeholder="비밀번호 입력"/>
