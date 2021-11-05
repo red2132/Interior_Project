@@ -26,14 +26,14 @@
 								<div class="col-lg-5 col-md-8">
 									<div class="banner_text">
 										<div class="banner_text_iner">
-											<h1>이벤트 공지 배너 슬라이드 - 일단 2개 빼고 주석처리해놓음</h1>
-											<p>내용!!!!ㅁㅇㄹㅁㄴ ㅁㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴ ㅁㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㅇㄴ</p>
-											<a href="#" class="btn_2">이동버튼??</a>
+											<h1>댕냥이와 함께 사는 분들!</h1>
+											<p>포인트 100% 증정!!</p>
+											<a href="../event/detail.do?no=51&page=1" class="btn_2">확인하기</a>
 										</div>
 									</div>
 								</div>
 								<div class="banner_img d-none d-lg-block">
-									<img src="../template/img/banner_img.png" alt="">
+									<img src="banner2.png" alt="">
 								</div>
 							</div>
 						</div>
@@ -42,15 +42,14 @@
 								<div class="col-lg-5 col-md-8">
 									<div class="banner_text">
 										<div class="banner_text_iner">
-											<h1>Cloth & Wood Sofa</h1>
-											<p>Incididunt ut labore et dolore magna aliqua quis ipsum
-												suspendisse ultrices gravida. Risus commodo viverra</p>
-											<a href="#" class="btn_2">buy now</a>
+											<h1>북유럽 스타일 인테리어</h1>
+											<p></p>
+											<a href="../comm/tag.do?tag=북유럽" class="btn_2">구경하기</a>
 										</div>
 									</div>
 								</div>
 								<div class="banner_img d-none d-lg-block">
-									<img src="../template/img/banner_img.png" alt="">
+									<img src="banner1.png" alt="">
 								</div>
 							</div>
 						</div>
