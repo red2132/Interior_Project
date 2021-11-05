@@ -55,6 +55,11 @@ $(function(){
 	})
 })
 </script>
+<style type="text/css">
+.progress-table {
+    width: 50px;
+  }
+</style>
 </head>
 <body>
    <!--================Blog Area =================-->
@@ -69,18 +74,20 @@ $(function(){
                   <div class="blog_details">
                      <h2>${vo.subject } </h2>
                      <ul class="blog-info-link mt-3 mb-4">
-                        <li><a href="#"><i class="far fa-user"></i>${vo.id}</a></li>
-                        <li><a href="#"><i class="far fa-comments"></i> 03 Comments</a></li>
-                     </ul>                   
-						<table class="progress-table mt-3 mb-4">
-							<tr >
+                        <li><i class="far fa-user"></i>${vo.id}</a></li>
+                         <li>${vo.dbday }</li>
+                     </ul>                         
+                     <p class="excert">
+                     <table class="progress-table col-lg-7">
+							<tr>
 								<td class="text-center" height="60px">${vo.hsize}</td>
 								<td class="text-center">${vo.hstyle}</td>
 								<td class="text-center">${vo.rstyle}</td>
 								<td class="text-center">${vo.family}</td>
 							</tr>
 						</table>
-                     <p class="excert">
+						</p>
+						<p class="excert">
                         ${vo.content }
                      </p>
                   </div>

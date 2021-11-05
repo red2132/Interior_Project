@@ -31,50 +31,6 @@ $(function(){
 		   	fileIndex--;
 		}
 	})
-	
-	$('#insertBtn').click(function(){
-		let vhsize=$('#hsize').val();
-		if(vhsize.trim()=="")
-		{
-			$('#hsize').focus();
-			return; 
-		}
-		
-		let vid=$('#id').val();
-		if(vid.trim()=="")
-		{
-			$('#id').focus();
-			return; 
-		}
-		
-		let vpwd=$('#pwd').val();
-		if(vpwd.trim()=="")
-		{
-			$('#pwd').focus();
-			return; 
-		}
-		
-		let vsubject=$('#subject').val();
-		if(vsubject.trim()=="")
-		{
-			$('#subject').focus();
-			return; 
-		}
-		
-		let vcontent=$('#content').val();
-		if(vcontent.trim()=="")
-		{
-			$('#content').focus();
-			return; 
-		}
-		
-		let vtags=$('#tags').val();
-		if(vtags.trim()=="")
-		{
-			$('#tags').focus();
-			return; 
-		}
-	})
 });
 </script>
 </head>
@@ -101,10 +57,10 @@ $(function(){
       <div class="billing_details">
         <div class="row">
           <div class="col-lg-12">
-             <form method="post" action="../comm/insert_ok.do" enctype="multipart/form-data">
+           <form method="post" action="../comm/insert_ok.do" enctype="multipart/form-data">
               <div class="col-md-4 form-group p_star">
                <h3>주거형태</h3>
-                <select class="country_select" name="hstyle">
+                <select class="country_select" name="hstyle" id="hstyle">
                   <option value="아파트">아파트</option>
                   <option value="단독주택">단독주택</option>
                   <option value="원룸&오피스텔">원룸&오피스텔</option>
@@ -113,7 +69,7 @@ $(function(){
               </div>
               <div class="col-md-4 form-group p_star" >
                <h3>리모델링 방법</h3>
-                <select class="country_select" name="rstyle">
+                <select class="country_select" name="rstyle" id="rstyle">
                   <option value="홈스타일링">홈스타일링</option>
                   <option value="리모델링">리모델링</option>
                   <option value="부분공사">부분공사</option>
@@ -122,7 +78,7 @@ $(function(){
               </div>             
               <div class="col-md-4 form-group p_star">
               <h3>가족구성</h3>
-                <select class="country_select" name="family">
+                <select class="country_select" name="family" id="family">
                   <option value="아기가있는집">아기가있는집</option>
                   <option value="신혼부부">신혼부부</option>
                   <option value="취학자녀와함께">취학자녀와함께</option>
@@ -162,10 +118,10 @@ $(function(){
           <table class="table" id="fileView">
           </table>
           <div class="text-center">
-          	<input type="button" class="genric-btn success-border circle" id="insertBtn" value="글쓰기">
+          	<button class="genric-btn success-border circle" id="insertBtn">글쓰기</button>
 			<a href="#" class="genric-btn danger-border circle" onclick="javascript:history.back()">취소</a>
 		</div>
-            </form>
+		</form>
           </div>
         </div>
       </div>

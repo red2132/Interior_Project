@@ -35,6 +35,8 @@
             <div class="row">
                 <div class="col-lg-8 mb-5 mb-lg-0">
                     <div class="blog_left_sidebar">
+                     <h3 class="text-center">${number}개의 게시물이 검색되었습니다</h3>
+                     <h3 class="text-center">    </h3>
                       <c:forEach var="vo" items="${flist }">
                         <article class="blog_item">
                             <div class="blog_item_img">
@@ -46,8 +48,8 @@
                                     <h2>${vo.subject }</h2>
                                 </a>
                                 <ul class="blog-info-link">
-                                    <li><a href="#"><i class="far fa-user"></i>${vo.id}</a></li>
-                                    <li><a href="#"><i class="far fa-comments"></i> 03 Comments</a></li>
+                                    <li><i class="far fa-user"></i>${vo.id}</li>
+                                     <li>${vo.dbday }</li>
                                 </ul>
                             </div>
                         </article>

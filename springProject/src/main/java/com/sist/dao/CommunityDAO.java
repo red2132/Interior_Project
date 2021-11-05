@@ -88,5 +88,15 @@ public class CommunityDAO {
 	 {
 		 return mapper.communityTag(tag);
 	 }
+	 
+	 public String numberFind(Map map)
+	 {
+		 return mapper.numberFind(map);
+	 }
+	 
+	 public String numberTagFind(String tag)
+	 {
+		 return mapper.numberTagFind(tag);
+	 }
 		
 }

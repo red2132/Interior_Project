@@ -104,7 +104,7 @@ public class CommunityController {
 	    		files+=fn+","; 
 	    		sizes+=file.length()+",";
 	    	}
-	    	vo.setFilename(files.substring(0,files.lastIndexOf(",")));
+	    	vo.setFilename("c:\\download\\"+files.substring(0,files.lastIndexOf(",")));
 	    	vo.setFilesize(sizes.substring(0,sizes.lastIndexOf(",")));
     	}
     	else
@@ -171,8 +171,11 @@ public class CommunityController {
     	map.put("fs2", fs2);
     	map.put("fs3", fs3);
     	List<CommunityVO> flist=dao.communityFilter(map);
-    	System.out.println(flist.get(0).getId());
+    	
+    	String number=dao.numberFind(map);
+
     	model.addAttribute("flist", flist);
+    	model.addAttribute("number",number);
     	model.addAttribute("main_jsp","../comm/filter_ok.jsp");
 		
 		return "main/main";
@@ -183,10 +186,12 @@ public class CommunityController {
 	public String tag(String tag,Model model)
 	{
 		List<CommunityVO> tList=dao.communityTag(tag);
+		
+		String number=dao.numberTagFind(tag);
+		
 		model.addAttribute("tList",tList);
+		model.addAttribute("number",number);
 		model.addAttribute("main_jsp","../comm/tag_ok.jsp");
 		return "main/main";
-	}
-	
-
+	}		
 }

@@ -14,7 +14,7 @@ import com.sist.vo.CommunityVO;
 public interface CommunityMapper {
 	
 	//커뮤니티 그냥 목록 출력
-	@Select("SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags,num "
+	@Select("SELECT no,id,subject,content,pwd,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,filename,filesize,hstyle,hsize,rstyle,family,tags,num "
 			+ "FROM (SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags,rownum as num "
 			+ "FROM (SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags "
 			+ "FROM house_community)) "
@@ -31,12 +31,12 @@ public interface CommunityMapper {
 			  +"WHERE no=#{no}")
 	public void hitIncrement(int no);
 	 
-	@Select("SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags "
+	@Select("SELECT no,id,subject,content,pwd,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,filename,filesize,hstyle,hsize,rstyle,family,tags "
 			+ "FROM house_community WHERE no=#{no}")
 	public CommunityVO cDetail(int no);
 	
 	//홈에 출력할 메뉴 출력
-	@Select("SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags,num "
+	@Select("SELECT no,id,subject,content,pwd,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,filename,filesize,hstyle,hsize,rstyle,family,tags,num "
 			+ "FROM (SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags,rownum as num "
 			+ "FROM (SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags "
 			+ "FROM house_community)) "
@@ -70,7 +70,7 @@ public interface CommunityMapper {
 	  // 필터 => 동적 쿼리 (마이바티스)
 	 @Select({
 		  "<script>"
-		  +"SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags "
+		  +"SELECT no,id,subject,content,pwd,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,filename,filesize,hstyle,hsize,rstyle,family,tags "
 		  +"FROM house_community WHERE hit>=0 "
 		  + "<if test=\"fs1 !='a'.toString()\">"
 		  + "AND hstyle like '%'||#{fs1}||'%'"
@@ -83,12 +83,34 @@ public interface CommunityMapper {
 		  + "</if>"	
 		  +"</script>"
 	  })
-	  public List<CommunityVO> communityFilter(Map map);	
-	 
-	 
+	  public List<CommunityVO> communityFilter(Map map);	 
+		 
 	 //태그검색
-	 @Select("SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags "
+	 @Select("SELECT no,id,subject,content,pwd,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,filename,filesize,hstyle,hsize,rstyle,family,tags "
 	 		+ "FROM house_community "
 	 		+ "WHERE tags like '%'||#{tag}||'%'")
 	 public List<CommunityVO> communityTag(String tag);
+	 
+	 //필터 개수 검색
+	 @Select({
+		 "<script>"
+		 +"SELECT COUNT(*) from house_community "
+		 +"WHERE hit>=0 "
+				  + "<if test=\"fs1 !='a'.toString()\">"
+				  + "AND hstyle like '%'||#{fs1}||'%'"
+				  + "</if>"
+				  + "<if test=\"fs2 !='b'.toString()\">"
+				  + "AND rstyle like '%'||#{fs2}||'%'"
+				  + "</if>"
+				  + "<if test=\"fs3 !='c'.toString()\">"
+				  + "AND family like '%'||#{fs3}||'%'"
+				  + "</if>"	
+				  +"</script>"
+	 })
+	 public String numberFind(Map map);
+	 
+	 //태그 개수 검색
+	 @Select("SELECT COUNT(*) from house_community "
+		 		+ "WHERE tags like '%'||#{tag}||'%'")
+	 public String numberTagFind(String tag);
 }

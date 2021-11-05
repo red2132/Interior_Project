@@ -48,8 +48,8 @@
                                     <h2>${vo.subject }</h2>
                                 </a>
                                 <ul class="blog-info-link">
-                                    <li><a href="#"><i class="far fa-user"></i>${vo.id}</a></li>
-                                    <li><a href="#"><i class="far fa-comments"></i> 03 Comments</a></li>
+                                    <li><i class="far fa-user"></i>${vo.id}</li>
+                                    <li>${vo.dbday }</li>
                                 </ul>
                             </div>
                         </article>

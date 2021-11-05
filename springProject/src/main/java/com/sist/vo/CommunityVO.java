@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class CommunityVO {
 	private int no;
-	private String id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags;
+	private String id,subject,content,pwd,dbday,hit,filename,filesize,hstyle,hsize,rstyle,family,tags;
 	private List<MultipartFile> files;
 	
 	public List<MultipartFile> getFiles() {
@@ -50,11 +50,11 @@ public class CommunityVO {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-	public String getRegdate() {
-		return regdate;
+	public String getdbday() {
+		return dbday;
 	}
-	public void setRegdate(String regdate) {
-		this.regdate = regdate;
+	public void setdbday(String dbday) {
+		this.dbday = dbday;
 	}
 	public String getHit() {
 		return hit;
