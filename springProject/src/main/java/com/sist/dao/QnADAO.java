@@ -45,7 +45,8 @@ public class QnADAO {
 	
 	
 	//4. Q&A 답변게시글 작성
-	public void qnaBoardReplyBoardInsert(int pno, QnAVO vo) {
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void qnaBoardReplyBoardInsert(int pno,QnAVO vo) {
 		//4-1. 답변할 게시글의 정보 읽어오기
 		QnAVO qvo=mapper.qnaParentInfoData(pno);
 		//4-2. group_step+1 증가
@@ -59,7 +60,6 @@ public class QnADAO {
 		//4-4. depth 증가
 		mapper.qnaBoardDepthIncrement(pno);
 	}
-	
 	
 	
 	//5. Q&A 게시글/답변게시글 수정

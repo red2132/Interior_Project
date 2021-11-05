@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-    <!-- Required meta tags -->
+<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>aranoz</title>
@@ -46,32 +46,54 @@
     <!-- breadcrumb start-->
     <!--================Blog Area =================-->
 	<section class="blog_area padding_top">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 mb-5 mb-lg-0">
-                    <div class="blog_left_sidebar">
-				       <form method="post" action="../qna/delete_ok.do">
-					       <table class="table">
-					         <tr class="text-center">
-					           <td class="inline">
-				                      비밀번호: <input type=password name=pwd size=20 class="input-sm" id="pwd">
-					                  <input type=hidden name=no value="${no }" id="no">
-					                  <input type=hidden name=page value="${page }" id="page">
-					           </td>
-					         </tr>
-					         <tr>
-					           <td class="text-center">
-					             <button class="btn btn-sm btn-success">삭제</button>
-					             <input type=button value="취소" class="btn btn-sm btn-success"
-					             onclick="javascript:history.back()">
-					           </td>
-					         </tr>
-					       </table>
-				       </form>
-     				</div>
-     			</div>
-     		</div>
-     	</div>
-     </section>
+	   <div class="container">
+	      <div class="row justify-content-center">
+	         <div class="col-lg-12">
+	            <div class="breadcrumb_iner">
+	               <div class="breadcrumb_iner_item">
+				      <h1>답변하기</h1>
+				      <form method="post" action="../qna/reply_ok.do">
+					      <table class="table">
+					       <tr>
+					         <th width=25%>작성자</th>
+					         <td width=75%>
+					          <input type=text name=id size=15 class="input-sm" value="${sessionScope.id}" readonly>
+					          <input type=hidden name=pno value="${no }">
+					          <input type=hidden name=page value="${page }">
+					         </td> 
+					       </tr>
+					       <tr>
+					         <th width=25%>제목</th>
+					         <td width=75%>
+					          <input type=text name=subject size=55 class="input-sm" value="Re:${vo.subject }">
+					         </td> 
+					       </tr>
+					       <tr>
+					         <th width=25%>내용</th>
+					         <td width=75%>
+					          <textarea rows="10" cols="55" name="content"></textarea>
+					         </td> 
+					       </tr>
+					       <tr>
+					         <th width=25%>비밀번호</th>
+					         <td width=75%>
+					          <input type="password" name=pwd size=10 class="input-sm">
+					         </td> 
+					       </tr>
+					       <tr>
+					         <td colspan="2" class="text-center">
+					          <button class="btn btn-sm btn-success">등록</button>
+					          <input type=button value="취소" class="btn btn-sm btn-danger"
+					           onclick="javascript:history.back()">
+					         </td>
+					       </tr>
+					      </table>
+				      </form>
+	     			</div>
+	   			</div>
+	   		</div>
+	 	  </div>
+	  </div>
+	</section>
 </body>
 </html>

@@ -100,12 +100,13 @@ $(function(){
             <div class="row">
                 <div class="col-lg-12 mb-5 mb-lg-0">
                     <div class="blog_left_sidebar">
+						<%-- 게시글 출력 --%>
 						<table class="table">
 							<tr>
 								<th width="20%" class="text-center">번호</th>
 								<td width="30%" class="text-center">${vo.no }</td>
 								<th width="20%" class="text-center">작성일</th>
-								<td width="30%" class="text-center"><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd"/></td>
+								<td width="30%" class="text-center"><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 							</tr>
 							<tr>
 								<th width="20%" class="text-center">이름</th>
@@ -124,102 +125,101 @@ $(function(){
 							</tr>
 							<tr>
 								<td colspan="4" class="text-right">
-									<c:if test="${sessionScope.id==vo.id }">
+									<c:if test="${sessionScope.id==vo.id || sessionScope.admin=='y'}">
 										<a href="../qna/update.do?no=${vo.no }&page=${page }" class="btn btn-xs btn-info">수정</a>
 										<a href="../qna/delete.do?no=${vo.no }&page=${page }" class="btn btn-xs btn-success">삭제</a>
 									</c:if>
-									<a href="../qna/list.do?no=page=${page }" class="btn btn-xs btn-primary">목록</a>
+									<a href="../qna/reply.do?no=${vo.no }&page=${page }" class="btn btn-xs btn-danger">답변</a>
+									<a href="../qna/list.do?page=${page }" class="btn btn-xs btn-primary">목록</a>
 								</td>
 							</tr>
 						</table>
+						<%-- 댓글출력 --%>
+						<div class="row">
+							<table class="table">
+								<tr>
+									<td>
+										<c:forEach var="rvo" items="${list }">
+											<table class="table">
+												<tr>
+													<td class="text-left">
+														<c:if test="${rvo.g_tab>0 }">
+															<c:forEach var="i" begin="1" end="${rvo.g_tab }">
+																&nbsp;&nbsp;
+															</c:forEach>
+															<img src="../qna/re_icon.png">
+														</c:if>
+														▼${rvo.name}(<span style="color:blue">${rvo.dbday }</span>)
+													</td>
+													<td class="text-left">
+													  <c:if test="${sessionScope.id!=null }">
+														<c:if test="${sessionScope.id==rvo.id }"> <%-- 작성자 본인일 때 댓글 수정/삭제 --%>
+															<span class="btn btn-xs btn-danger" data-no="${rvo.no }">수정</span>
+															<a href="../qna/reply_delete.do?no=${rvo.no }&bno=${vo.no}&page=${page}" class="btn btn-xs btn-danger">삭제</a>
+														</c:if>
+														<span class="btn btn-xs btn-info replys" data-no=${rvo.no }>답글</span>
+													  </c:if>
+													</td>
+												</tr>
+												<tr>
+													<td colspan="2" valign="top">
+													  <pre style="white-space:pre-wrap;background-color:white;border:none">${rvo.msg }</pre>
+													</td>
+												</tr>
+											</table>
+											<%-- 수정폼 --%>
+											<table class="table up" style="display:none" id="u${rvo.no }">
+												<tr>
+													<td class="inline">
+														<form method="post" action="../qna/reply_update.do">
+															<input type="hidden" name="no" value="${rvo.no }">
+															<input type="hidden" name="bno" value="${vo.no }"><%-- 게시물번호 --%>
+															<input type="hidden" name="page" value="${page}">
+															<textarea rows="4" cols="90" name="msg" style="float:left">${rvo.msg }</textarea>
+															<input type="submit" value="댓글수정" class="btn btn-danger" style="height:80;float:left">						
+														</form>
+													</td>
+												</tr>
+											</table>
+											<%-- 답글폼 --%>
+											<table class="table reply" style="disply:none" id="r${rvo.no }">
+												<tr>
+													<td class="inline">
+														<form method="post" action="../qna/reply_reply_insert.do">
+															<input type="hidden" name="pno" value="${rvo.no }">
+															<input type="hidden" name="bno" value="${vo.no }">
+															<input type="hidden" name="page" value="${page}">
+															<textarea rows="4" cols="90" name="msg" style="float:left"></textarea>
+															<input type="submit" value="답글등록" class="btn btn-danger" style="height:80;float:left">						
+														</form>
+													</td>
+												</tr>
+											</table>
+										</c:forEach>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<c:if test="${sessionScope.id!=null }"><%-- 로그인 된 상태 --%>
+							<div class="row">
+								<table class="table">
+									<tr>
+										<td class="inline">
+											<form method="post" action="../qna/reply_insert.do">
+												<input type="hidden" name="bno" value="${vo.no }">
+												<input type="hidden" name="page" value="${page}">
+												<textarea rows="4" cols="90" name="msg" style="float:left"></textarea>
+												<input type="submit" value="댓글등록" class="btn btn-danger" style="height:80;float:left">						
+											</form>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</c:if>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-<!--
-	<%-- 댓글 출력 --%>
-	<div class="row">
-		<table class="table">
-			<tr>
-				<td>
-					<c:forEach var="rvo" items="${list }">
-						<table class="table">
-							<tr>
-								<td class="text-left">
-									<c:if test="${rvo.g_tab>0 }">
-										<c:forEach var="i" begin="1" end="${rvo.g_tab }">
-											&nbsp;&nbsp;
-										</c:forEach>
-										<img src="../qna/re_icon.png">
-									</c:if>
-									▼${rvo.name}(<span style="color:blue">${rvo.dbday }</span>)
-								</td>
-								<td class="text-left">
-								  <c:if test="${sessionScope.id!=null }">
-									<c:if test="${sessionScope.id==rvo.id }"> <%-- 작성자 본인일 때 댓글 수정/삭제 --%>
-										<span class="btn btn-xs btn-danger" data-no="${rvo.no }">수정</span>
-										<a href="../qna/reply_delete.do?no=${rvo.no }&bno=${vo.no}&page=${page}" class="btn btn-xs btn-danger">삭제</a>
-									</c:if>
-									<span class="btn btn-xs btn-info replys" data-no=${rvo.no }>답글</span>
-								  </c:if>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2" valign="top">
-								  <pre style="white-space:pre-wrap;background-color:white;border:none">${rvo.msg }</pre>
-								</td>
-							</tr>
-						</table>
-						<%-- 수정폼 --%>
-						<table class="table up" style="display:none" id="u${rvo.no }">
-							<tr>
-								<td class="inline">
-									<form method="post" action="../qna/reply_update.do">
-										<input type="hidden" name="no" value="${rvo.no }">
-										<input type="hidden" name="bno" value="${vo.no }"><%-- 게시물번호 --%>
-										<input type="hidden" name="page" value="${page}">
-										<textarea rows="4" cols="90" name="msg" style="float:left">${rvo.msg }</textarea>
-										<input type="submit" value="댓글수정" class="btn btn-danger" style="height:80;float:left">						
-									</form>
-								</td>
-							</tr>
-						</table>
-						<%-- 답글폼 --%>
-						<table class="table reply" style="disply:none" id="r${rvo.no }">
-							<tr>
-								<td class="inline">
-									<form method="post" action="../qna/reply_reply_insert.do">
-										<input type="hidden" name="pno" value="${rvo.no }">
-										<input type="hidden" name="bno" value="${vo.no }">
-										<input type="hidden" name="page" value="${page}">
-										<textarea rows="4" cols="90" name="msg" style="float:left"></textarea>
-										<input type="submit" value="답글등록" class="btn btn-danger" style="height:80;float:left">						
-									</form>
-								</td>
-							</tr>
-						</table>
-					</c:forEach>
-				</td>
-			</tr>
-		</table>
-	</div>
-	<c:if test="${sessionScope.id!=null }"><%-- 로그인 된 상태 --%>
-		<div class="row">
-			<table class="table">
-				<tr>
-					<td class="inline">
-						<form method="post" action="../qna/reply_insert.do">
-							<input type="hidden" name="bno" value="${vo.no }">
-							<input type="hidden" name="page" value="${page}">
-							<textarea rows="4" cols="90" name="msg" style="float:left"></textarea>
-							<input type="submit" value="댓글등록" class="btn btn-danger" style="height:80;float:left">						
-						</form>
-					</td>
-				</tr>
-			</table>
-		</div>
-	</c:if>
-	 -->
 </body>
 </html>

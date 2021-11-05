@@ -55,7 +55,7 @@
 				      <form method="post" action="../qna/insert_ok.do">
 					      <table class="table">
 					       <tr>
-					         <th width=25%>이름</th>
+					         <th width=25%>작성자</th>
 					         <td width=75%>
 					          <input type=text name=id size=15 class="input-sm" value="${sessionScope.id}" readonly>
 					         </td> 
@@ -80,7 +80,7 @@
 					       </tr>
 					       <tr>
 					         <td colspan="2" class="text-center">
-					          <button class="btn btn-sm btn-success">글쓰기</button>
+					          <button class="btn btn-sm btn-success">등록</button>
 					          <input type=button value="취소" class="btn btn-sm btn-danger"
 					           onclick="javascript:history.back()">
 					         </td>
