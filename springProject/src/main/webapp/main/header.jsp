@@ -92,6 +92,7 @@ $(function(){
                                 <li class="nav-item">
                                     <a class="nav-link" href="../main/main.do">Home</a>
                                 </li>
+                                <!-- 인기상품 -->
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_1"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -103,6 +104,7 @@ $(function(){
                                         </c:forEach>
                                     </div>
                                 </li>
+                                <!-- 인테리어 커뮤니티 -->
                                 	<li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_1"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -114,6 +116,7 @@ $(function(){
                                     	<a class="dropdown-item" href="../comm/list.do"> 커뮤니티</a> <!-- 인테리어 정보 공유 커뮤니티 -->
                                     </div>
                                 </li>
+                                <!-- 중고거래 -->
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="../second/list.do?cate1=OA" id="navbarDropdown_3"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -125,10 +128,12 @@ $(function(){
                                         </c:forEach>
                                     </div>
                                 </li>
+                                <!-- QNA -->
                                 <li class="nav-item">
                                 	<!-- QnA 모아보기(비밀게시글은 admin,본인만 보기 가능 / 분류별 글쓰기(배송,물품,시공,등등...) / 검색가능(제목,내용) / 첫페이지는 모두 출력, 분류 선택시 해당 분류 문의만 모아보기) -->
                                     <a class="nav-link" href="../qna/list.do">QnA</a>
                                 </li>
+                                <!-- 이벤트 -->
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_1"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -139,8 +144,9 @@ $(function(){
                                     	<a class="dropdown-item" href="../event/list.do">이벤트</a> <!-- 이벤트 공지 - 댓글, 하트 등 -->
                                     </div>
                                 </li>
+                                
+                                <!-- 프로젝트 마무리할때 지우기!! -->
                                 <li class="nav-item dropdown">
-                                    <!-- 프로젝트 마무리할때 지우기 -->
                                     <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_2"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                        	ui참고
@@ -159,34 +165,33 @@ $(function(){
                                     	<a class="dropdown-item" href="../template/contact.html">Contact</a>
                                     </div>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    
-                                    
-                                        <c:if test="${sessionScope.id==null }">
+                                <li class="nav-item dropdown"> 
+                                    <!-- 회원(로그인 X) -->
+                                    <c:if test="${sessionScope.id==null }">
                                     <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_1"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        회원
-                                    </a>
-                                    
+                                        회원</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="../member/join.do">회원가입</a>
                                         <a class="dropdown-item" href="../member/idfind.do">아이디찾기</a> 
                                         <a class="dropdown-item" href="../member/pwdfind.do">비밀번호찾기</a> 
-                                        </c:if>
-                                        
-                                        <c:if test="${sessionScope.id!=null && sessionScope.admin=='n' }">
-                                    <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_1"
+                                    </div>
+                                    </c:if>
+                                   
+                                    <!-- 마이페이지(로그인 O) -->
+                                    <c:if test="${sessionScope.id!=null && sessionScope.admin=='n' }">
+                                    	<a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_1"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        마이페이지
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="../page/mypage.do">마이페이지</a>
-                                        <a class="dropdown-item" href="../page/myinterestpage.do">관심목록</a>
-                                        <a class="dropdown-item" href="../page/mybuypage.do">구매내역</a>
-                                        <a class="dropdown-item" href="../page/mysellpage.do">판매내역</a>
-                                        <a class="dropdown-item" href="../member/join_update.do">회원정보수정</a>
-                                        <a class="dropdown-item" href="../member/join_delete.do">회원탈퇴</a>
-                                        </c:if>
+                                        마이페이지</a>
+		                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+		                                        <a class="dropdown-item" href="../page/mypage.do">마이페이지</a>
+		                                        <a class="dropdown-item" href="../page/myinterestpage.do">관심목록</a>
+		                                        <a class="dropdown-item" href="../page/mybuypage.do">구매내역</a>
+		                                        <a class="dropdown-item" href="../page/mysellpage.do">판매내역</a>
+		                                        <a class="dropdown-item" href="../member/join_update.do">회원정보수정</a>
+		                                        <a class="dropdown-item" href="../member/join_delete.do">회원탈퇴</a>
+		                                     </div>
+                                       </c:if>
                                         
                                         <c:if test="${sessionScope.id!=null && sessionScope.admin=='y' }">
                                         <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_1"
@@ -196,12 +201,8 @@ $(function(){
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="../page/mypage.do">마이페이지</a>
                                         <a class="dropdown-item" href="../page/adminpage.do">관리자페이지</a>
-                                        </c:if>
-                                        
                                     </div>
-                                    
-                                    
-                                    
+                                   </c:if>   
                                 </li>
                             </ul>
                         </div>
