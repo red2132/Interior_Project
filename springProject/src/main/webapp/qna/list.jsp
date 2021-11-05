@@ -28,6 +28,15 @@
     <link rel="stylesheet" href="css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="css/style.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#insertBtn').click(function(){
+		//1. 로그인(sessionScope!=null): 정상적으로 글쓰기(../qna/insert.do) 수행 // 비로그인: 로그인페이지로 이동
+		
+	})
+})
+</script>    
 </head>
 <body>
 	<!--================Home Banner Area =================-->
@@ -56,10 +65,11 @@
 	                    <table class="table">
 	                    	<tr>
 	                    		<td>
-	                    			<a href="../qna/insert.do" class="btn btn-xs btn-danger">글쓰기</a>
+		                    		<a href="../qna/insert.do" class="btn btn-xs btn-danger" id="insertBtn">글쓰기</a>
 	                    		</td>
 	                    	</tr>
 	                    </table>
+						<%-- 목록 출력 Start --%>
 						<div>
 							<table class="table">
 						       <tr>
@@ -87,30 +97,36 @@
 							       </tr>
 						       </c:forEach>
 						     </table>
-						</div>                    
-	                	<%-- 페이징 --%>
+						</div>     
+						<%-- 목록 출력 End --%>  
+						             
+	                	<%-- 페이징 Start --%>
 	                    <nav class="blog-pagination justify-content-center d-flex">
-	                        <ul class="pagination">
-	                        	<c:if test="${startPage>1 }">
-	                        		<li class="page-item">
-	                        			<a href="../qna/list.do?page=${curpage>1?curpage-1:curpage }" class="page-link" aria-label="Previous"><i class="ti-angle-left"></i></a>
-	                        		</li>
-	                            </c:if>
-	                            <c:forEach var="i" begin="${startPage }" end="${endPage }">
-	                            	<c:if test="${i==curpage }">
-	                            		<li class="page-item active"><a href="../qna/list.do?page=${i }" class="page-link">${i }</a></li>
-	                            	</c:if>
-	                            	<c:if test="${i!=curpage }">
-	                            		<li class="page-item"><a href="../qna/list.do?page=${i }" class="page-link">${i }</a></li>
-	                            	</c:if>
+                            <ul class="pagination">
+                             	<c:if test="${startPage>1 }">
+                                	<li class="page-item">
+                                    	<a href="../qna/list.do?page=${startPage-1 }" class="page-link" aria-label="Previous"><i class="ti-angle-left"></i></a>
+                                	</li>
+                             	</c:if>
+                             	<c:forEach var="i" begin="${startPage }" end="${endPage }">
+                               		<c:if test="${i==curpage }">
+                               			<c:set var="style" value="page-item active"/>
+	                               	</c:if>
+    	                           	 <c:if test="${i!=curpage }">
+        	    						<c:set var="style" value="page-item"/>
+	          						</c:if>
+    	                            <li class="${style }">
+        	                            <a href="../qna/list.do?page=${i }" class="page-link">${i }</a>
+	                                </li>
 	                            </c:forEach>
 	                            <c:if test="${endPage<totalpage }">
-	                            	<li class="page-item">
-	                            		<a href="#" class="page-link" aria-label="Next"><i class="ti-angle-right"></i></a>
-	                            	</li>
-	                            </c:if>
-	                        </ul>
-                    	</nav>
+                                	<li class="page-item">
+                                    	<a href="../qna/list.do?page=${endPage+1 }" class="page-link" aria-label="Next"><i class="ti-angle-right"></i></a>
+    	                            </li>
+    	                        </c:if>
+                            </ul>
+                        </nav>
+                        <%-- 페이징 End --%>
                     </div>
                 </div>
             </div>

@@ -78,6 +78,22 @@ $(function(){
 </head>
 <body>
 	<!--================Home Banner Area =================-->
+    <!-- breadcrumb start-->
+    <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="breadcrumb_iner">
+                        <div class="breadcrumb_iner_item">
+                            <h2>Q&A</h2>
+                            <p>Q&A <span>-</span> 질문하기</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb start-->
     <!--================Blog Area =================-->
     <section class="blog_area padding_top">
         <div class="container">
@@ -108,8 +124,10 @@ $(function(){
 							</tr>
 							<tr>
 								<td colspan="4" class="text-right">
-									<a href="../qna/update.do?no=${vo.no }&page=${page }" class="btn btn-xs btn-info">수정</a>
-									<a href="../qna/delete.do?no=${vo.no }&page=${page }" class="btn btn-xs btn-success">삭제</a>
+									<c:if test="${sessionScope.id==vo.id }">
+										<a href="../qna/update.do?no=${vo.no }&page=${page }" class="btn btn-xs btn-info">수정</a>
+										<a href="../qna/delete.do?no=${vo.no }&page=${page }" class="btn btn-xs btn-success">삭제</a>
+									</c:if>
 									<a href="../qna/list.do?no=page=${page }" class="btn btn-xs btn-primary">목록</a>
 								</td>
 							</tr>

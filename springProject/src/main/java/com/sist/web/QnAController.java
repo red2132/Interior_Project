@@ -24,10 +24,10 @@ public class QnAController {
 		if(page==null)
 			page="1";
 		int curpage=Integer.parseInt(page);
-		int rowSize=5;
+		Map map=new HashMap();
+		int rowSize=10;
 		int end=(rowSize*curpage);
 		int start=end-rowSize+1;
-		Map map=new HashMap();
 		map.put("start", start);
 		map.put("end", end);
 		List<QnAVO> qnaList=dao.qnaBoardListData(map);
