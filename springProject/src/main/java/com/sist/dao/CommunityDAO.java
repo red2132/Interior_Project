@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sist.mapper.CommunityMapper;
@@ -64,7 +65,7 @@ public class CommunityDAO {
 	 }
 	 
 	 
-	 
+	 @Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	 public int communityDelete(int no,String pwd)
 		{
 		 int result=0;
@@ -116,5 +117,35 @@ public class CommunityDAO {
 	 public void replyUpdate(CommReplyVO vo)
 	 {
 		 mapper.replyUpdate(vo);
-	 }	 		
+	 }
+	 
+	 //대댓글 삽입
+	 @Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	 public void replyreplyInsert(int pno,CommReplyVO vo)
+	 {
+		 CommReplyVO pvo=mapper.replyParentInfoData(pno);
+		 vo.setGroup_id(pvo.getGroup_id());
+		 vo.setGroup_step(pvo.getGroup_step()+1);
+		 vo.setGroup_tab(pvo.getGroup_tab()+1);
+		 vo.setRoot(pno);
+		 mapper.replyStepIncrement(pvo);
+		 mapper.reply2Insert(vo);
+		 mapper.replyDepthIncrement(pno);
+	 }	 
+	 
+	 @Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	 public void replyDelelte(int no)
+	 {
+		 CommReplyVO vo=mapper.replyDepthInfoData(no);
+		 if(vo.getDepth()==0)
+		 {
+			 mapper.replyDelete(no);
+		 }
+		 else
+		 {
+			 mapper.replyMsgUpdate(no);
+		 }
+		 mapper.replyDepthDecrement(vo.getRoot());
+	 }
+	 
 }

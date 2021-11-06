@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +34,7 @@ public class CommunityController {
 	private CommunityDAO dao;
 	
 	@GetMapping("comm/list.do")
-	public String clist(String page,Model model)
+	public String clist(String page,Model model,HttpServletRequest request)
 	{
 		//목록
 		if(page==null)
@@ -60,8 +63,38 @@ public class CommunityController {
 		model.addAttribute("startPage",startPage);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("cList", cList);
+		
+		
+		Cookie[] cookies=request.getCookies();
+		List<CommunityVO> ccList=new ArrayList<CommunityVO>();
+		   if(cookies!=null && cookies.length>0) //쿠키에 값이 존재 할때
+		   {
+			   for(int i=cookies.length-1;i>=0;i--) // 저장된 역순으로 (최신)
+			   {
+				   System.out.println(cookies[i].getName());
+				   if(cookies[i].getName().startsWith("c"))
+				   {					  
+					   String no=cookies[i].getValue(); // 번호 
+					   CommunityVO vo=dao.cDetail(Integer.parseInt(no));
+					   ccList.add(vo);
+				   }
+			   }
+		   }
+		model.addAttribute("ccList",ccList);
 		model.addAttribute("main_jsp", "../comm/list.jsp");
 		return "main/main";
+	}
+	//쿠키 저장
+	@GetMapping("comm/detail_before.do")
+	public String detail_before(int no,int page, HttpServletResponse response,RedirectAttributes attr)
+	{
+		Cookie cookie=new Cookie("c"+no,String.valueOf(no));
+		cookie.setPath("/");
+		cookie.setMaxAge(60*60*24);
+		response.addCookie(cookie);
+		attr.addAttribute("no",no);
+		attr.addAttribute("page",page);
+		return "redirect:../comm/detail.do";
 	}
 	
 	//상세보기
@@ -226,5 +259,33 @@ public class CommunityController {
 		attr.addAttribute("page",page);
 		return "redirect:../comm/detail.do";
 	}
+	
+	//대댓글 입력
+	@PostMapping("comm/reply_reply_insert.do")
+	public String reply2_insert(int pno,int bno, int page, String msg,
+			HttpSession session, RedirectAttributes attr)
+	{
+		CommReplyVO vo=new CommReplyVO();
+		String id=(String)session.getAttribute("id");
+		vo.setMsg(msg);
+		vo.setId(id);
+		vo.setBno(bno);
+		
+		dao.replyreplyInsert(pno, vo);
+		attr.addAttribute("no",bno);
+		attr.addAttribute("page",page);
+		return "redirect:../comm/detail.do";
+	}
+	
+	//댓글 삭제
+	@GetMapping("comm/reply_delete.do")
+	public String reply_delete(int no,int bno, int page, RedirectAttributes attr)
+	{
+		dao.replyDelelte(no);
+		attr.addAttribute("no",bno);
+		attr.addAttribute("page",page);
+		return "redirect:../comm/detail.do";
+	}
+	
 	
 }

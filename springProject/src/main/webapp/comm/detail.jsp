@@ -5,10 +5,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>커뮤니티 상세보기</title>
+<style type="text/css">
+.comment-list{
+	padding-bottom: 30px !important;
+}
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script>
+let u=0;
+let r=0;
 $(function(){
 	$('#delBtn').click(function(){
 		$("#checkDialog").dialog({
@@ -53,6 +61,44 @@ $(function(){
 		    }
 		})
 	})
+	
+	$('.updates').click(function(){
+		$('.up').hide();
+		$('.reply').hide();
+		// 수정창을 연다 
+		let no=$(this).attr("data-no");
+		if(u==0) // show
+		{
+			$(this).text("");
+			$('#u'+no).show();
+			u=1;
+		}
+		else // hide
+		{
+			$('#u'+no).hide();
+			$(this).text("");
+			u=0;
+		}
+	})
+	
+	$('.replys').click(function(){
+		$('.up').hide(); 
+		$('.reply').hide();
+		// 수정창을 연다 
+		let no=$(this).attr("data-no");
+		if(r==0) // show
+		{
+			$(this).text("");
+			$('#r'+no).show();
+			r=1;
+		}
+		else // hide
+		{
+			$('#r'+no).hide();
+			$(this).text("");
+			r=0;
+		}
+	})
 })
 </script>
 <style type="text/css">
@@ -78,9 +124,9 @@ $(function(){
                          <li>${vo.dbday }</li>
                      </ul>                         
                      <p class="excert">
-                     <table class="progress-table col-lg-7">
-							<tr>
-								<td class="text-center" height="60px">${vo.hsize}</td>
+                     <table class="table col-lg-7">
+							<tr class="active">
+								<td class="text-center">${vo.hsize}</td>
 								<td class="text-center">${vo.hstyle}</td>
 								<td class="text-center">${vo.rstyle}</td>
 								<td class="text-center">${vo.family}</td>
@@ -107,97 +153,112 @@ $(function(){
 					</c:if>
                   </div>
                </div>
-               <div class="comments-area">
-                  <h4>05 Comments</h4>
-                 <c:forEach var="rvo" items="${rList }">
+<div class="comments-area"> 
+               	  <h4>댓글</h4>
+                  <!-- 댓글 출력 위치 -->
+                  <c:forEach var="rvo" items="${rList }">
                   <div class="comment-list">
+                  <div class="buttons_reply">
+					<c:if test="${sessionScope.id!=null }">
+                    <c:if test="${sessionScope.id==rvo.id }">
+                         <a class="far fa-edit updates" data-no=${rvo.no } style="float:right; margin-top:3px; margin-left: 3px;"></a>
+                         <a href="../comm/reply_delete.do?no=${rvo.no }&bno=${vo.no}&page=${page}"
+                         style="float:right;"><i class="far fa-trash-alt"></i></a>	
+					</c:if> 
+                         <a class="far fa-comment-dots replys" data-no=${rvo.no } style="float:right; margin-top:3px; margin-right: 3px;"></a>  
+					</c:if>
+					</div>
+				   </div>
+				   	 <c:if test="${rvo.group_tab>0 }">
+	               		<c:forEach var="i" begin="1" end="${rvo.group_tab }">
+	                 		&nbsp;&nbsp;
+	               		</c:forEach>
+	               	   		<i class="fas fa-reply" style="padding-bottom:5px;color:pink;"></i>
+	             	 </c:if>                           
                      <div class="single-comment justify-content-between d-flex">
                         <div class="user justify-content-between d-flex">
-                           <div class="thumb">
-                              <img src="img/comment/comment_1.png" alt="">
-                           </div>
                            <div class="desc">
-                              <p class="comment">
-                                 ${rvo.msg }
-                              </p>
+                              <p class="comment">${rvo.msg }</p>
                               <div class="d-flex justify-content-between">
                                  <div class="d-flex align-items-center">
-                                    <h5>${rvo.id }</h5>
-                                    <p class="date">${rvo.dbday } </p>
-                                 </div>
-                                 <div class="reply-btn">
-                                    <a href="#" class="btn-reply text-uppercase">reply</a>
+                                    <h5>
+                                       <a href="#">${rvo.id }</a>
+                                    </h5>
+                                    <p class="date" style="margin-top:10px;margin-left:10px !important;">${rvo.dbday }</p>
                                  </div>
                               </div>
                            </div>
                         </div>
                      </div>
-                  </div>
-                </c:forEach>
+               
+               <!-- 댓글 수정 -->
+               <div class="comment-form up" id="u${rvo.no}" style="display:none;margin-bottom:30px;" >
+                  <form class="form-contact comment_form" method="post" action="../comm/reply_update.do">
+                     <div class="row">
+                        <div class="col-12">
+                           <div class="form-group">
+                           	  <input type="hidden" name="no" value="${rvo.no }">
+		        			  <input type="hidden" name="bno" value="${vo.no }">
+		        			  <input type="hidden" name="page" value="${page }">
+                              <textarea class="form-control w-100" name="msg" cols="30" rows="5"
+                                 placeholder="내용">${rvo.msg }</textarea>
+		                     <div class="form-group mt-3">
+		                        <input type=submit value="수정" class="genric-btn primary circle" style="float:right;" />
+		                     </div>
+                     		</div>
+                    	</div>
+                     </div>
+                  </form>
                </div>
                
-              <c:if test="${sessionScope.id!=null }">
+               <!-- 대댓글 폼 -->
+               <div class="comment-form reply" id="r${rvo.no}" style="display:none;margin-bottom:30px;" >
+                  <form class="form-contact comment_form" method="post" action="../comm/reply_reply_insert.do">
+                     <div class="row">
+                        <div class="col-12">
+                           <div class="form-group">
+                           	  <input type="hidden" name="pno" value="${rvo.no }">
+		        			  <input type="hidden" name="bno" value="${vo.no }">
+		        			  <input type="hidden" name="page" value="${page }">
+                              <textarea class="form-control w-100" name="msg" cols="30" rows="5"
+                                 placeholder="대댓글 달기"></textarea>
+                              <div class="form-group mt-3">
+                        		<input type=submit value="작성" class="genric-btn primary circle" style="float:right;" />
+                     		</div>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+               </c:forEach>
+                
+               <!-- 댓글 폼 -->
+               <c:if test="${sessionScope.id!=null }">
                <div class="comment-form">
-                  <form method="post" action="../comm/reply_insert.do">
+                  <h4>작성</h4>
+                  <form class="form-contact comment_form" method="post" action="../comm/reply_insert.do">
                      <div class="row">
                         <div class="col-12">
                            <div class="form-group">
                            	  <input type="hidden" name="bno" value="${vo.no }">
-                           	  <input type="hidden" name="page" value="${page }">
-                           	  <input type="hidden" name="id" value="${sessionScope.id }">
-                              <textarea class="form-control w-100" name=msg id="msg" cols="30" rows="9"
-                                 placeholder="Write Comment"></textarea>
+		        			  <input type="hidden" name="page" value="${page }">
+                              <textarea class="form-control w-100" name="msg" cols="30" rows="5"
+                                 placeholder="내용"></textarea>
                            </div>
                         </div>
                      </div>
                      <div class="form-group mt-3">
-                        <button class="btn_3 button-contactForm">댓글쓰기</button>
+                        <input type=submit class="genric-btn primary circle" value="작성"/>
                      </div>
                   </form>
                </div>
-              </c:if>
+               </c:if>
+              </div>
+               
+
             </div>
             <div class="col-lg-4">
                <div class="blog_right_sidebar">
-                  <aside class="single_sidebar_widget popular_post_widget">
-                     <h3 class="widget_title">Recent Post</h3>
-                     <div class="media post_item">
-                        <img src="img/post/post_1.png" alt="post">
-                        <div class="media-body">
-                           <a href="single-blog.html">
-                              <h3>From life was you fish...</h3>
-                           </a>
-                           <p>January 12, 2019</p>
-                        </div>
-                     </div>
-                     <div class="media post_item">
-                        <img src="img/post/post_2.png" alt="post">
-                        <div class="media-body">
-                           <a href="single-blog.html">
-                              <h3>The Amazing Hubble</h3>
-                           </a>
-                           <p>02 Hours ago</p>
-                        </div>
-                     </div>
-                     <div class="media post_item">
-                        <img src="img/post/post_3.png" alt="post">
-                        <div class="media-body">
-                           <a href="single-blog.html">
-                              <h3>Astronomy Or Astrology</h3>
-                           </a>
-                           <p>03 Hours ago</p>
-                        </div>
-                     </div>
-                     <div class="media post_item">
-                        <img src="img/post/post_4.png" alt="post">
-                        <div class="media-body">
-                           <a href="single-blog.html">
-                              <h3>Asteroids telescope</h3>
-                           </a>
-                           <p>01 Hours ago</p>
-                        </div>
-                     </div>
-                  </aside>
                   <aside class="single_sidebar_widget tag_cloud_widget">
                      <h4 class="widget_title">Tag Clouds</h4>                    
                      <ul class="list">

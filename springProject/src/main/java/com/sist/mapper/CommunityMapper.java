@@ -115,8 +115,7 @@ public interface CommunityMapper {
 		 		+ "WHERE tags like '%'||#{tag}||'%'")
 	 public String numberTagFind(String tag);
 	 
-////////////////////////~여기서부터 댓글~/////////////////////////////////////////////
-	 
+////////////////////////~여기서부터 댓글~/////////////////////////////////////////////	 	 
 	 //댓글 올리기
 	 @SelectKey(keyProperty="no", resultType=int.class, before=true,
 		     statement="SELECT NVL(MAX(no)+1,1) as no FROM house_comm_reply")
@@ -129,7 +128,7 @@ public interface CommunityMapper {
 	 @Select("SELECT no,bno,id,msg,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday,group_id,group_step,group_tab,root,depth "
 			 +"FROM house_comm_reply "
 			 +"WHERE bno=#{bno}"  
-			 +"ORDER BY group_id DESC , group_step ASC") // group_id DESC (최신순) group_step ASC(답변 순서)
+			 +"ORDER BY group_id ASC , group_step ASC") // group_id DESC (최신순) group_step ASC(답변 순서)
 	  public List<CommReplyVO> replyListData(int bno);
 	 
 	 //댓글 수정
@@ -150,8 +149,8 @@ public interface CommunityMapper {
 			 +"WHERE group_id=#{group_id} AND group_step>#{group_step}")
 	  public void replyStepIncrement(CommReplyVO vo);
 	  // 3. insert : INSERT
-	  @Insert("INSERT INTO house_comm_reply(no,bno,id,name,msg,group_id,group_step,group_tab,root) "
-			 +"VALUES(srp_no_seq.nextval,#{bno},#{id},#{name},#{msg},"
+	  @Insert("INSERT INTO house_comm_reply(no,bno,id,msg,group_id,group_step,group_tab,root) "
+			 +"VALUES(srp_no_seq.nextval,#{bno},#{id},#{msg},"
 			 +"#{group_id},#{group_step},#{group_tab},#{root})")
 	  public void reply2Insert(CommReplyVO vo);
 	  // 4. depth 증가 : UPDATE 
@@ -171,7 +170,7 @@ public interface CommunityMapper {
 			 +"WHERE no=#{no}")
 	  public void replyDelete(int no);
 	  @Update("UPDATE house_comm_reply SET "
-			 +"msg='관리자가 삭제한 댓글입니다.' "
+			 +"msg='삭제된 댓글입니다.' "
 			 +"WHERE no=#{no}")
 	  public void replyMsgUpdate(int no);
 	  // 3. depth 감소  UPDATE 

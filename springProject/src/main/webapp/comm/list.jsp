@@ -28,6 +28,12 @@
     <link rel="stylesheet" href="css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="css/style.css">
+<style type="text/css">
+#dd{
+  height: 60px;
+  width: 60px;
+}
+</style>
 </head>
 
 <body>
@@ -38,13 +44,14 @@
                 <div class="col-lg-8 mb-5 mb-lg-0">
                     <div class="blog_left_sidebar">
                       <c:forEach var="vo" items="${cList }">
+                      
                         <article class="blog_item">
                             <div class="blog_item_img">
                                 <img class="card-img rounded-0"  src="${vo.filename }">
                             </div>
 
                             <div class="blog_details">
-                                <a class="d-inline-block" href="detail.do?no=${vo.no }&page=${curpage}">
+                                <a class="d-inline-block" href="detail_before.do?no=${vo.no }&page=${curpage}">
                                     <h2>${vo.subject }</h2>
                                 </a>
                                 <ul class="blog-info-link">
@@ -53,6 +60,8 @@
                                 </ul>
                             </div>
                         </article>
+                       
+                       
 					</c:forEach>
                         <nav class="blog-pagination justify-content-center d-flex">
                             <ul class="pagination">
@@ -132,46 +141,20 @@
 						<button class="genric-btn success-border circle arrow">search<span
 						class="lnr lnr-arrow-right"></span></button>
 						</form>
-                  </aside>
-                        
+                  </aside>                       
                   <aside class="single_sidebar_widget popular_post_widget">
-                     <h3 class="widget_title">Recent Post</h3>
-                     <div class="media post_item">
-                        <img src="img/post/post_1.png" alt="post">
+                     <h3 class="widget_title">최근 본 게시물</h3>  
+                      <c:forEach var="vo" items="${ccList }">                                       
+                     <div class="media post_item">                   
+                        <img src="${vo.filename }" id="dd">
                         <div class="media-body">
-                           <a href="single-blog.html">
-                              <h3>From life was you fish...</h3>
+                           <a href="detail_before.do?no=${vo.no }&page=${curpage}">
+                              <h3>${vo.subject }</h3>
                            </a>
-                           <p>January 12, 2019</p>
-                        </div>
-                     </div>
-                     <div class="media post_item">
-                        <img src="img/post/post_2.png" alt="post">
-                        <div class="media-body">
-                           <a href="single-blog.html">
-                              <h3>The Amazing Hubble</h3>
-                           </a>
-                           <p>02 Hours ago</p>
-                        </div>
-                     </div>
-                     <div class="media post_item">
-                        <img src="img/post/post_3.png" alt="post">
-                        <div class="media-body">
-                           <a href="single-blog.html">
-                              <h3>Astronomy Or Astrology</h3>
-                           </a>
-                           <p>03 Hours ago</p>
-                        </div>
-                     </div>
-                     <div class="media post_item">
-                        <img src="img/post/post_4.png" alt="post">
-                        <div class="media-body">
-                           <a href="single-blog.html">
-                              <h3>Asteroids telescope</h3>
-                           </a>
-                           <p>01 Hours ago</p>
-                        </div>
-                     </div>
+                           <p>${vo.dbday }</p>
+                        </div>                       
+                     </div> 
+                     </c:forEach>                                      
                   </aside>                     
                     </div>
                 </div>
