@@ -7,7 +7,14 @@ public class CommunityVO {
 	private int no;
 	private String id,subject,content,pwd,dbday,hit,filename,filesize,hstyle,hsize,rstyle,family,tags;
 	private List<MultipartFile> files;
+	private int cnt;
 	
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
 	public List<MultipartFile> getFiles() {
 		return files;
 	}

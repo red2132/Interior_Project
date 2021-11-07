@@ -56,6 +56,7 @@
                                 </a>
                                 <ul class="blog-info-link">
                                     <li><i class="far fa-user"></i>${vo.id}</li>
+                                    <li><i class="far fa-comments"></i> ${vo.cnt } Comment</li>
                                     <li>${vo.dbday }</li>
                                 </ul>
                             </div>

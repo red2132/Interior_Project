@@ -154,7 +154,17 @@ $(function(){
                   </div>
                </div>
 <div class="comments-area"> 
-               	  <h4>댓글</h4>
+				<c:if test="${vo.cnt!=0 }">
+               	  <h4>${vo.cnt}&nbsp;Comments</h4>             	  
+               	</c:if>
+               	<c:if test="${vo.cnt==0 }">
+               		<c:if test="${sessionScope.id==null}">
+               			<h4>로그인 하시고 첫 댓글을 달아보세요!</h4>
+               		</c:if>               		
+               		<c:if test="${sessionScope.id!=null && sessionScope.admin=='n' }">
+               	  		<h4>댓글을 달아주세요!</h4>
+               		</c:if>
+               	</c:if>              	
                   <!-- 댓글 출력 위치 -->
                   <c:forEach var="rvo" items="${rList }">
                   <div class="comment-list">

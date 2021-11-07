@@ -15,9 +15,11 @@ import com.sist.vo.CommunityVO;
 public interface CommunityMapper {
 	
 	//커뮤니티 그냥 목록 출력
-	@Select("SELECT no,id,subject,content,pwd,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,filename,filesize,hstyle,hsize,rstyle,family,tags,num "
-			+ "FROM (SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags,rownum as num "
-			+ "FROM (SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags "
+	@Select("SELECT no,id,subject,content,pwd,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,filename,filesize,hstyle,hsize,rstyle,family,tags,cnt,num "
+			+ "FROM (SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags,cnt,rownum as num "
+			+ "FROM (SELECT no,id,subject,content,pwd,regdate,hit,filename,filesize,hstyle,hsize,rstyle,family,tags,"
+			+ "(select count(*) from house_comm_reply where house_comm_reply.bno = house_community.no "
+			+ "AND house_comm_reply.msg not like '%'||'삭제된 댓글입니다.'||'%') as cnt "
 			+ "FROM house_community)) "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<CommunityVO> cList(Map map);
@@ -32,7 +34,9 @@ public interface CommunityMapper {
 			  +"WHERE no=#{no}")
 	public void hitIncrement(int no);
 	 
-	@Select("SELECT no,id,subject,content,pwd,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,filename,filesize,hstyle,hsize,rstyle,family,tags "
+	@Select("SELECT no,id,subject,content,pwd,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,filename,filesize,hstyle,hsize,rstyle,family,tags,"
+			+ "(select count(*) from house_comm_reply where house_comm_reply.bno = house_community.no "
+			+ "AND house_comm_reply.msg not like '%'||'삭제된 댓글입니다.'||'%') as cnt "
 			+ "FROM house_community WHERE no=#{no}")
 	public CommunityVO cDetail(int no);
 	
@@ -71,7 +75,9 @@ public interface CommunityMapper {
 	  // 필터 => 동적 쿼리 (마이바티스)
 	 @Select({
 		  "<script>"
-		  +"SELECT no,id,subject,content,pwd,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,filename,filesize,hstyle,hsize,rstyle,family,tags "
+		  +"SELECT no,id,subject,content,pwd,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,filename,filesize,hstyle,hsize,rstyle,family,tags,"
+		  + "(select count(*) from house_comm_reply where house_comm_reply.bno = house_community.no "
+			+ "AND house_comm_reply.msg not like '%'||'삭제된 댓글입니다.'||'%') as cnt "
 		  +"FROM house_community WHERE hit>=0 "
 		  + "<if test=\"fs1 !='a'.toString()\">"
 		  + "AND hstyle like '%'||#{fs1}||'%'"
@@ -87,7 +93,9 @@ public interface CommunityMapper {
 	  public List<CommunityVO> communityFilter(Map map);	 
 		 
 	 //태그검색
-	 @Select("SELECT no,id,subject,content,pwd,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,filename,filesize,hstyle,hsize,rstyle,family,tags "
+	 @Select("SELECT no,id,subject,content,pwd,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,filename,filesize,hstyle,hsize,rstyle,family,tags,"
+			 + "(select count(*) from house_comm_reply where house_comm_reply.bno = house_community.no "
+				+ "AND house_comm_reply.msg not like '%'||'삭제된 댓글입니다.'||'%') as cnt "
 	 		+ "FROM house_community "
 	 		+ "WHERE tags like '%'||#{tag}||'%'")
 	 public List<CommunityVO> communityTag(String tag);

@@ -203,7 +203,7 @@ public class CommunityController {
 	
 	//필터
 	@PostMapping("comm/filter.do")
-	 public String board_find(String fs1,String fs2,String fs3,Model model)
+	 public String board_find(String fs1,String fs2,String fs3,Model model,HttpServletRequest request)
     {
 		System.out.println("filter.do");
     	Map map=new HashMap();
@@ -213,6 +213,23 @@ public class CommunityController {
     	List<CommunityVO> flist=dao.communityFilter(map);
     	
     	String number=dao.numberFind(map);
+    	
+    	Cookie[] cookies=request.getCookies();
+		List<CommunityVO> ccList=new ArrayList<CommunityVO>();
+		   if(cookies!=null && cookies.length>0) //쿠키에 값이 존재 할때
+		   {
+			   for(int i=cookies.length-1;i>=0;i--) // 저장된 역순으로 (최신)
+			   {
+				   System.out.println(cookies[i].getName());
+				   if(cookies[i].getName().startsWith("c"))
+				   {					  
+					   String no=cookies[i].getValue(); // 번호 
+					   CommunityVO vo=dao.cDetail(Integer.parseInt(no));
+					   ccList.add(vo);
+				   }
+			   }
+		   }
+		model.addAttribute("ccList",ccList);
 
     	model.addAttribute("flist", flist);
     	model.addAttribute("number",number);
@@ -223,11 +240,28 @@ public class CommunityController {
 	
 	//태그검색
 	@GetMapping("comm/tag.do")
-	public String tag(String tag,Model model)
+	public String tag(String tag,Model model,HttpServletRequest request)
 	{
 		List<CommunityVO> tList=dao.communityTag(tag);
 		
 		String number=dao.numberTagFind(tag);
+		
+		Cookie[] cookies=request.getCookies();
+		List<CommunityVO> ccList=new ArrayList<CommunityVO>();
+		   if(cookies!=null && cookies.length>0) //쿠키에 값이 존재 할때
+		   {
+			   for(int i=cookies.length-1;i>=0;i--) // 저장된 역순으로 (최신)
+			   {
+				   System.out.println(cookies[i].getName());
+				   if(cookies[i].getName().startsWith("c"))
+				   {					  
+					   String no=cookies[i].getValue(); // 번호 
+					   CommunityVO vo=dao.cDetail(Integer.parseInt(no));
+					   ccList.add(vo);
+				   }
+			   }
+		   }
+		model.addAttribute("ccList",ccList);
 		
 		model.addAttribute("tList",tList);
 		model.addAttribute("number",number);
