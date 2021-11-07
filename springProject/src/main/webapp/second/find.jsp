@@ -76,28 +76,6 @@ $(function(){
                                 </ul>
                             </div>
                         </aside>  
-                                             
-                        <!-- <aside class="left_widgets p_filter_widgets price_rangs_aside">
-                            <div class="l_w_title">
-                                <h3>Price Filter</h3>
-                            </div>
-                            <div class="widgets_inner">
-                                <div class="range_item">
-                                    <div id="slider-range"></div>
-                                    <input type="text" class="js-range-slider" value="" />
-                                    <div class="d-flex">
-                                        <div class="price_text">
-                                            <p>Price :</p>
-                                        </div>
-                                        <div class="price_value d-flex justify-content-center">
-                                            <input type="text" class="js-input-from" id="amount" readonly />
-                                            <span>to</span>
-                                            <input type="text" class="js-input-to" id="amount" readonly />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </aside> -->
                     </div>
                 </div>
                 <div class="col-lg-9">                	                	
@@ -106,19 +84,7 @@ $(function(){
                             <div class="product_top_bar d-flex justify-content-between align-items-center">
                                 <div class="single_product_menu">
                                     <p><span>${fcnt } </span> 개의 상품이 검색되었습니다.</p>
-                                </div>
-                                <!-- 아직 정렬 구현 안됨 -->
-                                <div class="single_product_menu d-flex">
-                                    <h5>short by : </h5>
-                                    <select>
-                                        <option data-display="Select">default</option>
-                                        <option value="1">낮은 가격순</option>
-                                        <option value="2">높은 가격순</option>
-                                        <option value="3">리뷰 많은순</option>
-                                        <option value="4">평점 높은순</option>
-                                    </select>
-                                </div>
-                                                   
+                                </div>       
                                <form method="post" action="../second/find.do" id="frm">
                                 <div class="single_product_menu d-flex" style="display: inline-block;">                                 
 						         <input type="checkbox" value="T" class="input-sm" name="fs" checked="checked">이름	   
@@ -141,7 +107,7 @@ $(function(){
                         <c:forEach var="vo" items="${flist }">
                         <div class="col-lg-4 col-sm-6" id=m_div>
                             <div class="single_product_item">
-                                <a href="#">
+                                <a href="../second/detail.do?no=${vo.no }">
                                 <img src="${vo.img }" style="width:300px; height:250px;">
                                 <div class="single_product_text">
                                 	<h4>${vo.title }</h4>
@@ -153,96 +119,12 @@ $(function(){
                                 </div>
                             </div>
                         </div>
-                        </c:forEach>
-                        
-                         <%-- <div class="col-lg-12">
-                            <div class="pageination">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">                                                                             
-                                        <c:if test="${startPage>1 }">
-							              <li><a class="page-link" href="../second/find.do?fs=${fs }&ss=${ss }&page=${startPage-1 }">&lt;</a></li>
-							             </c:if>
-							               <c:forEach var="i" begin="${startPage }" end="${endPage }" step="1">
-							                <c:if test="${curpage==i }">
-							                  <c:set var="style" value="class=page-item active"/>
-							                </c:if>
-							                <c:if test="${curpage!=i }">
-							                  <c:set var="style" value="class=page-item"/>
-							                </c:if>
-							                <li ${style }><a class="page-link" href="../second/find.do?fs=${fs }&ss=${ss }&page=${i }">${i }</a></li>
-							               </c:forEach>
-							             <c:if test="${endPage<totalpage }">
-										  <li class="page-item"><a class="page-link" href="../second/find.do?fs=${fs }&ss=${ss }&page=${endPage+1 }">&gt;</a></li>
-										 </c:if>                                        
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>  --%>
+                        </c:forEach>                                                
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!--================End Category Product Area =================-->
-
-    <!-- 추천 -->
-    <%-- <section class="product_list best_seller">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="section_tittle text-center">
-                        <h2>추천<span style="color: #ff3368">새상품</span></h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row align-items-center justify-content-between">
-                <div class="col-lg-12">
-                    <div class="best_product_slider owl-carousel">
-                        <c:forEach var="nvo" items="clist">
-                        <div class="single_product_item">
-                            <a href="../new/list.do?no=${nvo.no }"><img src="${nvo.img }" alt=""></a>
-                            <div class="single_product_text">
-                                <a href="../new/list.do?no=${nvo.no }"><h4>${nvo.title }</h4></a>
-                                <h3>${nvo.price }</h3>
-                            </div>
-                        </div>
-                        </c:forEach>
-                        
-                        <!-- <div class="single_product_item">
-                            <img src="img/product/product_2.png" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
-                            </div>
-                        </div>
-                        <div class="single_product_item">
-                            <img src="img/product/product_3.png" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
-                            </div>
-                        </div>
-                        <div class="single_product_item">
-                            <img src="img/product/product_4.png" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
-                            </div>
-                        </div>
-                        <div class="single_product_item">
-                            <img src="img/product/product_5.png" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
-                            </div>
-                        </div> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --%>
-    <!-- 추천 슬라이드 -->
- 
+    </section> 
 </body>
 
 </html>

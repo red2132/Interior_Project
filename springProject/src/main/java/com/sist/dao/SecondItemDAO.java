@@ -26,10 +26,6 @@ public class SecondItemDAO {
 		return mapper.sCategory3(s3);
 	}
 
-	public List<SecondItemVO> secondListData(Map map) {
-		return mapper.secondListData(map);
-	}
-
 	public int secondItemCnt(Map map) {
 		return mapper.secondItemCnt(map);
 	}
@@ -46,50 +42,46 @@ public class SecondItemDAO {
 		return mapper.secondItemFindData(map);
 	}
 
-	public List<SecondItemVO> secondItemPriceASC(Map map) {
-		return mapper.secondItemPriceASC(map);
-	}
-
-	public List<SecondItemVO> secondItemPriceDESC(Map map) {
-		return mapper.secondItemPriceDESC(map);
-	}
-
 	public List<SecondItemVO> categorySelectData(Map map) {
 		return mapper.categorySelectData(map);
 	}
-
+	
+	public List<SecondItemVO> recommendData(Map map){
+		return mapper.recommendData(map);
+	}
+	
 	public SecondItemVO secondItemData(int no) {
 		return mapper.secondItemData(no);
 	}
 
-///////////////   댓글
+	/////////////// 댓글
 
-//댓글 개수
+	// 댓글 개수
 	public int replyCnt(Map map) {
 		return mapper.replyCnt(map);
 	}
 
-//댓글 출력
+	// 댓글 출력
 	public List<ReplyVO> replyData(Map map) {
 		return mapper.replyData(map);
 	}
 
-//댓글 입력
+	// 댓글 입력
 	public void replyInsert(ReplyVO rvo) {
 		mapper.replyInsert(rvo);
 	}
 
-////댓글 수정
-//public void replyUpdate(ReplyVO rvo) {
-//
-//
-//}
-//@Select("SELECT no,content FROM reply WHERE no=#{rno}")
-//public ReplyVO replyUpdate0(int rno)
-//@Update("UPDATE reply SET content=#{content} WHERE no=#{no}")
-//public void replyUpdate1(ReplyVO rvo)
+	//// 댓글 수정
+	// public void replyUpdate(ReplyVO rvo) {
+	//
+	//
+	// }
+	// @Select("SELECT no,content FROM reply WHERE no=#{rno}")
+	// public ReplyVO replyUpdate0(int rno)
+	// @Update("UPDATE reply SET content=#{content} WHERE no=#{no}")
+	// public void replyUpdate1(ReplyVO rvo)
 
-//댓글 삭제
+	// 댓글 삭제
 	public void replyDelete(int no) {
 		mapper.replyDelete(no);
 	}
