@@ -53,8 +53,10 @@
     color: #ffff !important;
 }
 </style>
+</script>
 </head>
 <body>
+
 	<!-- breadcrumb start-->
 	    <section class="breadcrumb breadcrumb_bg">
 	        <div class="container">
@@ -77,20 +79,22 @@
 		style="max-width: 1200px;margin: 0 0 0 385px;">작성</a>
 		</c:if>
 		</div>
+	<!-- breadcrumb end-->	
+		
 	<section class="blog_area single-post-area">
 	<div class="card-section">
 	  <div class="card-list">
 	    <c:forEach var="vo" items="${list }">
 	    <div class="col-lg-6" style="padding-bottom:20px;">
 		    <div class="card">
-		      <a href="../event/detail.do?no=${vo.no}&page=${curpage}"><center><img src="${vo.poster }"/></center></a>
+		      <a href="../event/detail_before.do?no=${vo.no}&page=${curpage}"><center><img src="${vo.poster }"/></center></a>
 		  	</div>
 		  	<div class="card_detail" style="margin-left:10px;">
 		     <table>
 		      <tr>
-		      	<th><a href="../event/detail.do?no=${vo.no}&page=${curpage}">${vo.state }&nbsp;</a></th>
+		      	<th><a href="../event/detail_before.do?no=${vo.no}&page=${curpage}">${vo.state }&nbsp;</a></th>
 		      	<td>｜</td>
-		      	<td><a href="../event/detail.do?no=${vo.no}&page=${curpage}">&nbsp;${vo.period }</a></td>
+		      	<td><a href="../event/detail_before.do?no=${vo.no}&page=${curpage}">&nbsp;${vo.period }</a></td>
 		      </tr>
 		     </table>
 		    </div>
@@ -128,6 +132,32 @@
          </c:if>
       </ul>
     </nav>
+    
+    <!-- 쿠키 -->
+    <section class="product_list best_seller" style="padding-top:80px;">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <div class="section_tittle text-center">
+            <h4>최근 본 이벤트 <a href="../event/event_cookie_delete.do"><i class="fas fa-trash-alt"></i></a></h4>
+          </div>
+        </div>
+      </div>
+      <div class="row align-items-center justify-content-between">
+        <div class="col-lg-12">
+          <div class="best_product_slider owl-carousel">
+           <c:forEach var="vo" items="${cList }" varStatus="s">
+           	  <c:if test="${s.index<10 }">
+           	  <div class="single_product_item">
+       		  <a href="../event/detail.do?no=${vo.no }&page=${curpage}"><img src="${vo.poster }"></a>
+       		  </div>
+       		  </c:if>
+     	   </c:forEach>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </section>
 </body>
 </html>

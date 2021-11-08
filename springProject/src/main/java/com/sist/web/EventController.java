@@ -10,10 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.CookieValue;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -28,7 +30,7 @@ public class EventController {
 	
 	// 목록 
 	@RequestMapping("list.do")
-	public String event_list(String page,Model model) {
+	public String event_list(String page, Model model, HttpServletRequest request) {
 		
 		if(page==null)
 			page="1";
@@ -56,6 +58,24 @@ public class EventController {
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("main_jsp","../event/list.jsp");
+		// 쿠키
+		Cookie[] cookies=request.getCookies();
+		List<EventVO> cList=new ArrayList<EventVO>();
+		
+		if(cookies!=null && cookies.length>0)
+		   {
+			   for(int i=cookies.length-1;i>=0;i--)
+			   {
+				   if(cookies[i].getName().startsWith("event"))
+				   {
+					   cookies[i].setPath("/");
+					   String no=cookies[i].getValue();
+					   EventVO vo=dao.eventDetailData(Integer.parseInt(no));
+					   cList.add(vo);
+				   }
+			   }
+		   }
+		model.addAttribute("cList", cList);
 		return "main/main";
 	}
 	
@@ -242,6 +262,7 @@ public class EventController {
 		   vo.setId(id);
 		   vo.setName(name);
 		   vo.setBno(bno);
+		   // group_id , group_step , group_tab , root , depth : DAO
 		   // 상세보기로 다시 이동 
 		   dao.eventReplyReplyInsert(pno, vo);
 		   attr.addAttribute("no", bno);
@@ -259,4 +280,36 @@ public class EventController {
 		   return "redirect:../event/detail.do";
 	}
 	
+	// 쿠키
+	@GetMapping("detail_before.do")
+	public String event_detail_before(int no, int page, RedirectAttributes attr, HttpServletResponse response)
+	{
+		Cookie cookie=new Cookie("event"+no, String.valueOf(no));
+		cookie.setPath("/");
+		cookie.setMaxAge(60*60*24);
+		response.addCookie(cookie);
+		attr.addAttribute("no", no);
+		attr.addAttribute("page",page);
+		return "redirect:../event/detail.do";
+	}
+	
+	// 쿠키 삭제
+	@GetMapping("event_cookie_delete.do")
+	public String event_cookie_delete(HttpServletRequest request, HttpServletResponse response)
+	{
+		Cookie[] cookies=request.getCookies();
+		if(cookies!=null && cookies.length>0)
+		{
+			for(int i=0;i<cookies.length;i++)
+			{
+				if(cookies[i].getName().startsWith("event"))
+				{
+					cookies[i].setPath("/");
+					cookies[i].setMaxAge(0);
+					response.addCookie(cookies[i]);
+				}
+			}
+		}
+		return "redirect:../event/list.do";
+	}
 }
