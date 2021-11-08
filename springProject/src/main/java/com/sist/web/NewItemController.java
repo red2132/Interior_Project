@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sist.dao.NewItemDAO;
 import com.sist.vo.NewItemVO;
+import com.sist.vo.ReplyVO;
 
 @Controller
 public class NewItemController {
@@ -67,14 +68,21 @@ public class NewItemController {
 		return "main/main";
 	}
 	
-	@RequestMapping("new/detail.do")
+	@RequestMapping("new/detail.do") // 해당 위치로 데이터를 보낸다
 	public String detail(int no,Model model) {
 		
 		// 상품 정보
 		NewItemVO vo=dao.nDetail(no);
 		model.addAttribute("vo", vo);
 		
-		// 댓글
+		
+		Map map = new HashMap();
+		map.put("cate", "new");
+		map.put("item_no", no);
+		
+		// 댓글전체
+		List<ReplyVO> rList = dao.replyData(map);
+		model.addAttribute("rList", rList);
 		
 		
 		model.addAttribute("main_jsp", "../new/detail.jsp");
