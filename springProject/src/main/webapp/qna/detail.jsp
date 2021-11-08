@@ -43,18 +43,10 @@
     <!-- style CSS -->
     <link rel="stylesheet" href="css/style.css">
 	
-<!-- 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<style type="text/css">
-.row{
-  margin: 0px auto;
-  width:300px;
-}
-</style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
 $(function(){
-	$('.updates').click(function(){
+	$('.reply_update').click(function(){
 		//1. 열린 수정창 모두 닫기
 		$('.up').hide();
 		$('.reply').hide();
@@ -89,7 +81,6 @@ $(function(){
 	})
 })
 </script>
- -->
 </head>
 <body>
 	<!--================Home Banner Area =================-->
@@ -172,9 +163,7 @@ $(function(){
                         		</c:forEach>
                         			<img src="re_icon.png">
                         	</c:if>
-                        	<div class="thumb">
-                        		<img src="../template/img/comment/comment_1.png" alt="">
-                        	</div>
+                        	<!-- 댓글 출력 -->
                         	<div class="desc">
                         	  <p class="comment">${rvo.msg }</p>
                        		  <div class="d-flex justify-content-between">
@@ -184,11 +173,37 @@ $(function(){
                                     </h5>
                                     <p class="date"><fmt:formatDate value="${rvo.regdate }" pattern="yyyy-MM-dd HH:mm:ss"/></p>
                                 </div>
-                                <div class="reply-btn" style="float:right">
-                                   <a href="#" class="btn-reply text-uppercase">답변댓글</a>
-                                </div>
+                                <div class="buttons_reply">
+				                  	<c:if test="${sessionScope!=null }">
+				                  	<c:if test="${sessionScope.id==rvo.id }">
+					                  	<a href="../qna/reply_delete.do?no=${rvo.no }&bno=${vo.no}&page=${page}" class="btn-reply text-uppercase" 
+					                  		style="float:right;margin-left:-23px">삭제</a>
+					                  	<span class="btn-reply text-uppercase reply_update" data-no=${rvo.no } style="float:right;margin-left:-23px">수정</span>
+				                  	</c:if>
+				                  	<a href="#" class="btn-reply text-uppercase" style="float:right;">답변댓글</a>
+				                  	</c:if>
+			                    </div>
                               </div>
                            </div>
+                           <!-- 댓글 수정 -->
+			               <div class="comment-form up" id="u${rvo.no}" style="display:none;margin-bottom:30px;" >
+			                  <form method="post" action="../qna/reply_update.do">
+			                     <div class="row">
+			                        <div class="col-12">
+			                           <div class="form-group">
+			                           	  <input type="hidden" name="no" value="${rvo.no }">
+					        			  <input type="hidden" name="bno" value="${vo.no }">
+					        			  <input type="hidden" name="page" value="${page }">
+			                              <textarea class="form-control w-100" name="msg" cols="30" rows="9">${rvo.msg }</textarea>
+					                     <div class="form-group mt-3">
+					                        <input type=submit class="btn_3 button-contactForm" style="float:right;" value="수정"/>
+					                     </div>
+			                     		</div>
+			                    	</div>
+			                     </div>
+			                  </form>
+			               </div>
+			               
                         </div>
                      </div>
                   </div>
@@ -197,15 +212,10 @@ $(function(){
                <%--------------------------- 새댓글등록 --------------------------%>
                <c:if test="${sessionScope.id!=null }">
 	               <div class="comment-form">
-	                  <h4>댓글등록</h4>
+	                  <h4>댓글</h4>
 	                  <form method="post" action="../qna/reply_insert.do">
 	                     <div class="row">
-	                        <div class="col-sm-2">
-	                        	<div class="form-group">
-	                        		<input class="form-control" name="id" id="id" type="text"  value="${sessionScope.id}" readonly>
-	                        	</div>
-	                        </div>
-	                        <div class="col-8">
+	                        <div class="col-10">
 	                        	<div class="form-group">
 	                        		<textarea class="form-control w-100" name="msg" id="comment" cols="30" rows="9" placeholder="댓글을 입력해주세요"></textarea>
 	                        	</div>
@@ -214,7 +224,7 @@ $(function(){
 	                        	<div class="form-group mt-3">
 	                        		<input type="hidden" name="bno" value="${vo.no }">
 									<input type="hidden" name="page" value="${page}">		
-	                        		<input type="submit" class="btn_3 button-contactForm" value="댓글등록">
+	                        		<input type="submit" class="btn_3 button-contactForm" value="등록">
 			                    </div>
 		                    </div>
 	                     </div>
