@@ -169,3 +169,4 @@ public class QnADAO {
 		mapper.qnaBoardReplyDepthDecrement(vo.getRoot());
 	}
 }
+

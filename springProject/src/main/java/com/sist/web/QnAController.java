@@ -61,7 +61,7 @@ public class QnAController {
 		model.addAttribute("main_jsp", "../qna/insert.jsp");
 		return "main/main";
 	}
-	@PostMapping("qna/insert_ok.do")
+	@PostMapping("insert_ok.do")
 	public String qnaBoardInsert_ok(QnAVO vo) {
 		dao.qnaBoardInsert(vo);
 		return "redirect:../qna/list.do";
@@ -146,11 +146,9 @@ public class QnAController {
 	//2. 댓글 추가
 	@PostMapping("reply_insert.do")
 	public String qna_reply_insert(int page,QnaReplyVO vo,HttpSession session,RedirectAttributes attr) {
-		//2-1. 오라클에 id, name 추가
+		//2-1. 오라클에 id 추가
 		String id=(String)session.getAttribute("id");
-//		String name=(String)session.getAttribute("name");
 		vo.setId(id);
-//		vo.setName(name);
 		dao.qnaBoardReplyInsert(vo);
 		
 		attr.addAttribute("no",vo.getBno());
@@ -175,14 +173,11 @@ public class QnAController {
 		//1. dao 연결
 		QnaReplyVO vo=new QnaReplyVO();
 		String id=(String)session.getAttribute("id");
-		String name=(String)session.getAttribute("name");
 		vo.setId(id);
-		vo.setName(name);
 		vo.setMsg(msg);
 		vo.setBno(bno);
 		//2. g_id,g_step,g_tab,root,depth 수정
 		dao.qnaBoareReplyReplyInsert(pno, vo);
-		
 		attr.addAttribute("no", bno);
 		attr.addAttribute("page",page);
 		return "redirect:../qna/detail.do";
@@ -199,3 +194,4 @@ public class QnAController {
 		return "redirect:../qna/detail.do";
 	}
 }
+

@@ -23,7 +23,6 @@
 <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>aranoz</title>
     <link rel="icon" href="img/favicon.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -45,6 +44,8 @@
 	
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
+let u=0;
+let r=0;
 $(function(){
 	$('.reply_update').click(function(){
 		//1. 열린 수정창 모두 닫기
@@ -75,7 +76,7 @@ $(function(){
 			r=1;
 		}else{
 			$('#r'+no).hide();
-			$(this).text("댓글");
+			$(this).text("답변댓글");
 			r=0;
 		}
 	})
@@ -101,10 +102,10 @@ $(function(){
     </section>
     <!-- breadcrumb start-->
     <!--================ 게시글 출력 =================-->
-    <section class="blog_area padding_top">
+    <section class="blog_area single-post-area padding_top">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 mb-5 mb-lg-0">
+                <div class="col-lg-12 posts-list">
                     <div class="blog_left_sidebar">
 						<table class="table">
 							<tr>
@@ -140,62 +141,56 @@ $(function(){
 							</tr>
 						</table>
 					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!--=========================================== 댓글출력 ==========================================================-->
-	<!--================Blog Area =================-->
-   <section class="blog_area single-post-area padding_top">
-      <div class="container">
-         <div class="row">
-            <%--------------------------- 댓글목록 출력 --------------------------%>
-            <div class="col-lg-12 posts-list">
-              <div class="comments-area">
-                  <h4>${rCount } Comments</h4>
-                        <c:forEach var="rvo" items="${list }">
-                  <div class="comment-list">
-                     <div class="single-comment justify-content-between d-flex">
-                        <div class="user justify-content-between d-flex">
-                        	<c:if test="${rvo.g_tab>0 }">
-                        		<c:forEach var="i" begin="1" end="${rvo.g_tab }">
-                        			&nbsp;&nbsp;
-                        		</c:forEach>
-                        			<img src="re_icon.png">
-                        	</c:if>
-                        	<!-- 댓글 출력 -->
-                        	<div class="desc">
-                        	  <p class="comment">${rvo.msg }</p>
-                       		  <div class="d-flex justify-content-between">
-                       		  	<div class="d-flex align-items-center">
-                       		  		<h5>
-                                      <a href="#">${rvo.id }</a>
-                                    </h5>
-                                    <p class="date"><fmt:formatDate value="${rvo.regdate }" pattern="yyyy-MM-dd HH:mm:ss"/></p>
-                                </div>
-                                <div class="buttons_reply">
-				                  	<c:if test="${sessionScope!=null }">
-				                  	<c:if test="${sessionScope.id==rvo.id }">
-					                  	<a href="../qna/reply_delete.do?no=${rvo.no }&bno=${vo.no}&page=${page}" class="btn-reply text-uppercase" 
-					                  		style="float:right;margin-left:-23px">삭제</a>
-					                  	<span class="btn-reply text-uppercase reply_update" data-no=${rvo.no } style="float:right;margin-left:-23px">수정</span>
-				                  	</c:if>
-				                  	<a href="#" class="btn-reply text-uppercase" style="float:right;">답변댓글</a>
-				                  	</c:if>
-			                    </div>
-                              </div>
-                           </div>
-                           <!-- 댓글 수정 -->
-			               <div class="comment-form up" id="u${rvo.no}" style="display:none;margin-bottom:30px;" >
+					<div class="comments-area">
+						<h4>${rCount} Comments</h4>
+						<c:forEach var="rvo" items="${list }">
+						<%-- 댓글목록 --%>
+							<div class="comment-list">
+								<div class="single-comment justify-content-between d-flex">
+			                        <div class="user justify-content-between d-flex">
+			                        	<c:if test="${rvo.g_tab>0 }">
+			                        		<c:forEach var="i" begin="1" end="${rvo.g_tab }">
+			                        			&nbsp;&nbsp;
+			                        		</c:forEach>
+			                        			<i class="fas fa-reply" style="padding-bottom:5px;color:pink;"></i>
+			                        	</c:if>
+			                        	<div class="desc">
+			                        	  <p class="comment">${rvo.msg }</p>
+			                       		  <div class="d-flex justify-content-between">
+			                       		  	<div class="d-flex align-items-center">
+			                       		  		<h5>
+			                                      <a href="#">${rvo.id }</a>
+			                                    </h5>
+			                                    <p class="date"><fmt:formatDate value="${rvo.regdate }" pattern="yyyy-MM-dd HH:mm:ss"/></p>
+			                                </div>
+			                                <div class="buttons_reply">
+							                  	<c:if test="${sessionScope.id!=null }">
+								                  	<c:if test="${sessionScope.id==rvo.id || sessionScope.admin=='y' }">
+									                  	<a href="../qna/reply_delete.do?no=${rvo.no }&bno=${vo.no}&page=${page}" class="btn-reply" 
+									                  		style="float:right;margin-left:-23px">삭제</a>
+								                  	</c:if>
+							                  		<c:if test="${sessionScope.id==rvo.id }">
+									                  	<span class="btn-reply reply_update" data-no=${rvo.no } style="float:right;margin-left:-23px">수정</span>
+								                  	</c:if>
+							                  		<span class="btn-reply replys" data-no=${rvo.no } style="float:right;">답변댓글</span>
+							                  	</c:if>
+						                    </div>
+			                              </div>
+			                           </div>
+		                           </div>
+	                           </div>
+							</div>
+						<%-- 댓글수정 --%>	
+							<div class="comment-form up" id="u${rvo.no}" style="display:none;margin-bottom:30px;" >
 			                  <form method="post" action="../qna/reply_update.do">
 			                     <div class="row">
 			                        <div class="col-12">
 			                           <div class="form-group">
-			                           	  <input type="hidden" name="no" value="${rvo.no }">
-					        			  <input type="hidden" name="bno" value="${vo.no }">
-					        			  <input type="hidden" name="page" value="${page }">
 			                              <textarea class="form-control w-100" name="msg" cols="30" rows="9">${rvo.msg }</textarea>
 					                     <div class="form-group mt-3">
+				                           	  <input type="hidden" name="no" value="${rvo.no }">
+						        			  <input type="hidden" name="bno" value="${vo.no }">
+						        			  <input type="hidden" name="page" value="${page }">
 					                        <input type=submit class="btn_3 button-contactForm" style="float:right;" value="수정"/>
 					                     </div>
 			                     		</div>
@@ -203,40 +198,49 @@ $(function(){
 			                     </div>
 			                  </form>
 			               </div>
-			               
-                        </div>
-                     </div>
-                  </div>
-                        </c:forEach>
-               </div>
-               <%--------------------------- 새댓글등록 --------------------------%>
-               <c:if test="${sessionScope.id!=null }">
-	               <div class="comment-form">
-	                  <h4>댓글</h4>
-	                  <form method="post" action="../qna/reply_insert.do">
-	                     <div class="row">
-	                        <div class="col-10">
-	                        	<div class="form-group">
-	                        		<textarea class="form-control w-100" name="msg" id="comment" cols="30" rows="9" placeholder="댓글을 입력해주세요"></textarea>
-	                        	</div>
-	                        </div>
-	                        <div class="col-2">
-	                        	<div class="form-group mt-3">
-	                        		<input type="hidden" name="bno" value="${vo.no }">
-									<input type="hidden" name="page" value="${page}">		
-	                        		<input type="submit" class="btn_3 button-contactForm" value="등록">
-			                    </div>
-		                    </div>
-	                     </div>
-	                  </form>
-	               </div>
-               </c:if>
-            </div>
-      	</div>
-      </div>
-   </section>
-   <!--================Blog Area end =================-->
-
-
+						<%-- 답변댓글 등록 --%>
+							<div class="comment-form reply" id="r${rvo.no }" style="display:none;margin-bottom:30px;">
+			                  <form method="post" action="../qna/reply_reply_insert.do">
+			                     <div class="row">
+			                        <div class="col-12">
+			                        	<div class="form-group">
+			                        		<textarea class="form-control w-100" name="msg" cols="30" rows="9" placeholder="댓글을 입력해주세요"></textarea>
+					                        <div class="form-group mt-3">
+				                        		<input type="hidden" name="pno" value="${rvo.no }">
+				                        		<input type="hidden" name="bno" value="${vo.no }">
+												<input type="hidden" name="page" value="${page}">		
+				                        		<input type="submit" class="btn_3 button-contactForm"  style="float:right;" value="답변등록">
+						                    </div>
+			                        	</div>
+			                        </div>
+			                     </div>
+			                  </form>
+			               </div>
+						</c:forEach>
+						<%-- 새댓글 등록 --%>
+						<c:if test="${sessionScope.id!=null }">
+			               <div class="comment-form">
+			                  <h4>댓글</h4>
+			                  <form method="post" action="../qna/reply_insert.do">
+			                     <div class="row">
+			                        <div class="col-12">
+			                        	<div class="form-group">
+			                        		<textarea class="form-control w-100" name="msg" id="comment" cols="30" rows="9" placeholder="댓글을 입력해주세요"></textarea>
+				                        	<div class="form-group mt-3">
+				                        		<input type="hidden" name="bno" value="${vo.no }">
+												<input type="hidden" name="page" value="${page}">		
+				                        		<input type="submit" class="btn_3 button-contactForm" style="float:right;" value="등록">
+						                    </div>
+			                        	</div>
+			                        </div>
+			                     </div>
+			                  </form>
+			               </div>
+		               </c:if>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </body>
 </html>
