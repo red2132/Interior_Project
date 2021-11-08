@@ -108,7 +108,7 @@ public class SecondItemController {
 	}
 
 	// 댓글삭제
-	@PostMapping("second/replyDelete.do")
+	@GetMapping("second/replyDelete.do")
 	public String second_replyDelete(int no, int rno, RedirectAttributes attr) {
 		dao.replyDelete(rno);
 		attr.addAttribute("no", no);
@@ -116,4 +116,13 @@ public class SecondItemController {
 	}
 
 	// 댓글수정
+	@PostMapping("second/replyUpdate.do")
+	public String second_replyUpdate(int no,String content,int rno, RedirectAttributes attr) {
+		Map map = new HashMap();
+		map.put("content", content);
+		map.put("no", rno);
+		dao.replyUpdate(map);
+		attr.addAttribute("no", no);
+		return "redirect:../second/detail.do";
+	}
 }

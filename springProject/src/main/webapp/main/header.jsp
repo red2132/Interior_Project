@@ -94,14 +94,23 @@ $(function(){
                                 </li>
                                 <!-- 인기상품 -->
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_1"
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         인기상품
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                    	<c:forEach var="cate1" items="${cateList }">
-                                        	<a class="dropdown-item" href="../new/list.do?cate1=${cate1 }">${cate1 }</a>
-                                        </c:forEach>
+                                    	<%-- <c:forEach var="c1" items="${cateList }">
+                                        	<a class="dropdown-item" href="../new/list.do?cate1=${c1 }">${c1 }</a>
+                                        </c:forEach> --%>
+                                        
+                                        <a class="dropdown-item" href="../new/list.do?cate1=가구">가구</a>
+                                        <a class="dropdown-item" href="../new/list.do?cate1=가전">가전</a>
+                                        <a class="dropdown-item" href="../new/list.do?cate1=공구">공구</a>
+                                        <a class="dropdown-item" href="../new/list.do?cate1=리모델링">리모델링</a>
+                                        <a class="dropdown-item" href="../new/list.do?cate1=생활">생활</a>
+                                        <a class="dropdown-item" href="../new/list.do?cate1=조명">조명</a>
+                                        <a class="dropdown-item" href="../new/list.do?cate1=침구">침구</a>
+                                        <a class="dropdown-item" href="../new/list.do?cate1=패브릭">패브릭</a>
                                     </div>
                                 </li>
                                 <!-- 인테리어 커뮤니티 -->
@@ -123,9 +132,14 @@ $(function(){
                                         중고거래
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                    	<c:forEach var="cate" items="${secondCateList }">
+                                    	<%-- <c:forEach var="cate" items="${secondCateList }">
                                         	<a class="dropdown-item" href="../second/list.do?cate1=${cate }">${cate }</a>
-                                        </c:forEach>
+                                        </c:forEach> --%>
+                                        <a class="dropdown-item" href="../second/list.do?cate1=OA">OA</a>
+                                        <a class="dropdown-item" href="../second/list.do?cate1=가전">가전</a>
+                                        <a class="dropdown-item" href="../second/list.do?cate1=가정">가정</a>
+                                        <a class="dropdown-item" href="../second/list.do?cate1=냉난방">냉난방</a>
+                                        <a class="dropdown-item" href="../second/list.do?cate1=사무">사무</a>
                                     </div>
                                 </li>
                                 <!-- QNA -->
@@ -142,27 +156,6 @@ $(function(){
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="#"> 공지</a> <!-- 일반적인 오피셜한 공지 -->
                                     	<a class="dropdown-item" href="../event/list.do">이벤트</a> <!-- 이벤트 공지 - 댓글, 하트 등 -->
-                                    </div>
-                                </li>
-                                
-                                <!-- 프로젝트 마무리할때 지우기!! -->
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_2"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       	ui참고
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                    	<a class="dropdown-item" href="../template/category.html"> shop category</a>
-                                        <a class="dropdown-item" href="../template/single-product.html">product details</a>
-                                        <a class="dropdown-item" href="../template/login.html"> login</a>
-                                        <a class="dropdown-item" href="../template/tracking.html">tracking</a>
-                                        <a class="dropdown-item" href="../template/checkout.html">product checkout</a>
-                                        <a class="dropdown-item" href="../template/cart.html">shopping cart</a>
-                                        <a class="dropdown-item" href="../template/confirmation.html">confirmation</a>
-                                        <a class="dropdown-item" href="../template/elements.html">elements</a>
-                                        <a class="dropdown-item" href="../template/blog.html"> blog</a>
-                                        <a class="dropdown-item" href="../template/single-blog.html">Single blog</a>
-                                    	<a class="dropdown-item" href="../template/contact.html">Contact</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown"> 

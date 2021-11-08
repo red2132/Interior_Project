@@ -85,11 +85,8 @@ public interface SecondItemMapper {
 	public void replyInsert(ReplyVO rvo);
 
 	// 댓글 수정 -> 하는중
-	@Select("SELECT no,content FROM reply WHERE no=#{rno}")
-	public ReplyVO replyUpdate0(int rno);
-
 	@Update("UPDATE reply SET content=#{content} WHERE no=#{no}")
-	public void replyUpdate1(ReplyVO rvo);
+	public void replyUpdate(Map map);
 
 	// 댓글 삭제
 	@Delete("DELETE FROM reply WHERE no=#{no}")

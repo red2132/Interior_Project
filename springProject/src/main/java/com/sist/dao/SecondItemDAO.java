@@ -71,15 +71,11 @@ public class SecondItemDAO {
 		mapper.replyInsert(rvo);
 	}
 
+	
 	//// 댓글 수정
-	// public void replyUpdate(ReplyVO rvo) {
-	//
-	//
-	// }
-	// @Select("SELECT no,content FROM reply WHERE no=#{rno}")
-	// public ReplyVO replyUpdate0(int rno)
-	// @Update("UPDATE reply SET content=#{content} WHERE no=#{no}")
-	// public void replyUpdate1(ReplyVO rvo)
+	 public void replyUpdate(Map map) {
+		 mapper.replyUpdate(map);
+	 }
 
 	// 댓글 삭제
 	public void replyDelete(int no) {
