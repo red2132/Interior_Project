@@ -15,48 +15,92 @@
 </style>
 </head>
 <body>
-<br><br><br><br><br><br><br><br>
-<div class="bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');">
-  <div id="breadcrumb" class="hoc clear"> 
-  </div>
-</div>
+
+	<div class="bgded overlay">
+		<div id="breadcrumb" class="hoc clear"> 
+		</div>
+	</div>
+	
+	<div style="height:112px"></div>
+	
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
-<div class="wrapper row3">
-  <main class="hoc container clear">
-  <div class="row">
-    <h1>마이페이지</h1>
-    <hr>
-    <table class="table">
-      <tr>
-        <th class="text-center"></th>
-        <th class="text-center">상품명</th>
-        <th class="text-center">수량</th>
-        <th class="text-center">금액</th>
-        <th class="text-center">합계금액</th>
-        <th class="text-center">배송비</th>
-        <th class="text-center">비고</th>
-      </tr>
-      <c:forEach var="vo" items="${list }">
-        <tr>
-          <td class="text-center">
-            <img src="${vo.product_poster }" width=30 height=30>
-          </td>
-          <td>${vo.product_name }</td>
-          <td class="text-center">${vo.amount }</td>
-          <td class="text-center">${vo.product_price }원</td>
-          <td class="text-center">${vo.amount*vo.product_price+3000 }원</td> <!-- 배송비 포함 총 합계 금액 -->
-          <td class="text-center">3000원</td> <!-- 배송비 -->
-          <td class="text-center">
-            <a href="#" class="btn btn-sm btn-danger">결제</a>
-            <a href="#" class="btn btn-sm btn-success">취소</a>
-          </td> 
-        </tr>
-      </c:forEach>
-    </table>
-  </div>
-  </main>
-</div>  
+
+	<div class="wrapper row3">
+		<main class="hoc container clear">
+			<h1 class="text-center">마이 페이지</h1>
+			
+			<div class="row">
+			<div style="height:50px"></div>
+			<h3>내 게시글</h3>
+	    		<table class="table">
+	      			<tr>
+	        			<th class="text-center" width=20%>번호</th>
+	        			<th class="text-center" width=55%>제목</th>
+	        			<th class="text-center" width=25%>등록일</th>
+	      			</tr>
+	      			<c:forEach var="cvo" items="${cList}">
+	        			<tr>
+	          				<td class="text-center">${cvo.no}</td>
+	          				<td>${cvo.subject}</td>
+	          				<td class="text-center">${cvo.dbday}</td>
+	        			</tr>
+	      			</c:forEach>
+	    		</table>
+	  		</div>
+	  		
+	  		<div style="height:25px"></div>
+	  		
+	  		<div class="row">
+			<div style="height:50px"></div>
+			<h3>내 댓글</h3>
+	    		<table class="table">
+	      			<tr>
+	        			<th class="text-center" width=20%>번호</th>
+	        			<th class="text-center" width=55%>내용</th>
+	        			<th class="text-center" width=25%>등록일</th>
+	      			</tr>
+	      			<c:forEach var="rvo" items="${rList}">
+	        			<tr>
+	          				<td class="text-center">${rvo.no}</td>
+	          				<td>${rvo.msg}</td>
+	          				<td class="text-center">${rvo.dbday}</td>
+	        			</tr>
+	      			</c:forEach>
+	    		</table>
+	  		</div>
+	  		
+	  		<div style="height:25px"></div>
+	  		
+	  		<div class="row">
+			<div style="height:50px"></div>
+			<h3>내 지역 설정</h3>
+				<div class="container">
+					<p>※ 현재 내 지역 설정은 주소지 기준으로만 설정 가능합니다.</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">주소지 목록</div>
+						<div class="panel-body">
+							<ul>
+								<li>${addr_data1}&nbsp;${addr_data2}</li>
+							</ul>
+						</div>
+					</div>
+					<a href="../member/join_update.do">
+						<input type="button" style="float:right;" class="btn btn-xs btn-primary" value="수정하기">
+					</a>
+				</div>
+			</div>
+			
+	  		<div style="height:50px"></div>
+	  		
+	  		<div class="row">
+			<div style="height:50px"></div>
+			<h3>내 관심사</h3>
+			
+			</div>
+	  		
+	  	</main>
+	</div>  
 </body>
 </html>
