@@ -27,15 +27,6 @@
     <link rel="stylesheet" href="css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="css/style.css">
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-<script type="text/javascript">
-$(function(){
-	$('#insertBtn').click(function(){
-		//1. 로그인(sessionScope!=null): 정상적으로 글쓰기(../qna/insert.do) 수행 // 비로그인: 로그인페이지로 이동
-		
-	})
-})
-</script>    
 </head>
 <body>
 	<!--================Home Banner Area =================-->
@@ -64,7 +55,12 @@ $(function(){
 	                    <table class="table">
 	                    	<tr>
 	                    		<td>
-		                    		<a href="../qna/insert.do" class="btn btn-xs btn-danger" id="insertBtn">글쓰기</a>
+		                    		<c:if test="${sessionScope.id!=null }">
+			                    		<a href="../qna/insert.do" class="btn btn-xs btn-danger" id="insertBtn">글쓰기</a>
+		                    		</c:if>
+		                    		<c:if test="${sessionScope.id==null }">
+		                    			<p style="color:red">글쓰기는 로그인 후 이용 가능합니다.</p>
+		                    		</c:if>
 	                    		</td>
 	                    	</tr>
 	                    </table>

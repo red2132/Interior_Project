@@ -2,9 +2,14 @@ package com.sist.mapper;
 
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.NewItemVO;
+import com.sist.vo.ReplyVO;
+import com.sist.vo.SecondItemVO;
 
 public interface NewItemMapper {
 	////////////////////////////////////////////////////////////////////////////////
@@ -35,4 +40,30 @@ public interface NewItemMapper {
 	@Select("SELECT no,reviewCnt,img,cate1,cate2,title,cmt,regdate,price,score "
 			+ "FROM new_item WHERE no=#{no}")
 	public NewItemVO nDetail(int no);
+	//댓긇
+	//댓글 출력
+	
+	//댓긋 갯수
+	@Select("SELECT COUNT(*) FROM reply WHERE item_no=#{item_no} AND cate=#{cate}")
+	public int replyCnt(Map map);
+	
+	// 댓글가져오기
+		@Select("SELECT no,item_no,cate,content,pwd,id,TO_CHAR(regdate,'YYYY-MM-DD hh24:mi:ss') as dbday " + "FROM reply "
+				+ "WHERE item_no=#{item_no} AND cate=#{cate}" + "ORDER BY regdate desc")
+		public List<ReplyVO> replyData(Map map);
+
+		// 댓글 입력
+		@Insert("INSERT INTO reply(no,item_no,cate,content,pwd,id,regdate) VALUES("
+				+ "(SELECT NVL(MAX(no)+1,1) FROM reply),#{item_no},#{cate},#{content},#{pwd},#{id},SYSDATE)")
+		public void replyInsert(ReplyVO rvo);
+
+		// 댓글 수정 -> 하는중
+		@Update("UPDATE reply SET content=#{content} WHERE no=#{no}")
+		public void replyUpdate(Map map);
+
+		// 댓글 삭제
+		@Delete("DELETE FROM reply WHERE no=#{no}")
+		public void replyDelete(int no);
+	
+	
 }

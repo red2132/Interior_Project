@@ -93,6 +93,11 @@ public class EventDAO {
 	{
 		return mapper.eventReplyListData(bno);
 	}
+	// 댓글 갯수
+	public int eventReplyCount(int no)
+	{
+		return mapper.eventReplyCount(no);
+	}
 	// 댓글 추가
 	public void eventReplyInsert(HouseReplyVO vo)
 	{
@@ -111,7 +116,7 @@ public class EventDAO {
 		  HouseReplyVO pvo=mapper.eventReplyParentInfoData(pno);
 		  vo.setGroup_id(pvo.getGroup_id());
 		  vo.setGroup_step(pvo.getGroup_step()+1); // 출력 순서 
-		  vo.setGroup_tab(pvo.getGroup_tab()+1); // 간격 
+		  vo.setGroup_tab(pvo.getGroup_tab()+1); // => 간격 
 		  vo.setRoot(pno);
 		  mapper.eventReplyStepIncrement(pvo);
 		  mapper.eventReply2Insert(vo);
@@ -132,5 +137,17 @@ public class EventDAO {
 			 mapper.eventReplyMsgUpdate(no);
 		 }
 		  mapper.eventReplyDepthDecrement(vo.getRoot());
+	}
+	
+	// 검색
+	public List<EventVO> eventFindData(Map map)
+	{
+		return mapper.eventFindData(map);
+	}
+	
+	// 검색 결과 갯수
+	public int eventFindCount(Map map)
+	{
+		return mapper.eventFindCount(map);
 	}
 }

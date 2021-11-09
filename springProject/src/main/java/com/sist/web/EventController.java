@@ -107,6 +107,10 @@ public class EventController {
     	List<HouseReplyVO> list=dao.eventReplyListData(no);
     	model.addAttribute("list",list);
     	
+    	// 댓글 갯수
+    	int rcnt=dao.eventReplyCount(no);
+    	model.addAttribute("rcnt",rcnt);
+    	
 		model.addAttribute("vo",vo);
 		model.addAttribute("page",page);
 		model.addAttribute("main_jsp","../event/detail.jsp");
@@ -311,5 +315,23 @@ public class EventController {
 			}
 		}
 		return "redirect:../event/list.do";
+	}
+	
+	// 검색
+	@RequestMapping("find.do")
+	public String event_find(String[] fs, String ss, Model model)
+	{
+		
+		Map map=new HashMap();
+		map.put("ss", ss);
+		map.put("fsArr", fs);
+		List<EventVO> flist=dao.eventFindData(map);
+		int fcnt=dao.eventFindCount(map);
+		model.addAttribute("fsArr",fs);
+		model.addAttribute("ss",ss);
+		model.addAttribute("fcnt", fcnt);
+		model.addAttribute("flist",flist);
+		model.addAttribute("main_jsp", "../event/find.jsp");
+		return "main/main";
 	}
 }

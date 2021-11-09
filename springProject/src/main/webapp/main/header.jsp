@@ -148,15 +148,9 @@ $(function(){
                                     <a class="nav-link" href="../qna/list.do">QnA</a>
                                 </li>
                                 <!-- 이벤트 -->
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="../template/blog.html" id="navbarDropdown_1"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        공지사항
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="#"> 공지</a> <!-- 일반적인 오피셜한 공지 -->
-                                    	<a class="dropdown-item" href="../event/list.do">이벤트</a> <!-- 이벤트 공지 - 댓글, 하트 등 -->
-                                    </div>
+                                <li class="nav-item">
+                                	<!-- QnA 모아보기(비밀게시글은 admin,본인만 보기 가능 / 분류별 글쓰기(배송,물품,시공,등등...) / 검색가능(제목,내용) / 첫페이지는 모두 출력, 분류 선택시 해당 분류 문의만 모아보기) -->
+                                    <a class="nav-link" href="../event/list.do">이벤트</a>
                                 </li>
                                 <li class="nav-item dropdown"> 
                                     <!-- 회원(로그인 X) -->

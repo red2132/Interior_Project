@@ -17,7 +17,7 @@ public class EventRestController {
 	@PostMapping("update_ok.do")
 	public String event_update_ok(int page, EventVO vo)
 	{	
-		// 날짜 고쳐야함
+		vo.setPeriod(vo.getPeriod1()+"~"+vo.getPeriod2());
 		String url="";
 		boolean bCheck=dao.eventUpadate(vo);
 		if(bCheck==true)

@@ -2,15 +2,18 @@ package com.sist.dao;
 
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sist.mapper.NewItemMapper;
 import com.sist.vo.NewItemVO;
+import com.sist.vo.ReplyVO;
 
 @Repository
-
-
 
 public class NewItemDAO {
 	@Autowired
@@ -20,17 +23,17 @@ public class NewItemDAO {
 	public List<String> nCategory() {
 		return mp.nCategory();
 	}
-	
+
 	// 세부카테고리 목록
-	public List<String> nCategory2(String s){
+	public List<String> nCategory2(String s) {
 		return mp.nCategory2(s);
 	}
-	
+
 	// 목록
 	public List<NewItemVO> nList(Map map) {
 		return mp.nList(map);
 	}
-	
+
 	// 상품 갯수
 	public int itemCnt(Map map) {
 		return mp.itemCnt(map);
@@ -45,4 +48,32 @@ public class NewItemDAO {
 	public NewItemVO nDetail(int no) {
 		return mp.nDetail(no);
 	}
+
+	/////////////////  댓글
+	
+	// 댓글 갯수
+	public int replyCnt(Map map) {
+		return mp.replyCnt(map);
+	}
+
+	// 댓글가져오기
+	public List<ReplyVO> replyData(Map map) {
+		return mp.replyData(map);
+	}
+
+	// 댓글 입력
+	public void replyInsert(ReplyVO rvo) {
+		mp.replyInsert(rvo);
+	}
+
+	// 댓글수정
+	public void replyUpdate(Map map) {
+		mp.replyUpdate(map);
+	}
+
+	// 댓글 삭제
+	public void replyDelete(int no) {
+		mp.replyDelete(no);
+	}
+
 }
