@@ -2,10 +2,15 @@ package com.sist.web;
 
 import java.util.*;
 
+import org.apache.taglibs.standard.lang.jstl.test.beans.PublicBean1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.w3c.dom.Attr;
 
 import com.sist.dao.NewItemDAO;
 import com.sist.vo.NewItemVO;
@@ -84,8 +89,29 @@ public class NewItemController {
 		List<ReplyVO> rList = dao.replyData(map);
 		model.addAttribute("rList", rList);
 		
+		// 댓글 개수
+		int rCnt = dao.replyCnt(map);
+		model.addAttribute("rCnt", rCnt);
 		
 		model.addAttribute("main_jsp", "../new/detail.jsp");
 		return "main/main";
 	}
+	// 댓글입력
+	@PostMapping("new/replyInsert.do")
+	public String new_replyInsert(ReplyVO rvo,RedirectAttributes attr) {
+		dao.replyInsert(rvo);
+		attr.addAttribute("no",rvo.getItem_no());
+		return "redirect:../new/detail.do";
+	}
+	//댓글삭제
+	@GetMapping("new/replyDelete.do" ) 
+		public String new_replyDelete(int no,int rno, RedirectAttributes attr)
+	{	
+		dao.replyDelete(rno);
+		attr.addAttribute("no",no);
+		return "redirect:../new/detail.do";
+	}
+	
+	
+	
 }

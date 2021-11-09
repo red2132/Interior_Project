@@ -118,13 +118,13 @@
 							<c:if test="${sessionScope.id==rvo.id}">
 								<div style="float: right">
 									<span class="btn btn-xs updates" data-value="${rvo.no }">수정</span>
-									<a href="../second/replyDelete.do?no=${vo.no }&rno=${rvo.no}" class="btn btn-xs">삭제</a>
+									<a href="../new/replyDelete.do?no=${vo.no }&rno=${rvo.no}" class="btn btn-xs">삭제</a>
 								</div>
 							</c:if>
 							<table class="table up" style="display: none" id="u${rvo.no }">
 								<tr>
 									<td class="inline">
-										<form method="post" action="../second/replyUpdate.do">
+										<form method="post" action="../new/replyUpdate.do">
 											<input type=hidden name="no" value="${vo.no }"> <input
 												type=hidden name="rno" value="${rvo.no }">
 											<textarea rows="5" cols="70" name="content"
@@ -146,10 +146,10 @@
 					</c:if>
 					<c:if test="${sessionScope.id!=null }">
 						<p>댓글 입력</p>
-						<form class="row contact_form" action="../second/replyInsert.do"
+						<form class="row contact_form" action="../new/replyInsert.do"
 							method="post" novalidate="novalidate" id="replyForm">
 							<input type="hidden" name="item_no" value=${vo.no }> <input
-								type="hidden" name="cate" value="second">
+								type="hidden" name="cate" value="new">
 							<input type="hidden" name="id" value=${sessionScope.id }>
 							<input type="hidden" name="pwd" value="1234"> <input
 								type="hidden" name="name" value=${sessionScope.name }>
