@@ -91,6 +91,11 @@ public interface EventMapper {
 			 +"ORDER BY group_id DESC , group_step ASC") // group_id DESC (최신순) group_step ASC(답변 순서)
 	public List<HouseReplyVO> eventReplyListData(int bno);
 	
+	// 댓글 갯수
+	@Select("SELECT COUNT(*) FROM HOUSE_REPLY "
+			+ "WHERE bno=#{bno}")
+	public int eventReplyCount(int no);
+	
 	// 댓글 추가
 	@Insert("INSERT INTO HOUSE_REPLY(no,bno,id,name,msg,group_id) VALUES("
 			 +"hr_no_seq.nextval,#{bno},#{id},#{name},#{msg},"
@@ -103,45 +108,95 @@ public interface EventMapper {
 			 +"WHERE no=#{no}")
 	public void eventReplyUpdate(HouseReplyVO vo);
 	
-	// 대댓글 => 트랜잭션 
-	// 1. 댓글 대상의 정보 : group_id,step,tab : SELECT
+	// 대댓글  => Tansaction 처리 
+	// 1. 댓글 대상의 정보
 	@Select("SELECT group_id,group_step,group_tab "
 			 +"FROM HOUSE_REPLY "
 			 +"WHERE no=#{no}")
 	public HouseReplyVO eventReplyParentInfoData(int no);
-	// 2. step 변경  : UPDATE 
+	// 2. step 변경
 	@Update("UPDATE HOUSE_REPLY SET "
 			 +"group_step=group_step+1 "
 			 +"WHERE group_id=#{group_id} AND group_step>#{group_step}")
 	public void eventReplyStepIncrement(HouseReplyVO vo);
-	// 3. insert : INSERT
+	// 3. insert
 	@Insert("INSERT INTO HOUSE_REPLY(no,bno,id,name,msg,group_id,group_step,group_tab,root) "
 			 +"VALUES(hr_no_seq.nextval,#{bno},#{id},#{name},#{msg},"
 			 +"#{group_id},#{group_step},#{group_tab},#{root})")
 	public void eventReply2Insert(HouseReplyVO vo);
-	// 4. depth 증가 : UPDATE 
+	// 4. depth 증가
 	@Update("UPDATE HOUSE_REPLY SET "
 			 +"depth=depth+1 "
 			 +"WHERE no=#{no}")
 	public void eventReplyDepthIncrement(int no);
 	
-	// 삭제 => 트랜잭션
-	// 1. depth,root 읽기  SELECT
+	// 삭제  트랜잭션 대상 
+	// 1. depth,root 읽기
 	@Select("SELECT depth,root "
 			 +"FROM HOUSE_REPLY "
 			 +"WHERE no=#{no}")
 	public HouseReplyVO eventDepthInfoData(int no);
-	// 2. depth==0 삭제, depth!=0 수정  DELETE/UPADTE
+	// 2. depth==0 삭제, depth!=0 수정
 	@Delete("DELETE FROM HOUSE_REPLY "
 			 +"WHERE no=#{no}")
 	public void eventReplyDelete(int no);
 	@Update("UPDATE HOUSE_REPLY SET "
-			 +"msg='삭제한 댓글입니다.' "
+			 +"msg='작성자가 삭제한 댓글입니다.' "
 			 +"WHERE no=#{no}")
 	public void eventReplyMsgUpdate(int no);
-	// 3. depth 감소  UPDATE 
+	// 3. depth 감소
 	@Update("UPDATE HOUSE_REPLY SET "
 			 +"depth=depth-1 "
 			 +"WHERE no=#{no}")
 	public void eventReplyDepthDecrement(int no);
+	
+	// 검색 
+	@Select({"<script>"
+			+ "SELECT no,poster,state,regdate,period,content "
+			+ "FROM HOUSE_EVENT "
+			+ "WHERE "
+			+ "<trim prefix=\"(\" suffix=\")\" prefixOverrides=\"OR\">"
+			+ "<foreach collection=\"fsArr\" item=\"fs\">"
+			+ "<trim prefix=\"OR\">" + "<choose>"
+			+ "<when test=\"fs=='T'.toString()\">"
+			+ "title LIKE '%'||#{ss}||'%'"
+			+ "</when>"
+			+ "<when test=\"fs=='C'.toString()\">"
+			+ "content LIKE '%'||#{ss}||'%'"
+			+ "</when>"
+			+ "<when test=\"fs=='P'.toString()\">"
+			+ "period LIKE '%'||#{ss}||'%'"
+			+ "</when>"
+			+ "</choose>"
+			+ "</trim>" 
+			+ "</foreach>" 
+			+ "</trim>"
+			+ "</script>" })
+	public List<EventVO> eventFindData(Map map); 
+	
+	// 검색 결과 갯수
+	@Select({"<script>"
+			+ "SELECT COUNT(*) "
+			+ "FROM HOUSE_EVENT "
+			+ "WHERE "
+			+ "<trim prefix=\"(\" suffix=\")\" prefixOverrides=\"OR\">"
+			+ "<foreach collection=\"fsArr\" item=\"fd\">"
+			+ "<trim prefix=\"OR\">" + "<choose>"
+			+ "<when test=\"fd=='T'.toString()\">"
+			+ "title LIKE '%'||#{ss}||'%'"
+			+ "</when>"
+			+ "<when test=\"fd=='C'.toString()\">"
+			+ "content LIKE '%'||#{ss}||'%'"
+			+ "</when>"
+			+ "<when test=\"fd=='P'.toString()\">"
+			+ "period LIKE '%'||#{ss}||'%'"
+			+ "</when>"
+			+ "</choose>"
+			+ "</trim>" 
+			+ "</foreach>" 
+			+ "</trim>" 
+			+ "</script>" })
+	public int eventFindCount(Map map);
+			
+			
 }

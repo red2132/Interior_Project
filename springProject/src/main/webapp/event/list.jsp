@@ -8,8 +8,6 @@
 <title>이벤트-목록</title>
 <style>
 .card-section {
-  margin: 15px 0 15px 340px;
-  max-width: 1200px;
   padding: 25px;
   display: flex;
   flex-direction: column;
@@ -53,15 +51,14 @@
     color: #ffff !important;
 }
 </style>
-</script>
 </head>
 <body>
 
-	<!-- breadcrumb start-->
+<!-- breadcrumb start-->
 	    <section class="breadcrumb breadcrumb_bg">
 	        <div class="container">
 	            <div class="row justify-content-center">
-	                <div class="col-lg-8">
+	                <div class="col-sm-8">
 	                    <div class="breadcrumb_iner">
 	                        <div class="breadcrumb_iner_item">
 	                            <h2>이벤트</h2>
@@ -72,20 +69,21 @@
 	            </div>
 	        </div>
 	    </section>
-	    <!-- breadcrumb start-->
-		<div class="col-lg-12" style="margin-top:100px;" >
-		<c:if test="${sessionScope.admin=='y'}">
-		<a href="../event/insert.do" class="genric-btn primary circle"
-		style="max-width: 1200px;margin: 0 0 0 385px;">작성</a>
-		</c:if>
-		</div>
-	<!-- breadcrumb end-->	
-		
-	<section class="blog_area single-post-area">
+<!-- breadcrumb end-->	
+	
+<section class="blog_area single-post-area">
+<div class="container">
+  <div class="row">
+  <div class="posts-list">
+  <div class="col-sm-12" style="margin-top:100px;" >
+	  <c:if test="${sessionScope.admin=='y'}">
+		<a href="../event/insert.do" class="genric-btn primary circle" style="color: #ffff !important;margin-left:1000px;">작성</a>
+	  </c:if>
+	</div>
 	<div class="card-section">
 	  <div class="card-list">
 	    <c:forEach var="vo" items="${list }">
-	    <div class="col-lg-6" style="padding-bottom:20px;">
+	    <div class="col-sm-6" style="padding-bottom:20px;">
 		    <div class="card">
 		      <a href="../event/detail_before.do?no=${vo.no}&page=${curpage}"><center><img src="${vo.poster }"/></center></a>
 		  	</div>
@@ -102,6 +100,33 @@
 	   </c:forEach>
 	 </div>
 	</div>
+	
+	
+	<!-- 검색 -->
+	<div class="col-sm-12">
+    <aside class="single_sidebar_widget search_widget">
+	<div class="form-group" style="margin-left:790px;margin-top:20px;">
+    <div class="input-group mb-3">
+    <form method=post action="../event/find.do" id="find">
+       <select name="fs" class="input">
+	   	 	<option value="T" >제목</option>
+	   	 	<option value="C" >내용</option>
+	   	 	<option value="P" >기간</option>
+	   </select>
+       <input type="text" name="ss" class="form-control" placeholder='검색어'
+              onfocus="this.placeholder = ''" onblur="this.placeholder = '검색어'"
+              style="width:200px;border-radius:5px;margin-top:3px;margin-left:5px;'">
+       <div class="input-group-append">
+       <button class="btn" type="button" onclick="document.getElementById('find').submit();"
+       style="margin-top:3px;"><i class="ti-search"></i></button>
+       </div>
+    </form>
+    </div>
+    </div>
+    </aside>
+    </div>
+	
+	<!-- 페이지 -->
     <nav class="blog-pagination justify-content-center d-flex">
        <ul class="pagination">
          <c:if test="${startPage>1 }">
@@ -134,17 +159,17 @@
     </nav>
     
     <!-- 쿠키 -->
-    <section class="product_list best_seller" style="padding-top:80px;">
+    <section class="product_list best_seller" style="padding-top:30px;">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-lg-12">
+        <div class="col-sm-12">
           <div class="section_tittle text-center">
             <h4>최근 본 이벤트 <a href="../event/event_cookie_delete.do"><i class="fas fa-trash-alt"></i></a></h4>
           </div>
         </div>
       </div>
       <div class="row align-items-center justify-content-between">
-        <div class="col-lg-12">
+        <div class="col-sm-12">
           <div class="best_product_slider owl-carousel">
            <c:forEach var="vo" items="${cList }" varStatus="s">
            	  <c:if test="${s.index<10 }">
@@ -158,6 +183,9 @@
       </div>
     </div>
   </section>
+ </div>
+</div>
+</div>
 </section>
 </body>
 </html>

@@ -20,9 +20,6 @@
 #buttons{
   margin-left:960px;
 }
-.comment-list{
-	padding-bottom: 30px !important;
-}
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
@@ -161,8 +158,8 @@ $(function(){
                </div>
                
              <!-- 댓글 -->
-               <div class="comments-area"> 
-               	  <h4>댓글</h4>
+               <div class="comments-area">
+               	  <h4>댓글(${rcnt })</h4>
                   <!-- 댓글 출력 위치 -->
                   <c:forEach var="rvo" items="${list }">
                   <div class="comment-list">
