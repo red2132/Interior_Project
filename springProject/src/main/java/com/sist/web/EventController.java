@@ -319,7 +319,7 @@ public class EventController {
 	
 	// 검색
 	@RequestMapping("find.do")
-	public String event_find(String[] fs, String ss, String page, Model model)
+	public String event_find(String[] fs, String ss, Model model)
 	{
 		
 		Map map=new HashMap();

@@ -86,14 +86,14 @@
 	    <c:forEach var="vo" items="${flist }">
 	    <div class="col-lg-6" style="padding-bottom:20px;">
 		    <div class="card">
-		      <a href="../event/detail_before.do?no=${vo.no}&page=${curpage}"><center><img src="${vo.poster }"/></center></a>
+		      <a href="../event/detail_before.do?no=${vo.no}&page=1"><center><img src="${vo.poster }"/></center></a>
 		  	</div>
 		  	<div class="card_detail" style="margin-left:10px;">
 		     <table>
 		      <tr>
-		      	<th><a href="../event/detail_before.do?no=${vo.no}&page=${curpage}">${vo.state }&nbsp;</a></th>
+		      	<th><a href="../event/detail_before.do?no=${vo.no}&page=1">${vo.state }&nbsp;</a></th>
 		      	<td>｜</td>
-		      	<td><a href="../event/detail_before.do?no=${vo.no}&page=${curpage}">&nbsp;${vo.period }</a></td>
+		      	<td><a href="../event/detail_before.do?no=${vo.no}&page=1">&nbsp;${vo.period }</a></td>
 		      </tr>
 		     </table>
 		    </div>

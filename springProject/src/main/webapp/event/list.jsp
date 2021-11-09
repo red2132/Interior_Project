@@ -77,7 +77,7 @@
   <div class="posts-list">
   <div class="col-sm-12" style="margin-top:100px;" >
 	  <c:if test="${sessionScope.admin=='y'}">
-		<a href="../event/insert.do" class="genric-btn primary circle" style="color: #ffff !important;margin-left:1000px;">작성</a>
+		<a href="../event/insert.do" class="genric-btn primary circle" style="color: #ffff !important;margin-left:1020px;">작성</a>
 	  </c:if>
 	</div>
 	<div class="card-section">
