@@ -1,6 +1,6 @@
 package com.sist.dao;
 
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,24 +14,33 @@ public class PageDAO {
 	@Autowired
 	private PageMapper mapper;
 	
-	public MypageVO myPageInterestingData(String id)
-	{
-		return mapper.myPageInterestingData(id);
-	}
 	
 	public List<MypageVO> myPageCommunityData(String id)
 	{
 		return mapper.myPageCommunityData(id);
 	}
-	
 	public List<MypageVO> myPageReplyData(String id)
 	{
 		return mapper.myPageReplyData(id);
 	}
-	
 	public String myPageAddressData(String id)
 	{
 		return mapper.myPageAddressData(id);
+	}
+	
+	public MypageVO myPageInterestingData(String id)
+	{
+		return mapper.myPageInterestingData(id);
+	}
+
+	public List<MypageVO> myNewCategoryData()
+	{
+		return mapper.myNewCategoryData();
+	}
+	
+	public void myPageInterestingUpdate(Map map)
+	{
+		mapper.myPageInterestingUpdate(map);
 	}
 
 }

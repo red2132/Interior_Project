@@ -2,6 +2,8 @@ package com.sist.web;
 
 import java.util.*;
 import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,13 +19,14 @@ public class PageController {
 	@Autowired
 	private PageDAO myDAO;
 	
-	@Autowired
-	private CommunityDAO commDAO;
    
 	@GetMapping("mypage.do")
 	public String page_mypage(Model model, HttpSession session)
 	{
+		String interestingCate = "";
 		String id = (String)session.getAttribute("id");
+		
+		List<MypageVO> cateList = myDAO.myNewCategoryData();
 		
 		List<MypageVO> cList = myDAO.myPageCommunityData(id);
 		List<MypageVO> rList = myDAO.myPageReplyData(id);
@@ -33,14 +36,28 @@ public class PageController {
 		String addr_data1 = array[0];
 		String addr_data2 = array[1];
 		
-		model.addAttribute("addr_data1", addr_data1);
-		model.addAttribute("addr_data2", addr_data2);
+		MypageVO vo = myDAO.myPageInterestingData(id);
+		interestingCate = vo.getInteresting_cate();
+		if(interestingCate == null)	
+			interestingCate = "없음";
+		String[] cateArray = interestingCate.split(",");
+		List<String> iList = Arrays.asList(cateArray);
+		
+		model.addAttribute("cateList", cateList);
+		
 		model.addAttribute("cList", cList);
 		model.addAttribute("rList", rList);
+		
+		model.addAttribute("addr_data1", addr_data1);
+		model.addAttribute("addr_data2", addr_data2);
+		
+		model.addAttribute("iList", iList);
 		
 		model.addAttribute("main_jsp", "../page/mypage.jsp");
 		return "main/main";
 	}
+	
+	
    
 	@GetMapping("adminpage.do")
 	public String page_adminpage(Model model)
@@ -80,6 +97,23 @@ public class PageController {
 		model.addAttribute(vo);
 		model.addAttribute("main_jsp", "../page/myinterestpage.jsp");
 		return "main/main";
+	}
+	
+	@PostMapping("interesting_cate_insert_ok.do")
+	public String interesting_cate_insert_ok(String cate, HttpSession session)
+	{
+		String id = (String)session.getAttribute("id");
+		
+		MypageVO pre_vo = myDAO.myPageInterestingData(id);
+		String previousData = pre_vo.getInteresting_cate();
+		String insertData = previousData + "," + cate;
+		
+		Map map = new HashMap();
+		map.put("id", id);
+		map.put("interesting_cate", insertData);
+		myDAO.myPageInterestingUpdate(map);
+		
+		return "redirect:../page/mypage.do";
 	}
    
 }
