@@ -61,7 +61,7 @@ public interface EventMapper {
 	
 	// 수정
 	@Update("UPDATE HOUSE_EVENT SET "
-			+"title=#{title}, content=#{content}, state=#{state}, poster=#{poster}, img=#{img} "
+			+"title=#{title}, period=#{period}, content=#{content}, state=#{state}, poster=#{poster}, img=#{img} "
 			+"WHERE no=#{no}")
 	public void eventUpdate(EventVO vo);
 	
