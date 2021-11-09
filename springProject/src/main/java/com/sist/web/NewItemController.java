@@ -74,12 +74,14 @@ public class NewItemController {
 	}
 	
 	@RequestMapping("new/detail.do") // 해당 위치로 데이터를 보낸다
-	public String detail(int no,Model model) {
+	public String detail(int no,String cate1, String cate2,Model model) {
 		
 		// 상품 정보
 		NewItemVO vo=dao.nDetail(no);
 		model.addAttribute("vo", vo);
 		
+		model.addAttribute("cate1",cate1);
+		model.addAttribute("cate2",cate2);
 		
 		Map map = new HashMap();
 		map.put("cate", "new");

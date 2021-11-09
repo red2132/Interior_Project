@@ -6,11 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
 <script>
 	let u = 0;// 전역변수
 	$(function() {
@@ -41,87 +41,8 @@
 				$(this).text("수정");
 			}
 		})
-
 	});
 </script>
-
-
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.min.js"></script>
-<script type="text/javascript">
-	var websocket;
-	function connection() {
-		// websocket 등록 
-		websocket = new WebSocket("ws://localhost:8080/web/chat-ws");
-		websocket.onopen = onOpen;
-		websocket.onmessage = onMessage;
-		websocket.onclose = onClose;
-
-	}
-	function onOpen(event) {
-		// 서버 연결
-		alert("채팅 서버와 연결되었습니다!!");
-	}
-	function onMessage(event) {
-		// 서버에 값을 전송
-		var data = event.data;
-		if (data.substring(0, 4) == "msg:") {
-			// 100 LOGIN , 200 방만들기 
-			appendMessage(data.substring(4));
-		}
-	}
-	function onClose(event) {
-		// 종료
-		alert("채팅서버와 연결 종료되었습니다!!");
-	}
-	function disconnection() {
-		// 서버연결 해제
-		websocket.close();
-	}
-	function send() {
-		// 전송 
-		var name = $('#name').val();
-		if (name.trim() == "") {
-			$('#name').focus();
-			return;
-		}
-		var msg = $('#sendMsg').val();
-		if (msg.trim() == "") {
-			$('#sendMsg').focus();
-			return;
-		}
-		websocket.send("msg:[" + name + "]" + msg);
-		$('#sendMsg').val("");
-		$('#sendMsg').focus();
-
-	}
-	function appendMessage(msg) {
-		// 채팅문자열을 결합 
-		$('#recvMsg').append(msg + "<br>");
-		var ch = $('#chatArea').height();
-		var m = $('#recvMsg').height() - ch;
-		$('#chatArea').scrollTop(m);
-	}
-
-	$(function() {
-		$('#startBtn').click(function() {
-			connection();
-		});
-		$('#endBtn').click(function() {
-			disconnection();
-		});
-		$('#sendBtn').click(function() {
-			send();
-		})
-		$('#sendMsg').keydown(function(key) {
-			if (key.keyCode == 13) {
-				send();
-			}
-		})
-	})
-</script>
-
 </head>
 <body>
 	<!-- breadcrumb start-->
@@ -133,7 +54,7 @@
 						<div class="breadcrumb_iner_item">
 							<h2>Shop Single</h2>
 							<p>${vo.title }
-								<span>-</span> 상세보기
+								<span>-</span> 중고거래 상세보기
 							</p>
 						</div>
 					</div>
@@ -148,17 +69,17 @@
 	<div class="product_image_area section_padding">
 		<div class="container">
 			<div class="row s_product_inner justify-content-between">
-				<div class="col-lg-7 col-xl-7">
+				<div class="col-lg-6 col-xl-6">
 					<div class="product_slider_img">
 						<div id="vertical">
 							<!-- 상품디테일/상품 이미지 -->
 							<div data-thumb="img/product/single-product/product_1.png">
-								<img src="${vo.img }" heigh=700px width=600px />
+								<img src="${vo.img }" heigh=450px width=450px />
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-5 col-xl-5">
+				<div class="col-lg-6 col-xl-6">
 					<div class="s_product_text">
 						<h3>${vo.title }</h3>
 						<h2>${vo.price }</h2>
@@ -166,21 +87,26 @@
 							<li><a class="active" href="#"> <span>카테고리 </span> :
 									${vo.cate1 }&nbsp;&gt;&nbsp;${vo.cate2 }&nbsp;&gt;&nbsp;${vo.cate3 }
 							</a></li>
-							<li><a href="#"> <span>Availibility</span> : In
-									Stock??????????
+							<li><a href="#"> <span>Availibility</span> : In Stock
 							</a></li>
 						</ul>
-						<p>${vo.cmt }</p>
-						<div class="card_area d-flex justify-content-between align-items-center">
+						<p>
+							상세정보 : <br>${vo.cmt }</p>
+
+						<div
+							class="card_area d-flex justify-content-between align-items-center">
 							<!-- <div class="product_count">
 								<span class="inumber-decrement"> <i class="ti-minus"></i></span>
 								<input class="input-number" type="text" value="1" min="0"
 									max="10"> <span class="number-increment"> <i
 									class="ti-plus"></i></span>
 							</div> -->
-							<a href="#" class="btn_3">장바구니에 추가</a> <a href="#"
-								class="like_us"> <i class="ti-heart"></i>
-							</a>
+							<c:if test="${sessionScope.id!=null }">
+								<a href="#" class="btn_3">채팅하기</a>
+							</c:if>
+							<c:if test="${sessionScope.id==null }">
+								<h5 style="color: red">로그인시 채팅 이용이 가능합니다.</h5>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -188,58 +114,9 @@
 		</div>
 	</div>
 	<!--================End Single Product Area =================-->
-<hr>
 
-	<div class="container">
-		<div class="col-lg-7 col-xl-7">
-			${vo.cmt }
-			<br> <br> <br>
-			상세정보<br> 상세정보<br> 상세정보<br> 상세정보<br> 상세정보<br>
-			상세정보<br> 상세정보<br> 상세정보<br> 상세정보<br> 상세정보<br>
-			상세정보<br> <br> <br> <br> <br> <br> <br>
-			
-		</div>
-
-		<div class="col-lg-5 col-xl-5">
-			<a href="../chat/chat.do">채팅 </a>
-			
-			<!-- 채팅~! -->
-
-			<h1>채팅</h1>
-			<div class="row">
-				<table class="table">
-					<tr>
-						<td class="inline">이름:<input type=text id="name"
-							class="input-sm"> <input type="button" id="startBtn"
-							value="입장" class="btn btn-sm btn-primary"> <input
-							type="button" id="endBtn" value="퇴장"
-							class="btn btn-sm btn-danger">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div
-								style="height: 150px; overflow-y: auto; border: 1px solid black;">
-								<div id="recvMsg"></div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td class="inline"><input type=text id="sendMsg" size=50
-							class="input-sm"> <input type=button id="sendBtn"
-							value="전송" class="btn btn-sm btn-success"></td>
-					</tr>
-				</table>
-			</div>
-
-			<!-- 채팅 -->
-
-
-		</div>
-	</div>
-	<div class="col-lg-1">
-	</div>
-	<div style="color: red">Comments(${rCnt })</div>
+	<div class="col-lg-2"></div>
+	<div style="color: black">Comments(${rCnt })</div>
 	<hr>
 
 	<div class=container>
@@ -250,7 +127,7 @@
 						<h4>댓글이 없습니다.</h4>
 					</c:if>
 					<c:if test="${rCnt!=0}">
-						<h4>${rCnt }개의 댓글이 있습니다.</h4>
+						<h4>${rCnt }개의댓글이 있습니다.</h4>
 					</c:if>
 					<br>
 					<c:forEach var="rvo" items="${rList }">
@@ -268,8 +145,10 @@
 							<p>${rvo.content }</p>
 							<c:if test="${sessionScope.id==rvo.id}">
 								<div style="float: right">
-									<span class="btn btn-xs updates" data-value="${rvo.no }">수정</span>
-									<a href="../second/replyDelete.do?no=${vo.no }&rno=${rvo.no}" class="btn btn-xs">삭제</a>
+									<span class="btn btn-xs btn-danger updates"
+										data-value="${rvo.no }">수정</span> <a
+										href="../second/replyDelete.do?no=${vo.no }&rno=${rvo.no}"
+										class="btn btn-xs btn-danger">삭제</a>
 								</div>
 							</c:if>
 							<table class="table up" style="display: none" id="u${rvo.no }">
@@ -300,9 +179,9 @@
 						<form class="row contact_form" action="../second/replyInsert.do"
 							method="post" novalidate="novalidate" id="replyForm">
 							<input type="hidden" name="item_no" value=${vo.no }> <input
-								type="hidden" name="cate" value="second">
-							<input type="hidden" name="id" value=${sessionScope.id }>
-							<input type="hidden" name="pwd" value="1234"> <input
+								type="hidden" name="cate" value="second"> <input
+								type="hidden" name="id" value=${sessionScope.id }> <input
+								type="hidden" name="pwd" value="1234"> <input
 								type="hidden" name="name" value=${sessionScope.name }>
 							<div class="col-md-12">
 								<div class="form-group">
@@ -311,7 +190,7 @@
 								</div>
 							</div>
 							<div class="col-md-12 text-right">
-								<button type="button" id="insertBtn">등록</button>
+								<button type="button" id="insertBtn" class="btn-primary">등록</button>
 							</div>
 						</form>
 					</c:if>
@@ -319,5 +198,66 @@
 			</div>
 		</div>
 	</div>
+
+	<div style="padding-bottom: 40px"></div>
+
+	<!-- product_list part start-->
+	<section class="product_list best_seller">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-12">
+					<div class="section_tittle text-center">
+						<h2>
+							새상품 <span>추천</span>
+						</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row align-items-center justify-content-between">
+				<div class="col-lg-12">
+					<div class="best_product_slider owl-carousel">
+						<div class="single_product_item">
+							<img src="img/product/product_1.png" alt="">
+							<div class="single_product_text">
+								<h4>상품명</h4>
+								<h3>$150.00(가격)</h3>
+							</div>
+						</div>
+						<div class="single_product_item">
+							<img src="img/product/product_2.png" alt="">
+							<!-- 베스트 상품 이미지 입력 구역  -->
+							<div class="single_product_text">
+								<h4>Quartz Belt Watch</h4>
+								<h3>$150.00</h3>
+							</div>
+						</div>
+						<div class="single_product_item">
+							<img src="img/product/product_3.png" alt="">
+							<div class="single_product_text">
+								<h4>Quartz Belt Watch</h4>
+								<h3>$150.00</h3>
+							</div>
+						</div>
+						<div class="single_product_item">
+							<img src="img/product/product_4.png" alt="">
+							<div class="single_product_text">
+								<h4>Quartz Belt Watch</h4>
+								<h3>$150.00</h3>
+							</div>
+						</div>
+						<div class="single_product_item">
+							<img src="img/product/product_5.png" alt="">
+							<div class="single_product_text">
+								<h4>Quartz Belt Watch</h4>
+								<h3>$150.00</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- product_list part end -->
+
 </body>
 </html>
