@@ -87,6 +87,22 @@ public class NewItemController {
 		map.put("cate", "new");
 		map.put("item_no", no);
 		
+		
+		//베스트상품 정보
+		//1-1. 해당 게시글의 cate1, cate2 정보 불러와서 String cate1, cate2값으로 집어넣기
+		NewItemVO cateData=dao.newItemGetCategory(no);
+		cate1=cateData.getCate1();
+		cate2=cateData.getCate2();
+		Map map2=new HashMap();
+		map2.put("cate1", cate1);
+		map2.put("cate2", cate2);
+		//1-2. 해당 게시글의 cate1, cate2가 일치하는 가구 목록 불러오기
+		List<NewItemVO> bestList=dao.bestItemListData(map2);
+		model.addAttribute("cateData", cateData);
+		model.addAttribute("bestList", bestList);
+		
+		
+		
 		// 댓글전체
 		List<ReplyVO> rList = dao.replyData(map);
 		model.addAttribute("rList", rList);

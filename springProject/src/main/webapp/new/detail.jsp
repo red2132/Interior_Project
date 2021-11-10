@@ -174,6 +174,35 @@
 		</div>
 	</div>
 	<!--================End Product Description Area =================-->
-
+	<!-- 베스트 아이템 목록 출력 start-->
+	  <section class="product_list best_seller">
+	    <div class="container">
+	      <div class="row justify-content-center">
+	        <div class="col-lg-12">
+	          <div class="section_tittle text-center">
+	            <h2>연관 베스트 상품 </h2> 
+	          </div>
+	        </div>
+	      </div>
+	      <div class="row align-items-center justify-content-between">
+	        <div class="col-lg-12">
+	          <div class="best_product_slider owl-carousel">
+	            <c:forEach var="list" items="${bestList }" begin="1" end="10">
+		            <div class="single_product_item">
+		              <a href="../new/detail.do?no=${list.no }">
+			              <img src="${list.img }" alt="">
+			              <div class="single_product_text">
+			                <h4>${list.title }</h4>
+			                <h3>${list.price }원</h3>
+			              </div>	
+		              </a>
+		            </div>
+	            </c:forEach>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </section>
+	  <!-- 베스트 아이템 목록 출력 end-->
 </body>
 </html>
