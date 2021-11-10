@@ -31,16 +31,13 @@ public interface PageMapper {
 	@Select("SELECT DISTINCT cate1, cate2 FROM new_item ORDER BY cate1")
 	public List<MypageVO> myNewCategoryData();
 	
-
-	
-	// ####################################################################
-	
-	// 관심페이지 : 내 관심 목록 확인
+	// 마이페이지 : 내 관심 목록 확인
 	@Select("SELECT id, interesting_no, interesting_cate "
 		  + "FROM mypage "
 		  + "WHERE id = #{id}")
 	public MypageVO myPageInterestingData(String id);
 	
+	// 마이페이지 : 내 관심 태그 업데이트
 	@Update("UPDATE mypage SET "
 		  + "interesting_cate = #{interesting_cate} "
 		  + "WHERE id = #{id}")

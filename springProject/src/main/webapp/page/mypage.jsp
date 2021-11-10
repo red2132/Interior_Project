@@ -130,7 +130,7 @@
 								<c:forEach var="interest" items="${iList}">
 									<li>
 										● ${interest} &nbsp;
-										<img src="../template/img/cate_delete.png">
+										<a href="../page/interesting_cate_delete_ok.do?interest=${interest}"><img src="../template/img/cate_delete.png"></a>
 									</li>
 								</c:forEach>
 							</ul>
