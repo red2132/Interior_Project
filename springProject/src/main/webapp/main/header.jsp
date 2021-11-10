@@ -172,7 +172,6 @@ $(function(){
                                         마이페이지</a>
 		                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
 		                                        <a class="dropdown-item" href="../page/mypage.do">마이페이지</a>
-		                                        <a class="dropdown-item" href="../page/myinterestpage.do">관심목록</a>
 		                                        <a class="dropdown-item" href="../page/mybuypage.do">구매내역</a>
 		                                        <a class="dropdown-item" href="../page/mysellpage.do">판매내역</a>
 		                                        <a class="dropdown-item" href="../member/join_update.do">회원정보수정</a>

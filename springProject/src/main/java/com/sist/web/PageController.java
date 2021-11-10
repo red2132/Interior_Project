@@ -91,18 +91,6 @@ public class PageController {
 		model.addAttribute("main_jsp", "../page/mysellpage.jsp");
 		return "main/main";
 	}
-   
-	@GetMapping("myinterestpage.do")
-	public String page_myinterestpage(Model model, HttpSession session)
-	{
-		String id = (String)session.getAttribute("id");
-	   
-		MypageVO vo = myDAO.myPageInterestingData(id);
-	   
-		model.addAttribute(vo);
-		model.addAttribute("main_jsp", "../page/myinterestpage.jsp");
-		return "main/main";
-	}
 	
 	@PostMapping("interesting_cate_insert_ok.do")
 	public String interesting_cate_insert_ok(String cate, HttpSession session)
