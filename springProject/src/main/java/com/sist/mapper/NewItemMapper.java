@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Update;
 import com.sist.vo.NewItemVO;
 import com.sist.vo.ReplyVO;
 import com.sist.vo.SecondItemVO;
+import com.sist.vo.CartVO;
 
 public interface NewItemMapper {
 	////////////////////////////////////////////////////////////////////////////////
@@ -79,5 +80,30 @@ public interface NewItemMapper {
 		@Delete("DELETE FROM reply WHERE no=#{no}")
 		public void replyDelete(int no);
 	
-	
+	    /////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////
+		
+		 // 장바구니 등록 
+		   /*
+		    *       CART_ID    NOT NULL NUMBER       
+					ID                  VARCHAR2(20) 
+					PRODUCT_ID          NUMBER       
+					AMOUNT              NUMBER       
+					REGDATE             DATE
+		    */
+		@Insert("INSERT INTO cart VALUES("
+				  +"(SELECT NVL(MAX(cart_id)+1,1) FROM cart),#{id},#{product_id},#{amount},SYSDATE,0,0)")
+		public void cartInsert(CartVO vo);
+		// 마이페이지 => 취소/결제 => 결제(이메일로 전송)
+		@Select("SELECT /*+ INDEX_DESC(cart cart_id_pk)*/ cart_id,id,amount,ischeck,issale,"
+				  +"(SELECT title FROM new_item WHERE new_item.no=cart.product_id) as title,"
+				  +"(SELECT img FROM new_item WHERE new_item.no=cart.product_id) as img,"
+				  +"(SELECT price FROM new_item WHERE new_item.no=cart.product_id) as price "
+				  +"FROM cart "
+				  +"WHERE id=#{id} "
+				  +"AND regdate>=SYSDATE-3 AND regdate<=SYSDATE")
+		   public List<CartVO> cartListData(String id);
+		
+		/////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////
 }

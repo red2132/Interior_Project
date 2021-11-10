@@ -2,6 +2,8 @@ package com.sist.web;
 
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.taglibs.standard.lang.jstl.test.beans.PublicBean1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.w3c.dom.Attr;
 import com.sist.dao.NewItemDAO;
 import com.sist.vo.NewItemVO;
 import com.sist.vo.ReplyVO;
+import com.sist.vo.CartVO;
 
 @Controller
 public class NewItemController {
@@ -116,7 +119,35 @@ public class NewItemController {
 		attr.addAttribute("no",no);
 		return "redirect:../new/detail.do";
 	}
-	
+	/////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////
+	// 장바구니 
+	   @PostMapping("cart/cart_ok.do")
+	   public String catr_cart_ok(int product_id,int amount, HttpSession session)
+	   {
+		   CartVO vo=new CartVO();
+		   vo.setProduct_id(product_id);
+		   vo.setAmount(amount);
+		   String id=(String)session.getAttribute("id");
+		   vo.setId(id);
+		   // 오라클 전송 
+		   dao.cartInsert(vo);
+		   return "redirect:../page/mycartpage.do"; // adminpage 
+	   }
+	   
+	   @GetMapping("page/mycartpage.do")
+	   public String page_mypage(HttpSession session,Model model)
+	   {
+		   // 데이터 읽기 
+		   String id=(String)session.getAttribute("id");
+		   // 오라클 연결 
+		   List<CartVO> list=dao.cartListData(id);
+		   model.addAttribute("list", list);
+		   model.addAttribute("main_jsp", "../page/mycartpage.jsp");
+		   return "main/main";
+	   }
+	/////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////
 	
 	
 }

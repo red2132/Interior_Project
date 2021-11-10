@@ -71,12 +71,11 @@ public class PageController {
 		return "main/main";
 	}
    
-	@GetMapping("mycartpage.do")
-	public String page_mycartpage(Model model)
-	{
-		model.addAttribute("main_jsp", "../page/mycartpage.jsp");
-		return "main/main";
-	}
+	/*
+	 * @GetMapping("mycartpage.do") public String page_mycartpage(Model model) {
+	 * model.addAttribute("main_jsp", "../page/mycartpage.jsp"); return "main/main";
+	 * }
+	 */
    
 	@GetMapping("mybuypage.do")
 	public String page_mybuypage(Model model)

@@ -78,8 +78,23 @@
 										<input class="input-number" type="text" value="1" min="0" max="10" name=amount>
 											<span class="number-increment"><i class="ti-plus"></i>
 										</span>
-									</div>
-									<input type=submit value="장바구니에 추가" class=btn_3>
+									</div>`
+									
+							<!-- ################################################################# -->
+							<!-- ################################################################# -->
+									<form method="post" action="../cart/cart_ok.do">
+		       						<%-- <input type=hidden name="product_id" value="${vo.product_id }"> --%>
+		       						<input type=hidden name="product_id" value="${vo.no }">
+							       <input type=hidden name="amount" value="" id="amount">
+							       <input type="submit" class="btn btn-sm" value="장바구니">
+							        </form>
+								   <!-- <input type=submit value="장바구니에 추가" class=btn_3> -->
+							<!-- ################################################################# -->
+							<!-- ################################################################# -->
+							   		
+									
+									
+									
 								</form>
 							</c:if>
 						</div>

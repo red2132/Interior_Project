@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.sist.mapper.NewItemMapper;
 import com.sist.vo.NewItemVO;
 import com.sist.vo.ReplyVO;
+import com.sist.vo.CartVO;
 
 @Repository
 
@@ -75,8 +76,21 @@ public class NewItemDAO {
 	public void replyDelete(int no) {
 		mp.replyDelete(no);
 	}
-
+	
 	public List<NewItemVO> categorySelectData(Map map){
 		return mp.categorySelectData(map);
 	}
+	
+	//////////////////////////////////////
+	//////////////////////////////////////
+	public void cartInsert(CartVO vo)
+	{
+		mp.cartInsert(vo);
+	}
+	public List<CartVO> cartListData(String id)
+	{
+		return mp.cartListData(id);
+	}
+	//////////////////////////////////////
+	//////////////////////////////////////
 }
