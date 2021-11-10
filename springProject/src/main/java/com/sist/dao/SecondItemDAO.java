@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sist.mapper.SecondItemMapper;
+import com.sist.vo.NewItemVO;
 import com.sist.vo.ReplyVO;
 import com.sist.vo.SecondItemVO;
 
@@ -88,6 +89,16 @@ public class SecondItemDAO {
 	// 댓글 삭제
 	public void replyDelete(int no) {
 		mapper.replyDelete(no);
+	}
+	
+	//해당 카테 가져오기
+	public String noCate(int no) {
+		return mapper.noCate(no);
+	}
+	
+	// 새상품 추천
+	public List<NewItemVO> newItemFind(String cate){
+		return mapper.newItemFind(cate);
 	}
 
 }

@@ -138,7 +138,7 @@
 						<h4>댓글이 없습니다.</h4>
 					</c:if>
 					<c:if test="${rCnt!=0}">
-						<h4>${rCnt }개의댓글이 있습니다.</h4>
+						<h4>${rCnt }개의 댓글이 있습니다.</h4>
 					</c:if>
 					<br>
 					<c:forEach var="rvo" items="${rList }">
@@ -227,42 +227,18 @@
 			<div class="row align-items-center justify-content-between">
 				<div class="col-lg-12">
 					<div class="best_product_slider owl-carousel">
+						<c:forEach var="nitem" items="${nList }">
 						<div class="single_product_item">
-							<img src="img/product/product_1.png" alt="">
+							<a href="../new/detail.do?no=${nitem.no }">
+							<img src="${nitem.img }" alt="">
 							<div class="single_product_text">
-								<h4>상품명</h4>
-								<h3>$150.00(가격)</h3>
+								<h4>${nitem.title }</h4>
+								<h3>${nitem.price }</h3>
 							</div>
+							</a>
 						</div>
-						<div class="single_product_item">
-							<img src="img/product/product_2.png" alt="">
-							<!-- 베스트 상품 이미지 입력 구역  -->
-							<div class="single_product_text">
-								<h4>Quartz Belt Watch</h4>
-								<h3>$150.00</h3>
-							</div>
-						</div>
-						<div class="single_product_item">
-							<img src="img/product/product_3.png" alt="">
-							<div class="single_product_text">
-								<h4>Quartz Belt Watch</h4>
-								<h3>$150.00</h3>
-							</div>
-						</div>
-						<div class="single_product_item">
-							<img src="img/product/product_4.png" alt="">
-							<div class="single_product_text">
-								<h4>Quartz Belt Watch</h4>
-								<h3>$150.00</h3>
-							</div>
-						</div>
-						<div class="single_product_item">
-							<img src="img/product/product_5.png" alt="">
-							<div class="single_product_text">
-								<h4>Quartz Belt Watch</h4>
-								<h3>$150.00</h3>
-							</div>
-						</div>
+						</c:forEach>
+						
 					</div>
 				</div>
 			</div>

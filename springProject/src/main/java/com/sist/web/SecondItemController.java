@@ -110,12 +110,19 @@ public class SecondItemController {
 		Map map = new HashMap();
 		map.put("cate", "second");
 		map.put("item_no", no);
+		
 		// 댓글 전체
 		List<ReplyVO> rList = dao.replyData(map);
 		model.addAttribute("rList", rList);
 		// 댓글 개수
 		int rCnt = dao.replyCnt(map);
 		model.addAttribute("rCnt", rCnt);
+		
+		//no의 카테 가져오기
+		String cate=dao.noCate(no);
+		//새상품 추천
+		List<NewItemVO> nList = dao.newItemFind(cate);
+		model.addAttribute("nList", nList);
 		model.addAttribute("main_jsp", "../second/detail.jsp");
 		return "main/main";
 	}
@@ -146,4 +153,6 @@ public class SecondItemController {
 		attr.addAttribute("no", no);
 		return "redirect:../second/detail.do";
 	}
+	
+	
 }

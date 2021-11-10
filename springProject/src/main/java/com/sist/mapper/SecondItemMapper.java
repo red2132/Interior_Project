@@ -112,5 +112,12 @@ public interface SecondItemMapper {
 	@Delete("DELETE FROM reply WHERE no=#{no}")
 	public void replyDelete(int no);
 
+	//상품번호에 해당하는 카테 가져오기
+	@Select("SELECT cate3 FROM secondhand_item WHERE no=#{no}")
+	public String noCate(int no);
+	
+	//새상품 추천
+	@Select("SELECT no,img,title,price FROM new_item WHERE cmt LIKE '%'||#{cate}||'%'")
+	public List<NewItemVO> newItemFind(String cate);
 }
 
