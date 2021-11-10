@@ -42,5 +42,10 @@ public class PageDAO {
 	{
 		mapper.myPageInterestingUpdate(map);
 	}
+	
+	public void myPageFirstInterestingInsert(String id)
+	{
+		mapper.myPageFirstInterestingInsert(id);
+	}
 
 }

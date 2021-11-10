@@ -36,10 +36,15 @@ public class PageController {
 		String addr_data1 = array[0];
 		String addr_data2 = array[1];
 		
+		MypageVO pre_vo = myDAO.myPageInterestingData(id);
+		if(pre_vo == null)
+		{
+			myDAO.myPageFirstInterestingInsert(id);
+		}
+		
 		MypageVO vo = myDAO.myPageInterestingData(id);
 		interestingCate = vo.getInteresting_cate();
-		if(interestingCate == null)	
-			interestingCate = "없음";
+				
 		String[] cateArray = interestingCate.split(",");
 		List<String> iList = Arrays.asList(cateArray);
 		

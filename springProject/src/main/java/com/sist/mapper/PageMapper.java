@@ -37,6 +37,11 @@ public interface PageMapper {
 		  + "WHERE id = #{id}")
 	public MypageVO myPageInterestingData(String id);
 	
+	// 마이페이지 : 내 관심 태그 첫 등록
+	@Insert("INSERT INTO mypage(id, interesting_cate) "
+		  + "VALUES(#{id}, '가구-소파')")
+	public void myPageFirstInterestingInsert(String id);
+	
 	// 마이페이지 : 내 관심 태그 업데이트
 	@Update("UPDATE mypage SET "
 		  + "interesting_cate = #{interesting_cate} "
