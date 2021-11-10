@@ -14,9 +14,15 @@ C3NUM          NUMBER(6)
  */
 public class SecondItemVO {
 	private int no,c1num,c2num,c3num;
-	private String img,title,cmt,price,cate1,cate2,cate3;
+	private String img,title,cmt,price,cate1,cate2,cate3,seller_id;
 	
 	
+	public String getSeller_id() {
+		return seller_id;
+	}
+	public void setSeller_id(String seller_id) {
+		this.seller_id = seller_id;
+	}
 	public int getNo() {
 		return no;
 	}

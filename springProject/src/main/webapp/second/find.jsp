@@ -39,6 +39,44 @@ $(function(){
     });
 });
 </script>
+<style>
+    input[type="checkbox"] {
+        -webkit-appearance: none;
+        position: relative;
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+        outline: none !important;
+        border: 1px solid #eeeeee;
+        border-radius: 2px;
+        background: #fbfbfb;
+    }
+ 
+    input[type="checkbox"]::before {
+        content: "\2713";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        overflow: hidden;
+        transform: scale(0) translate(-50%, -50%);
+        line-height: 1;
+    }
+ 
+    input[type="checkbox"]:hover {
+        border-color: rgba(170, 170, 170, 0.5);
+    }
+ 
+    input[type="checkbox"]:checked {
+        background-color: #f7578f;
+        border-color: rgba(255, 255, 255, 0.3);
+        color: white;
+    }
+ 
+    input[type="checkbox"]:checked::before {
+        border-radius: 2px;
+        transform: scale(1) translate(-50%, -50%)
+    }
+</style>
 <body>
     <!-- breadcrumb start-->
     <section class="breadcrumb breadcrumb_bg">
@@ -92,9 +130,9 @@ $(function(){
 						           <div class="input-group">
 						              <input type=text name=ss size=15 class="form-control" placeholder="search">
 						                <div class="input-group-prepend">
-                         		          <span class="input-group-text" id="inputGroupPrepend">
-                         		            <i class="ti-search" onclick="document.getElementById('frm').submit();" style="cursor: pointer;"></i>
-                         		          </span>
+                         		         
+                         		            <i class="ti-search" onclick="document.getElementById('frm').submit();" style="cursor: pointer;margin-left:200px;"></i>
+                         		          
                                         </div>
                                     </div>						       
 						         </div>	
@@ -115,7 +153,7 @@ $(function(){
                                 </div>
                                 </a>
                                 <div class="single_product_text">
-                                    <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                    <a href="#" class="add_cart">상세보기<i class="ti-heart"></i></a>
                                 </div>
                             </div>
                         </div>

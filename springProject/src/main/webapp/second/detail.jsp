@@ -56,6 +56,17 @@
 							<p>${vo.title }
 								<span>-</span> 중고거래 상세보기
 							</p>
+							<c:if test="${sessionScope.id==vo.seller_id}">  
+							    <form method="post" action="../second/delete_ok.do">							    
+							      <input type=hidden name=no value="${vo.no }" id="no">
+							      <input type="submit" class="btn_2" onclick="javascript:btn_2()" value="삭제하기">
+							        <script>
+							        function btn_2(){
+							          alert("게시물이 삭제 되었습니다!!")
+							        }							  
+							       </script>
+							    </form>
+							 </c:if>
 						</div>
 					</div>
 				</div>

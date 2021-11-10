@@ -48,16 +48,29 @@ public interface SecondItemMapper {
 	public List<SecondItemVO> secondItemFindData(Map map); // 검색 리스트
 
 	// 리스트 출력
-	@Select({ "<script>" + "SELECT no,img,title,price,num " + "FROM (SELECT no,img,title,price,rownum as num "
-			+ "FROM (SELECT no,img,title,price "
-			+ "FROM secondhand_item WHERE cate1=#{cate1} AND cate2=#{cate2} AND cate3=#{cate3} ORDER BY no)) "
-			+ "WHERE " + "<if test='n==1'>" // 기본값
-			+ "num BETWEEN #{start} AND #{end} " + "</if>" + "<if test='n==2'>" // 가격높은순
-			+ "num BETWEEN #{start} AND #{end} " + "ORDER BY to_number(REGEXP_REPLACE(price,'[^0-9]'))" + "</if>"
-			+ "<if test='n==3'>" // 가격낮은순
-			+ "num BETWEEN #{start} AND #{end} " + "ORDER BY to_number(REGEXP_REPLACE(price,'[^0-9]')) DESC" + "</if>"
-			+ "</script>" })
-	public List<SecondItemVO> categorySelectData(Map map); 
+		@Select({
+			"<script>"
+		   +"SELECT no,img,title,price,num "
+		   +"FROM (SELECT no,img,title,price,rownum as num "
+		   +"FROM (SELECT no,img,title,price "
+		   +"<if test='n==1'>"
+		   +"FROM secondhand_item WHERE cate1=#{cate1} AND cate2=#{cate2} AND cate3=#{cate3} ORDER BY no)) "
+		   +"WHERE "//기본값
+		   +"num BETWEEN #{start} AND #{end} "
+		   +"</if>"
+		   +"<if test='n==2'>"  //가격높은순
+		   +"FROM secondhand_item WHERE cate1=#{cate1} AND cate2=#{cate2} AND cate3=#{cate3} ORDER BY to_number(REGEXP_REPLACE(price,'[^0-9]')))) "
+		   +"WHERE "//기본값
+		   +"num BETWEEN #{start} AND #{end} "
+		   +"</if>"
+		   +"<if test='n==3'>"  //가격낮은순
+		   +"FROM secondhand_item WHERE cate1=#{cate1} AND cate2=#{cate2} AND cate3=#{cate3} ORDER BY to_number(REGEXP_REPLACE(price,'[^0-9]'))DESC)) "
+		   +"WHERE "//기본값
+		   +"num BETWEEN #{start} AND #{end} "
+		   +"</if>"		   
+		   +"</script>"
+		})
+		public List<SecondItemVO> categorySelectData(Map map); 
 															
 	// 추천
 	@Select("select no,title,price,img from( " + "select no,title,price,img from secondhand_item "
@@ -65,7 +78,14 @@ public interface SecondItemMapper {
 			+ "order by DBMS_RANDOM.RANDOM) where rownum <= 5")
 	public List<SecondItemVO> recommendData(Map map); 
 
-	@Select("SELECT no,img,title,cmt,price,cate1,cate2,cate3 FROM secondhand_item WHERE no=#{no}")
+	@Insert("INSERT INTO secondhand_item(no,title,price,cate1,cate2,cate3,cmt,seller_id,img) "
+	    	   +"VALUES((SELECT NVL(MAX(no)+1,1) FROM secondhand_item),#{title},#{price},#{cate1},#{cate2},#{cate3},#{cmt},#{seller_id},#{img})")
+	public void secondItemInsert(SecondItemVO vo);   
+	
+	@Delete("DELETE FROM secondhand_item WHERE no=#{no}")
+	   public void secondItemDelete(int no);
+	
+	@Select("SELECT no,img,title,cmt,price,cate1,cate2,cate3,NVL(seller_id,'hong')as seller_id FROM secondhand_item WHERE no=#{no}")
 	public SecondItemVO secondItemData(int no);
 
 	// 댓글

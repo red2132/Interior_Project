@@ -53,6 +53,14 @@ public class SecondItemDAO {
 	public SecondItemVO secondItemData(int no) {
 		return mapper.secondItemData(no);
 	}
+	
+	public void secondItemInsert(SecondItemVO vo){
+		 mapper.secondItemInsert(vo);
+	}
+	
+	public void secondItemDelete(int no){
+		mapper.secondItemDelete(no);
+	}
 
 	/////////////// 댓글
 

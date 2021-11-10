@@ -79,7 +79,28 @@ public class SecondItemController {
 	
 		    return "main/main";
 	   }
-
+	
+	 @RequestMapping("second/insert.do")
+	   public String second_insert(Model model)
+	   {										   
+		    model.addAttribute("main_jsp", "../second/insert.jsp");	
+		    return "main/main";//forward(request를 전송)
+	   }	  	   
+	   // 실제 데이터 추가 
+	 @PostMapping("second/insert_ok.do")
+	   public String second_insert_ok(SecondItemVO vo) // Command객체 (객체단위로 값을 받는다)
+	   {
+		   // redirect가 있는 경우는 request를 초기화하기 때문에 Model은 필요가 없다 
+		   dao.secondItemInsert(vo);
+		   return "redirect:../second/list.do?cate1=OA";// 추가된 목록을 보여준다 (목록이 제작 => 이동)   
+	   }
+	   
+	 @RequestMapping("second/delete_ok.do")
+	   public String second_delete_ok(int no)
+	   {
+		   dao.secondItemDelete(no);
+		   return "redirect:../second/list.do?cate1=OA";
+	   }	   	 
 	// 상세페이지 댓글, ...
 	@RequestMapping("second/detail.do")
 	public String second_detail(Model model, int no, HttpSession session) {
