@@ -122,7 +122,7 @@ public class NewItemController {
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	// 장바구니 
-	   @PostMapping("cart/cart_ok.do")
+	   @PostMapping("new/cart_ok.do")
 	   public String catr_cart_ok(int product_id,int amount, HttpSession session)
 	   {
 		   CartVO vo=new CartVO();

@@ -82,7 +82,7 @@
 									
 							<!-- ################################################################# -->
 							<!-- ################################################################# -->
-									<form method="post" action="../cart/cart_ok.do">
+									<form method="post" action="../new/cart_ok.do">
 		       						<%-- <input type=hidden name="product_id" value="${vo.product_id }"> --%>
 		       						<input type=hidden name="product_id" value="${vo.no }">
 							       <input type=hidden name="amount" value="" id="amount">
