@@ -5,6 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style>
+.client_logo .single_client_logo {
+    border-bottom: 0px !important;
+}
+</style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -456,11 +461,10 @@
 	<!--  실시간 뉴스 끝  -->
 
 	<!-- subscribe_area part start-->
-	<section class="client_logo padding_top">
+	<section class="client_logo">
 		<div class="container">
 			<div class="row align-items-center">
 				<div class="col-lg-12">
-					<h1>입점한 곳들 혹은 관련 사이트 링크</h1>
 					<div class="single_client_logo">
 						<a href="https://www.iloom.com/"><img
 							src="../template/img/client_logo/1.png" alt=""></a>
@@ -470,32 +474,20 @@
 							src="../template/img/client_logo/2.png" alt=""></a>
 					</div>
 					<div class="single_client_logo">
-						<img src="../template/img/client_logo/client_logo_3.png" alt="">
+						<a href="https://marketb.kr/"><img
+							src="../template/img/client_logo/4.jpg" alt=""></a>
 					</div>
 					<div class="single_client_logo">
-						<img src="../template/img/client_logo/client_logo_4.png" alt="">
+						<a href="https://www.ikea.com/kr/"><img
+							src="../template/img/client_logo/5.png" alt=""></a>
 					</div>
 					<div class="single_client_logo">
-						<img src="../template/img/client_logo/client_logo_5.png" alt="">
-					</div>
-					<div class="single_client_logo">
-						<img src="../template/img/client_logo/client_logo_3.png" alt="">
-					</div>
-					<div class="single_client_logo">
-						<img src="../template/img/client_logo/client_logo_1.png" alt="">
-					</div>
-					<div class="single_client_logo">
-						<img src="../template/img/client_logo/client_logo_2.png" alt="">
-					</div>
-					<div class="single_client_logo">
-						<img src="../template/img/client_logo/client_logo_3.png" alt="">
-					</div>
-					<div class="single_client_logo">
-						<img src="../template/img/client_logo/client_logo_4.png" alt="">
-					</div>
+						<a href="https://ohou.se/"><img
+							src="../template/img/client_logo/3.jpg" alt=""></a>
+					</div>					
 				</div>
 			</div>
-		</div>
+		</div> 
 	</section>
 	<!--::subscribe_area part end::-->
 	<script>
