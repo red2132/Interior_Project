@@ -115,6 +115,24 @@ public class PageController {
 		
 		return "redirect:../page/mypage.do";
 	}
+	
+	@GetMapping("interesting_cate_delete_ok.do")
+	public String interesting_cate_delete_ok(String interest, HttpSession session)
+	{
+		String id = (String)session.getAttribute("id");
+		
+		MypageVO pre_vo = myDAO.myPageInterestingData(id);
+		String previousData = pre_vo.getInteresting_cate();
+		String deleteData = interest + ",";
+		String updateData = previousData.replace(deleteData, "");
+		
+		Map map = new HashMap();
+		map.put("id", id);
+		map.put("interesting_cate", updateData);
+		myDAO.myPageInterestingUpdate(map);
+		
+		return "redirect:../page/mypage.do";
+	}
    
 }
 
