@@ -75,17 +75,8 @@ public class NewItemDAO {
 	public void replyDelete(int no) {
 		mp.replyDelete(no);
 	}
-	
-	
-	
-	///////////////////////////////////////////////////
-	//1-1. 해당 게시글의 category 정보 가져오기
-	public NewItemVO newItemGetCategory(int no) {
-	return mp.newItemGetCategory(no);
-	}
-	//1-2. best 리스트 출력
-	public List<NewItemVO> bestItemListData(Map map2){
-	return mp.bestItemListData(map2);
-	}
 
+	public List<NewItemVO> categorySelectData(Map map){
+		return mp.categorySelectData(map);
+	}
 }

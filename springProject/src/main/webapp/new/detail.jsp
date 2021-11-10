@@ -51,7 +51,7 @@
 				</div>
 				<div class="col-lg-6 col-xl-6">
 					<div class="s_product_text">
-						<h3>${vo.title}}</h3>
+						<h3>${vo.title }</h3>
 						<h2>${vo.price }원</h2>
 						<ul class="list">
 							<li><a class="active" href="#"> <span>카테고리 </span> :
@@ -68,14 +68,19 @@
 								<h5 style="color: red">로그인시 장바구니 이용이 가능합니다.</h5>
 							</c:if>
 							<c:if test="${sessionScope.id!=null }">
-								<div class="product_count">
-									<span class="inumber-decrement"> <i class="ti-minus"></i></span>
-									<input class="input-number" type="text" value="1" min="0"
-										max="10"> <span class="number-increment"> <i
-										class="ti-plus"></i></span>
-								</div>
 
-								<a href="#" class="btn_3">장바구니에 추가</a>
+								<form method="post" action="../cart/cartInsert.do">
+									<input type=hidden name=no value=${vo.no }> <input
+										type=hidden name=cate1 value=${cate1 }> <input
+										type=hidden name=cate2 value=${cate2 }>
+									<div class="product_count" style="display:inline;">
+										<span class="inumber-decrement"> <i class="ti-minus"></i></span>
+										<input class="input-number" type="text" value="1" min="0" max="10" name=amount>
+											<span class="number-increment"><i class="ti-plus"></i>
+										</span>
+									</div>
+									<input type=submit value="장바구니에 추가" class=btn_3>
+								</form>
 							</c:if>
 						</div>
 					</div>
@@ -87,11 +92,6 @@
 
 	<!--================Product Description Area =================-->
 	<!--  댓글 -->
-
-
-	<div class="col-lg-2"></div>
-	<div style="color: black">Comments(${rCnt })</div>
-	<hr>
 
 	<div class=container>
 		<div class="row">
@@ -174,35 +174,6 @@
 		</div>
 	</div>
 	<!--================End Product Description Area =================-->
-	<!-- 베스트 아이템 목록 출력 start-->
-	  <section class="product_list best_seller">
-	    <div class="container">
-	      <div class="row justify-content-center">
-	        <div class="col-lg-12">
-	          <div class="section_tittle text-center">
-	            <h2>연관 베스트 상품 </h2> 
-	          </div>
-	        </div>
-	      </div>
-	      <div class="row align-items-center justify-content-between">
-	        <div class="col-lg-12">
-	          <div class="best_product_slider owl-carousel">
-	            <c:forEach var="list" items="${bestList }" begin="1" end="10">
-		            <div class="single_product_item">
-		              <a href="../new/detail.do?no=${list.no }">
-			              <img src="${list.img }" alt="">
-			              <div class="single_product_text">
-			                <h4>${list.title }</h4>
-			                <h3>${list.price }원</h3>
-			              </div>	
-		              </a>
-		            </div>
-	            </c:forEach>
-	          </div>
-	        </div>
-	      </div>
-	    </div>
-	  </section>
-	  <!-- 베스트 아이템 목록 출력 end-->
+
 </body>
 </html>

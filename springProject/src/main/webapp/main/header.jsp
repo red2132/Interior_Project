@@ -103,14 +103,14 @@ $(function(){
                                         	<a class="dropdown-item" href="../new/list.do?cate1=${c1 }">${c1 }</a>
                                         </c:forEach> --%>
                                         
-                                        <a class="dropdown-item" href="../new/list.do?cate1=가구">가구</a>
-                                        <a class="dropdown-item" href="../new/list.do?cate1=가전">가전</a>
-                                        <a class="dropdown-item" href="../new/list.do?cate1=공구">공구</a>
-                                        <a class="dropdown-item" href="../new/list.do?cate1=리모델링">리모델링</a>
-                                        <a class="dropdown-item" href="../new/list.do?cate1=생활">생활</a>
-                                        <a class="dropdown-item" href="../new/list.do?cate1=조명">조명</a>
-                                        <a class="dropdown-item" href="../new/list.do?cate1=침구">침구</a>
-                                        <a class="dropdown-item" href="../new/list.do?cate1=패브릭">패브릭</a>
+                                        <a class="dropdown-item" href="../new/list.do?cate1=가구&sort=0">가구</a>
+                                        <a class="dropdown-item" href="../new/list.do?cate1=가전&sort=0">가전</a>
+                                        <a class="dropdown-item" href="../new/list.do?cate1=공구&sort=0">공구</a>
+                                        <a class="dropdown-item" href="../new/list.do?cate1=리모델링&sort=0">리모델링</a>
+                                        <a class="dropdown-item" href="../new/list.do?cate1=생활&sort=0">생활</a>
+                                        <a class="dropdown-item" href="../new/list.do?cate1=조명&sort=0">조명</a>
+                                        <a class="dropdown-item" href="../new/list.do?cate1=침구&sort=0">침구</a>
+                                        <a class="dropdown-item" href="../new/list.do?cate1=패브릭&sort=0">패브릭</a>
                                     </div>
                                 </li>
                                 <!-- 인테리어 커뮤니티 -->

@@ -34,6 +34,20 @@ public interface NewItemMapper {
 	@Select("SELECT CEIL(COUNT(*)/9.0) FROM new_item")
 	public int nTotalPage();
 	
+	//리스트 출력 - 동적쿼리
+	@Select({ "<script>" 
+			+ "SELECT no,img,title,price,reviewCnt,score,num " 
+			+ "FROM (SELECT no,img,title,price,reviewCnt,score,rownum as num "
+			+ "FROM (SELECT no,img,title,price,reviewCnt,score "
+			+ "FROM new_item WHERE cate1=#{cate1} AND cate2=#{cate2} ORDER BY no)) "
+			+ "WHERE num BETWEEN #{start} AND #{end} " 
+			+ "<if test='sort==1'>ORDER BY to_number(REGEXP_REPLACE(price,'[^0-9]'))</if>"//가격낮은순
+			+ "<if test='sort==2'>ORDER BY to_number(REGEXP_REPLACE(price,'[^0-9]')) DESC</if>"//가격높은순
+			+ "<if test='sort==3'>ORDER BY reviewCnt DESC</if>"//리뷰많은순
+			+ "<if test='sort==4'>ORDER BY score DESC</if>"//평점높은순
+			+ "</script>" })
+	public List<NewItemVO> categorySelectData(Map map);
+	
 	////////////////////////////////////////////////////////////////////////////////
 	
 	//상세보기
@@ -65,16 +79,5 @@ public interface NewItemMapper {
 		@Delete("DELETE FROM reply WHERE no=#{no}")
 		public void replyDelete(int no);
 	
-	/////////////////////////////////////////////////////////////////////////
-	//1. 베스트 목록 출력
-	//1-1. 해당 번호의 카테고리1, 카테고리2 가져오기
-	@Select("SELECT cate1, cate2 FROM new_item WHERE no=#{no}")
-	public NewItemVO newItemGetCategory(int no);
-	//1-2. 목록출력
-	@Select("SELECT no,reviewCnt,score,img,title,price,num " 
-			+ "FROM (SELECT no,reviewCnt,score,img,title,price,rownum as num " 
-			+ "FROM (SELECT no,reviewCnt,score,img,title,price "
-			+ "FROM new_item WHERE cate1=#{cate1} AND cate2=#{cate2} ORDER BY score DESC, reviewCnt DESC)) " 
-			+ "WHERE num BETWEEN 1 AND 10")
-	public List<NewItemVO> bestItemListData(Map map2);
+	
 }
