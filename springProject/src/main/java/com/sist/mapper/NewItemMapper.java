@@ -107,8 +107,8 @@ public interface NewItemMapper {
 	
 	// 마이페이지 => 취소/결제 => 결제(이메일로 전송)
 	@Select("SELECT /*+ INDEX_DESC(cart cart_id_pk)*/ cart_id,id,amount,ischeck,issale, "
-		  + "(SELECT title FROM new_item WHERE new_item.no=cart.product_id) as title, "
-		  + "(SELECT img FROM new_item WHERE new_item.no=cart.product_id) as img, "
+		  + "(SELECT title FROM new_item WHERE new_item.no=cart.product_id) as product_name, "
+		  + "(SELECT img FROM new_item WHERE new_item.no=cart.product_id) as product_poster, "
 		  + "(REPLACE ((SELECT price FROM new_item WHERE new_item.no=cart.product_id), ',', '')) as product_price "
 		  + "FROM cart "
 		  + "WHERE id=#{id}")
@@ -127,8 +127,8 @@ public interface NewItemMapper {
 	
 	// 어드민 페이지에서 결제 
 	@Select("SELECT /*+ INDEX_DESC(cart cart_id_pk)*/ cart_id,id,amount,ischeck,issale,"
-		  + "(SELECT title FROM new_item WHERE new_item.no=cart.product_id) as title,"
-		  + "(SELECT img FROM new_item WHERE new_item.no=cart.product_id) as img,"
+		  + "(SELECT title FROM new_item WHERE new_item.no=cart.product_id) as product_name,"
+		  + "(SELECT img FROM new_item WHERE new_item.no=cart.product_id) as product_poster,"
 		  + "(REPLACE ((SELECT price FROM new_item WHERE new_item.no=cart.product_id), ',', '')) as product_price "
 		  + "FROM cart "
 		  + "WHERE issale=1")
@@ -140,8 +140,8 @@ public interface NewItemMapper {
 	public void goodsAdminYes(int cart_id);
 	   
 	@Select("SELECT /*+ INDEX_DESC(cart cart_id_pk)*/ cart_id,id,amount,ischeck,issale,"
-		  + "(SELECT title FROM new_item WHERE new_item.no=cart.product_id) as title,"
-		  + "(SELECT img FROM new_item WHERE new_item.no=cart.product_id) as img,"
+		  + "(SELECT title FROM new_item WHERE new_item.no=cart.product_id) as product_name,"
+		  + "(SELECT img FROM new_item WHERE new_item.no=cart.product_id) as product_poster,"
 		  + "(REPLACE ((SELECT price FROM new_item WHERE new_item.no=cart.product_id), ',', '')) as product_price "
 		  + "FROM cart "
 		  + "WHERE cart_id=#{cart_id}")
