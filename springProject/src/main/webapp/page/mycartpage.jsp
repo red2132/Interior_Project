@@ -39,6 +39,7 @@
       <th class="text-center">비고</th>
      </tr>
      <c:forEach var="vo" items="${list }">
+          <c:if test="${vo.ischeck==0 }">
        <tr>
          <td class="text-center">
           <img src="${vo.product_poster}" style="width:30px;height:30px">
@@ -49,15 +50,14 @@
          <td class="text-center">${vo.amount*vo.product_price+3000}원</td>
          <td class="text-center">3000원</td>
          <td class="text-center inline">
-          <c:if test="${vo.ischeck==0 }">
            <a href="../page/goodsYes.do?no=${vo.cart_id }" class="btn btn-sm btn-danger">구매</a>
            <a href="../page/goodsNo.do?no=${vo.cart_id }" class="btn btn-sm btn-success">취소</a>
-          </c:if>
-          <c:if test="${vo.ischeck==1 }">
+          <%-- <c:if test="${vo.ischeck==1 }">
            <span style="color:red">구매완료</span>
-          </c:if>
+          </c:if> --%>
          </td>
        </tr>
+          </c:if>
      </c:forEach>
     </table>
   </div>

@@ -64,32 +64,6 @@ public class PageController {
 	
 	
    
-	/*
-	 * @GetMapping("adminpage.do") public String page_adminpage(Model model) {
-	 * model.addAttribute("main_jsp", "../page/adminpage.jsp"); return "main/main";
-	 * }
-	 */
-   
-	/*
-	 * @GetMapping("mycartpage.do") public String page_mycartpage(Model model) {
-	 * model.addAttribute("main_jsp", "../page/mycartpage.jsp"); return "main/main";
-	 * }
-	 */
-   
-	@GetMapping("mybuypage.do")
-	public String page_mybuypage(Model model)
-	{
-		model.addAttribute("main_jsp", "../page/mybuypage.jsp");
-		return "main/main";
-	}
-   
-	@GetMapping("mysellpage.do")
-	public String page_mysellpage(Model model)
-	{
-		model.addAttribute("main_jsp", "../page/mysellpage.jsp");
-		return "main/main";
-	}
-	
 	@PostMapping("interesting_cate_insert_ok.do")
 	public String interesting_cate_insert_ok(String cate, HttpSession session)
 	{

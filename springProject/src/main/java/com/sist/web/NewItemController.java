@@ -168,6 +168,18 @@ public class NewItemController {
 		return "main/main";
 	}
 	
+	@GetMapping("page/mybuypage.do")
+	public String page_mybuypage(HttpSession session,Model model)
+	{
+		String id = (String)session.getAttribute("id");
+		
+		List<CartVO> list = dao.cartListData(id); 
+		
+		model.addAttribute("list", list);
+		model.addAttribute("main_jsp", "../page/mybuypage.jsp");
+		return "main/main";
+	}
+	
 	
 	
 	@GetMapping("page/adminpage.do")

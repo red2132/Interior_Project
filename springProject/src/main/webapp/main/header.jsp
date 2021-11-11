@@ -90,7 +90,7 @@ $(function(){
                         <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../main/main.do">Home</a>
+                                    <a class="nav-link" href="../main/main.do">홈</a>
                                 </li>
                                 <!-- 인기상품 -->
                                 <li class="nav-item dropdown">
@@ -172,7 +172,6 @@ $(function(){
 		                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
 		                                        <a class="dropdown-item" href="../page/mypage.do">마이페이지</a>
 		                                        <a class="dropdown-item" href="../page/mybuypage.do">구매내역</a>
-		                                        <a class="dropdown-item" href="../page/mysellpage.do">판매내역</a>
 		                                        <a class="dropdown-item" href="../member/join_update.do">회원정보수정</a>
 		                                        <a class="dropdown-item" href="../member/join_delete.do">회원탈퇴</a>
 		                                     </div>
