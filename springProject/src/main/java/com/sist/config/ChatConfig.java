@@ -1,30 +1,31 @@
 package com.sist.config;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+// XML(채팅 제어)
 
-import com.sist.chat.*;
-
+import com.sist.chat.ChatHandler;
+// ws://locahost:8080/web/chat-ws.do
 @Configuration
+// 활성화 
 @EnableWebSocket
-public class WebSocketConfig implements WebSocketConfigurer{
+public class ChatConfig implements WebSocketConfigurer{
 
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		// TODO Auto-generated method stub
-		// 서버 등록 => URL주소가 넘겨올때  => /chat-ws
-		System.out.println("1. registerWebSocketHandlers() Call...");
-		registry.addHandler(chatHandler(), "/chat-ws");
+		System.out.println("1. registerWebSocketHandlers 채팅 동작!!");
+		registry.addHandler(chatHandler(), "/chat-ws.do");
 	}
 	
 	@Bean
-	public WebSocketChatHandler chatHandler()
+	public ChatHandler chatHandler()
 	{
-		System.out.println("2. chatHandler()");
-		return new WebSocketChatHandler();
+		System.out.println("2. ChatHandler생성!!");
+		return new ChatHandler();
 	}
 
 }

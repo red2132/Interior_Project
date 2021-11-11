@@ -121,7 +121,6 @@ $(function(){
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="#"> 인테리어</a> <!-- 인테리어 업체 및 시공사례 -->
-                                        <a class="dropdown-item" href="#"> 시공견적</a> <!-- 시공견적은 업체 평수당 단가기준으로 -->
                                     	<a class="dropdown-item" href="../comm/list.do"> 커뮤니티</a> <!-- 인테리어 정보 공유 커뮤니티 -->
                                     </div>
                                 </li>

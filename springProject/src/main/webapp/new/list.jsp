@@ -108,20 +108,20 @@
 									</p>
 								</div>
 								<!-- 아직 정렬 구현 안됨 -->
-								<div class="single_product_menu d-flex">
-									<h5>정렬&nbsp;:&nbsp;</h5>
-									<!-- <select id="combo">
-										<option data-display="Select">default</option>
-										<option value="1">낮은 가격순</option>
-										<option value="2">높은 가격순</option>
-										<option value="3">리뷰 많은순</option>
-										<option value="4">평점 높은순</option>
-									</select> -->
-									<a href="../new/list.do?cate1=${cate1}&sort=1" class="btn btn-primary">낮은가격순</a>
-									<a href="../new/list.do?cate1=${cate1}&sort=2" class="btn btn-primary">높은가격순</a>
-									<a href="../new/list.do?cate1=${cate1}&sort=3" class="btn btn-primary">리뷰많은순</a>
-									<a href="../new/list.do?cate1=${cate1}&sort=4" class="btn btn-primary">평점높은순</a>
-								</div>
+								<form method="get" action="../new/list.do?">
+									<div class="single_product_menu d-flex">
+										<h5>정렬&nbsp;:&nbsp;</h5>
+										<input type=hidden name=cate1 value=${cate1 }> <select
+											name="sort" class="default-select" id="default-select_2">
+											<option value=0>default</option>
+											<option value=1>낮은 가격순</option>
+											<option value=2>높은 가격순</option>
+											<option value=3>리뷰 많은순</option>
+											<option value=4>평점 높은순</option>
+										</select> <input type=submit value=정렬 style="display: inline;"
+											class="primary-border circle arrow">
+									</div>
+								</form>
 								
 							
 								

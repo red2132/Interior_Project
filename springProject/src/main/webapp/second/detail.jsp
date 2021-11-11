@@ -113,7 +113,7 @@
 									class="ti-plus"></i></span>
 							</div> -->
 							<c:if test="${sessionScope.id!=null }">
-								<a href="#" class="btn_3">채팅하기</a>
+								<a href="../second/chat.do?title=${vo.title }" class="btn_3">채팅하기</a>
 							</c:if>
 							<c:if test="${sessionScope.id==null }">
 								<h5 style="color: red">로그인시 채팅 이용이 가능합니다.</h5>

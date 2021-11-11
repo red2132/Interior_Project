@@ -107,7 +107,7 @@
 			<div class="row justify-content-center">
 				<div class="col-lg-8">
 					<div class="section_tittle text-center">
-						<h2>새상품(인기상품) 카테고리 (카테고리마다 사진 하나씩 구해서 해당 카테고리로 바로 목록출력)</h2>
+						<h2>인기상품</h2>
 					</div>
 				</div>
 			</div>
@@ -116,7 +116,7 @@
 					<div class="single_feature_post_text">
 						<p>Premium Quality</p>
 						<h3>가전</h3>
-						<a href="#" class="feature_btn">EXPLORE NOW <i
+						<a href="../new/list.do?sort=0&cate1=가전" class="feature_btn">바로가기 <i
 							class="fas fa-play"></i></a> <img
 							src="../template/img/feature/101.png" alt="">
 					</div>
@@ -125,7 +125,7 @@
 					<div class="single_feature_post_text">
 						<p>Premium Quality</p>
 						<h3>가구</h3>
-						<a href="#" class="feature_btn">EXPLORE NOW <i
+						<a href="../new/list.do?sort=0&cate1=가구" class="feature_btn">바로가기 <i
 							class="fas fa-play"></i></a> <img
 							src="../template/img/feature/201.png" alt="">
 					</div>
@@ -134,7 +134,7 @@
 					<div class="single_feature_post_text">
 						<p>Premium Quality</p>
 						<h3>침구</h3>
-						<a href="#" class="feature_btn">EXPLORE NOW <i
+						<a href="../new/list.do?sort=0&cate1=침구" class="feature_btn">바로가기 <i
 							class="fas fa-play"></i></a> <img
 							src="../template/img/feature/301.png" alt="">
 					</div>
@@ -143,7 +143,7 @@
 					<div class="single_feature_post_text">
 						<p>Premium Quality</p>
 						<h3>조명</h3>
-						<a href="#" class="feature_btn">EXPLORE NOW <i
+						<a href="../new/list.do?sort=0&cate1=조명" class="feature_btn">바로가기 <i
 							class="fas fa-play"></i></a> <img
 							src="../template/img/feature/401.png" alt="">
 					</div>
@@ -360,7 +360,7 @@
 	<!-- product_list end-->
 
 	<!--  특가 -->
-	<section class="our_offer section_padding">
+	<!-- <section class="our_offer section_padding">
 		<div class="container">
 			<div class="row align-items-center justify-content-between">
 				<div class="col-lg-6 col-md-6">
@@ -380,8 +380,8 @@
 							</div>
 						</div>
 						<div class="input-group">
-							<!-- <input type="text" class="form-control" placeholder="enter email address"
-                                aria-label="Recipient's username" aria-describedby="basic-addon2"> -->
+							<input type="text" class="form-control" placeholder="enter email address"
+                                aria-label="Recipient's username" aria-describedby="basic-addon2">
 							<div class="input-group-append">
 								<a href="#" class="btn_2">구매 ㄱㄱ</a>
 							</div>
@@ -390,7 +390,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 	<!-- 특가 end -->
 
 	<!-- product_list part start-->
@@ -427,9 +427,9 @@
 	<section class="section_padding">
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-lg-9">
+				<div class="col-lg-12">
 					<div class=news>
-						<h1>실시관 관련 뉴스</h1>
+						<h1>실시간 관련 뉴스</h1>
 						<div class="row">
 							<div style="float: right">
 								<input type=text size=30 class="input-sm" v-model="ss">
@@ -507,7 +507,7 @@ new Vue({
 new Vue({
 	el:'.news',
 	data:{
-		ss:'오늘의집 인테리어 집꾸미기',
+		ss:'인테리어',
 		cnt:5,
 		news_data:[]
 	},
