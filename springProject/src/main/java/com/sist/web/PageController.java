@@ -64,12 +64,11 @@ public class PageController {
 	
 	
    
-	@GetMapping("adminpage.do")
-	public String page_adminpage(Model model)
-	{
-		model.addAttribute("main_jsp", "../page/adminpage.jsp");
-		return "main/main";
-	}
+	/*
+	 * @GetMapping("adminpage.do") public String page_adminpage(Model model) {
+	 * model.addAttribute("main_jsp", "../page/adminpage.jsp"); return "main/main";
+	 * }
+	 */
    
 	/*
 	 * @GetMapping("mycartpage.do") public String page_mycartpage(Model model) {
@@ -127,5 +126,3 @@ public class PageController {
 	}
    
 }
-
-

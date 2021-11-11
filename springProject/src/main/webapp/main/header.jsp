@@ -184,7 +184,6 @@ $(function(){
                                         관리자페이지
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="../page/mypage.do">마이페이지</a>
                                         <a class="dropdown-item" href="../page/adminpage.do">관리자페이지</a>
                                     </div>
                                    </c:if>   
