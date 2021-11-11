@@ -12,7 +12,7 @@ package com.sist.vo;
 import java.util.*;
 public class CartVO {
     private int cart_id,product_id,amount,ischeck,issale;
-    private String id;
+    private String id, email;
     private Date regdate;
     
     public int getIssale() {
@@ -76,6 +76,12 @@ public class CartVO {
 	}
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
   
 }

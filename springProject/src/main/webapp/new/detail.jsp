@@ -110,7 +110,7 @@ $(function(){
 		       						<%-- <input type=hidden name="product_id" value="${vo.product_id }"> --%>
 		       						<input type=hidden name="product_id" value="${vo.no }">
 							        <input type=hidden name="amount" value="" id="amount">
-							        <input type="submit" id="cartInsertBtn" class="btn btn-sm" value="장바구니">
+							        <input type="submit" id="cartInsertBtn" class=btn_3 value="장바구니">
 							        </form>
 								   <!-- <input type=submit value="장바구니에 추가" class=btn_3> -->
 							<!-- ################################################################# -->

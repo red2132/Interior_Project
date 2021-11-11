@@ -205,9 +205,8 @@ public class NewItemController {
 	@GetMapping("page/goodsAdminYes.do")
 	public String page_goodsAdminYes(int no,HttpSession session)
 	{
-		String id=(String)session.getAttribute("id");
-		CartVO vo=dao.cartYesData(no);
-		MailSender.gmailMailSend(vo, id);
+		CartVO vo = dao.cartYesData(no);
+		MailSender.gmailMailSend(vo, vo.getId(), vo.getEmail());
 		dao.goodsAdminYes(no);
 		return "redirect:../page/adminpage.do";
 	}

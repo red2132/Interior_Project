@@ -132,6 +132,10 @@ public class NewItemDAO {
     {
     	return mp.cartYesData(cart_id);
     }
+    public String cartMyEmailData(String id)
+    {
+    	return mp.cartMyEmailData(id);
+    }
 	//////////////////////////////////////
 	//////////////////////////////////////
     public List<NewItemVO> randData(int n){

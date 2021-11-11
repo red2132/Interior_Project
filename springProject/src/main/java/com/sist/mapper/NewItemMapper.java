@@ -142,11 +142,16 @@ public interface NewItemMapper {
 	@Select("SELECT /*+ INDEX_DESC(cart cart_id_pk)*/ cart_id,id,amount,ischeck,issale,"
 		  + "(SELECT title FROM new_item WHERE new_item.no=cart.product_id) as product_name,"
 		  + "(SELECT img FROM new_item WHERE new_item.no=cart.product_id) as product_poster,"
-		  + "(REPLACE ((SELECT price FROM new_item WHERE new_item.no=cart.product_id), ',', '')) as product_price "
+		  + "(REPLACE ((SELECT price FROM new_item WHERE new_item.no=cart.product_id), ',', '')) as product_price,"
+		  + "(SELECT email FROM member WHERE member.id=cart.id) as email "
 		  + "FROM cart "
 		  + "WHERE cart_id=#{cart_id}")
 	public CartVO cartYesData(int cart_id);
 	
+	@Select("SELECT email "
+		  + "FROM member "
+		  + "WHERE id = #{id}")
+	public String cartMyEmailData(String id);
 	/////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////
 	@Select("SELECT no,img,title,price,num "
