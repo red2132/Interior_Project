@@ -11,6 +11,25 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+<script type="text/javascript">
+$(function(){	
+	$('#cartInsertBtn').click(function(){
+		$('#replyForm').submit();
+	});
+	
+	$('#insertBtn').click(function(){
+		$('#cartInsertFrm').submit();
+	});
+	
+	$('#sel').change(function(){
+		let count=$(this).val();
+		let price=$('#price').text();
+		let total=parseInt(count)*parseInt(price)+3000;
+		$('#total').text(total+"원");
+		$('#amount').val(count);
+	})
+})
+</script>
 </head>
 <body>
 	<!-- breadcrumb start-->
@@ -52,7 +71,7 @@
 				<div class="col-lg-6 col-xl-6">
 					<div class="s_product_text">
 						<h3>${vo.title }</h3>
-						<h2>${vo.price }원</h2>
+						<h2 id="price">${vo.price }원</h2>
 						<ul class="list">
 							<li><a class="active" href="#"> <span>카테고리 </span> :
 									${cate1 } <i class="ti-arrow-right"></i> ${cate2 }
@@ -69,24 +88,29 @@
 							</c:if>
 							<c:if test="${sessionScope.id!=null }">
 
-								<form method="post" action="../cart/cartInsert.do">
+							<!-- 	<form method="post" action="../cart/cartInsert.do">  -->
 									<input type=hidden name=no value=${vo.no }> <input
 										type=hidden name=cate1 value=${cate1 }> <input
 										type=hidden name=cate2 value=${cate2 }>
-									<div class="product_count" style="display:inline;">
+									<!-- <div class="product_count" style="display:inline;">
 										<span class="inumber-decrement"> <i class="ti-minus"></i></span>
 										<input class="input-number" type="text" value="1" min="0" max="10" name=amount>
 											<span class="number-increment"><i class="ti-plus"></i>
 										</span>
-									</div>`
+									</div> -->
+									<select id="sel">
+						            	<c:forEach var="i" begin="1" end="10">
+						            		<option value="${i}">${i}개</option>
+						            	</c:forEach>
+						            </select> 
 									
 							<!-- ################################################################# -->
 							<!-- ################################################################# -->
-									<form method="post" action="../new/cart_ok.do">
+									<form id="cartInsertFrm" method="post" action="../new/cart_ok.do">
 		       						<%-- <input type=hidden name="product_id" value="${vo.product_id }"> --%>
 		       						<input type=hidden name="product_id" value="${vo.no }">
-							       <input type=hidden name="amount" value="" id="amount">
-							       <input type="submit" class="btn btn-sm" value="장바구니">
+							        <input type=hidden name="amount" value="" id="amount">
+							        <input type="submit" id="cartInsertBtn" class="btn btn-sm" value="장바구니">
 							        </form>
 								   <!-- <input type=submit value="장바구니에 추가" class=btn_3> -->
 							<!-- ################################################################# -->
@@ -95,7 +119,7 @@
 									
 									
 									
-								</form>
+								<!--</form>-->
 							</c:if>
 						</div>
 					</div>

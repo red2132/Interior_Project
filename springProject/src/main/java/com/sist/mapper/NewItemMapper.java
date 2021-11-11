@@ -80,33 +80,6 @@ public interface NewItemMapper {
 		@Delete("DELETE FROM reply WHERE no=#{no}")
 		public void replyDelete(int no);
 	
-	    /////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////
-		
-		 // 장바구니 등록 
-		   /*
-		    *       CART_ID    NOT NULL NUMBER       
-					ID                  VARCHAR2(20) 
-					PRODUCT_ID          NUMBER       
-					AMOUNT              NUMBER       
-					REGDATE             DATE
-		    */
-		@Insert("INSERT INTO cart VALUES("
-				  +"(SELECT NVL(MAX(cart_id)+1,1) FROM cart),#{id},#{product_id},#{amount},SYSDATE,0,0)")
-		public void cartInsert(CartVO vo);
-		// 마이페이지 => 취소/결제 => 결제(이메일로 전송)
-		@Select("SELECT /*+ INDEX_DESC(cart cart_id_pk)*/ cart_id,id,amount,ischeck,issale,"
-				  +"(SELECT title FROM new_item WHERE new_item.no=cart.product_id) as title,"
-				  +"(SELECT img FROM new_item WHERE new_item.no=cart.product_id) as img,"
-				  +"(SELECT price FROM new_item WHERE new_item.no=cart.product_id) as price "
-				  +"FROM cart "
-				  +"WHERE id=#{id} "
-				  +"AND regdate>=SYSDATE-3 AND regdate<=SYSDATE")
-		   public List<CartVO> cartListData(String id);
-		
-		/////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////
-
 
 	/////////////////////////////////////////////////////////////////////////
 	//▼ 연관 새상품 추천 목록 출력
@@ -120,5 +93,61 @@ public interface NewItemMapper {
 			+ "FROM new_item WHERE cate1=#{cate1} AND cate2=#{cate2} ORDER BY score DESC, reviewCnt DESC)) " 
 			+ "WHERE num BETWEEN 1 AND 10")
 	public List<NewItemVO> bestItemListData(Map map2);
-
+	/////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	/////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////
+	
+	// 장바구니 등록 
+	@Insert("INSERT INTO cart VALUES("
+		  + "(SELECT NVL(MAX(cart_id)+1,1) FROM cart),#{id},#{product_id},#{amount},SYSDATE,0,0)")
+	public void cartInsert(CartVO vo);
+	
+	// 마이페이지 => 취소/결제 => 결제(이메일로 전송)
+	@Select("SELECT /*+ INDEX_DESC(cart cart_id_pk)*/ cart_id,id,amount,ischeck,issale, "
+		  + "(SELECT title FROM new_item WHERE new_item.no=cart.product_id) as product_name, "
+		  + "(SELECT img FROM new_item WHERE new_item.no=cart.product_id) as product_poster, "
+		  + "(REPLACE ((SELECT price FROM new_item WHERE new_item.no=cart.product_id), ',', '')) as product_price "
+		  + "FROM cart "
+		  + "WHERE id=#{id}")
+	public List<CartVO> cartListData(String id);
+	
+	// 구매요청 
+	@Update("UPDATE cart SET "
+		  + "issale=1 "
+		  + "WHERE cart_id = #{cart_id}")
+	public void cartSaleUpdate(int cart_id);
+	
+	// 구매취소 
+	@Delete("DELETE FROM cart "
+		  + "WHERE cart_id = #{cart_id}")
+	public void cartSaleDelete(int cart_id);
+	
+	// 어드민 페이지에서 결제 
+	@Select("SELECT /*+ INDEX_DESC(cart cart_id_pk)*/ cart_id,id,amount,ischeck,issale,"
+		  + "(SELECT product_name FROM goods WHERE goods.product_id=cart.product_id) as product_name,"
+		  + "(SELECT product_poster FROM goods WHERE goods.product_id=cart.product_id) as product_poster,"
+		  + "(REPLACE ((SELECT price FROM new_item WHERE new_item.no=cart.product_id), ',', '')) as product_price "
+		  + "FROM cart "
+		  + "WHERE issale=1")
+	public List<CartVO> cartAdminListData();
+	   
+	@Update("UPDATE cart SET "
+		  + "ischeck=1 "
+		  + "WHERE cart_id=#{cart_id}")
+	public void goodsAdminYes(int cart_id);
+	   
+	@Select("SELECT /*+ INDEX_DESC(cart cart_id_pk)*/ cart_id,id,amount,ischeck,issale,"
+		  + "(SELECT product_name FROM goods WHERE goods.product_id=cart.product_id) as product_name,"
+		  + "(SELECT product_poster FROM goods WHERE goods.product_id=cart.product_id) as product_poster,"
+		  + "(REPLACE ((SELECT price FROM new_item WHERE new_item.no=cart.product_id), ',', '')) as product_price "
+		  + "FROM cart "
+		  + "WHERE cart_id=#{cart_id}")
+	public CartVO cartYesData(int cart_id);
+	
+	/////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////
+	
 }

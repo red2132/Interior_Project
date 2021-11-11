@@ -80,21 +80,7 @@ public class NewItemDAO {
 	public List<NewItemVO> categorySelectData(Map map){
 		return mp.categorySelectData(map);
 	}
-	
-	//////////////////////////////////////
-	//////////////////////////////////////
-	public void cartInsert(CartVO vo)
-	{
-		mp.cartInsert(vo);
-	}
-	public List<CartVO> cartListData(String id)
-	{
-		return mp.cartListData(id);
-	}
-	//////////////////////////////////////
-	//////////////////////////////////////
-	
-	
+		
 	///////////////////////////////////////////////////
 	//▼ 연관 새상품 추천
 	//1-1. 해당 게시글의 category 정보 가져오기
@@ -104,5 +90,49 @@ public class NewItemDAO {
 	//1-2. best 리스트 출력
 	public List<NewItemVO> bestItemListData(Map map2){
 	return mp.bestItemListData(map2);
-}
+	}
+	
+	
+	
+	
+	
+	//////////////////////////////////////
+	//////////////////////////////////////
+	public void cartInsert(CartVO vo)
+	{
+		mp.cartInsert(vo);
+	}
+	
+	public List<CartVO> cartListData(String id)
+	{
+		return mp.cartListData(id);
+	}
+	
+    public void cartSaleUpdate(int cart_id)
+    {
+    	mp.cartSaleUpdate(cart_id);
+    }
+    
+    public void cartSaleDelete(int cart_id)
+    {
+    	mp.cartSaleDelete(cart_id);
+    }
+    
+    public List<CartVO> cartAdminListData()
+    {
+    	return mp.cartAdminListData();
+    }
+    
+    public void goodsAdminYes(int cart_id)
+    {
+    	mp.goodsAdminYes(cart_id);
+    }
+    
+    public CartVO cartYesData(int cart_id)
+    {
+    	return mp.cartYesData(cart_id);
+    }
+	//////////////////////////////////////
+	//////////////////////////////////////
+	
 }

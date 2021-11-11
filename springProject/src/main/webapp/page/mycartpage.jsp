@@ -16,7 +16,7 @@
 </head>
 <body>
 <br><br><br><br><br><br><br><br>
-<div class="bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');">
+<div class="bgded overlay">
   <div id="breadcrumb" class="hoc clear"> 
   </div>
 </div>
@@ -41,12 +41,12 @@
      <c:forEach var="vo" items="${list }">
        <tr>
          <td class="text-center">
-          <img src="${vo.product_poster }" style="width:30px;height:30px">
+          <img src="${vo.product_poster}" style="width:30px;height:30px">
          </td>
          <td>${vo.product_name }</td>
-         <td class="text-center">${vo.amount }</td>
-         <td class="text-center">${vo.product_price }원</td>
-         <td class="text-center">${vo.amount*vo.product_price+3000 }원</td>
+         <td class="text-center">${vo.amount}</td>
+         <td class="text-center">${vo.product_price}원</td>
+         <td class="text-center">${vo.amount*vo.product_price+3000}원</td>
          <td class="text-center">3000원</td>
          <td class="text-center inline">
           <c:if test="${vo.ischeck==0 }">

@@ -133,35 +133,78 @@ public class NewItemController {
 		attr.addAttribute("no",no);
 		return "redirect:../new/detail.do";
 	}
+	
+	
+	
+	
+	
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
+	
 	// 장바구니 
-	   @PostMapping("new/cart_ok.do")
-	   public String catr_cart_ok(int product_id,int amount, HttpSession session)
-	   {
-		   CartVO vo=new CartVO();
-		   vo.setProduct_id(product_id);
-		   vo.setAmount(amount);
-		   String id=(String)session.getAttribute("id");
-		   vo.setId(id);
-		   // 오라클 전송 
-		   dao.cartInsert(vo);
-		   return "redirect:../page/mycartpage.do"; // adminpage 
-	   }
+	@PostMapping("new/cart_ok.do")
+	public String new_cart_ok(int product_id, int amount, HttpSession session)
+	{
+		CartVO vo = new CartVO();
+		vo.setProduct_id(product_id);
+		vo.setAmount(amount);
+		String id=(String)session.getAttribute("id");
+		vo.setId(id);
+		 
+		dao.cartInsert(vo);
+		return "redirect:../page/mycartpage.do"; // adminpage 
+	}
 	   
-	   @GetMapping("page/mycartpage.do")
-	   public String page_mypage(HttpSession session,Model model)
-	   {
-		   // 데이터 읽기 
-		   String id=(String)session.getAttribute("id");
-		   // 오라클 연결 
-		   List<CartVO> list=dao.cartListData(id);
-		   model.addAttribute("list", list);
-		   model.addAttribute("main_jsp", "../page/mycartpage.jsp");
-		   return "main/main";
-	   }
+	@GetMapping("page/mycartpage.do")
+	public String page_mycartpage(HttpSession session,Model model)
+	{
+		String id = (String)session.getAttribute("id");
+
+		List<CartVO> list = dao.cartListData(id); 
+		
+		model.addAttribute("list", list);
+		model.addAttribute("main_jsp", "../page/mycartpage.jsp");
+		return "main/main";
+	}
+	
+	/*
+	
+	@GetMapping("page/adminpage.do")
+	public String page_adminpage(Model model)
+	{
+		List<CartVO> list=dao.cartAdminListData();
+		model.addAttribute("list", list);
+		model.addAttribute("main_jsp", "../page/adminpage.jsp");
+		return "main/main";
+	}
+	
+	@GetMapping("page/goodsAdminYes.do")
+	public String page_goodsAdminYes(int no,HttpSession session)
+	{
+		String name=(String)session.getAttribute("name");
+		CartVO vo=dao.cartYesData(no);
+		MailSender.naverMailSend(vo,name);
+		dao.goodsAdminYes(no);
+		return "redirect:../page/adminpage.do";
+	}
+	
+	@GetMapping("page/goodsYes.do")
+	public String page_goodsYes(int no)
+	{
+		dao.cartSaleUpdate(no);
+		return "redirect:../page/mypage.do";
+	}
+	@GetMapping("page/goodsNo.do")
+	public String page_goodsNo(int no)
+	{
+		dao.cartSaleDelete(no);
+		return "redirect:../page/mypage.do";
+	}
+	
+	*/
+	
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	
-	
+
 }
