@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
 <title>Insert title here</title>
 <style>
 .client_logo .single_client_logo {
-    border-bottom: 0px !important;
+	border-bottom: 0px !important;
 }
 </style>
 <script
@@ -116,36 +117,36 @@
 					<div class="single_feature_post_text">
 						<p>Premium Quality</p>
 						<h3>가전</h3>
-						<a href="../new/list.do?sort=0&cate1=가전" class="feature_btn">바로가기 <i
-							class="fas fa-play"></i></a> <img
-							src="../template/img/feature/101.png" alt="">
+						<a href="../new/list.do?sort=0&cate1=가전" class="feature_btn">바로가기
+							<i class="fas fa-play"></i>
+						</a> <img src="../template/img/feature/101.png" alt="">
 					</div>
 				</div>
 				<div class="col-lg-5 col-sm-6">
 					<div class="single_feature_post_text">
 						<p>Premium Quality</p>
 						<h3>가구</h3>
-						<a href="../new/list.do?sort=0&cate1=가구" class="feature_btn">바로가기 <i
-							class="fas fa-play"></i></a> <img
-							src="../template/img/feature/201.png" alt="">
+						<a href="../new/list.do?sort=0&cate1=가구" class="feature_btn">바로가기
+							<i class="fas fa-play"></i>
+						</a> <img src="../template/img/feature/201.png" alt="">
 					</div>
 				</div>
 				<div class="col-lg-5 col-sm-6">
 					<div class="single_feature_post_text">
 						<p>Premium Quality</p>
 						<h3>침구</h3>
-						<a href="../new/list.do?sort=0&cate1=침구" class="feature_btn">바로가기 <i
-							class="fas fa-play"></i></a> <img
-							src="../template/img/feature/301.png" alt="">
+						<a href="../new/list.do?sort=0&cate1=침구" class="feature_btn">바로가기
+							<i class="fas fa-play"></i>
+						</a> <img src="../template/img/feature/301.png" alt="">
 					</div>
 				</div>
 				<div class="col-lg-7 col-sm-6">
 					<div class="single_feature_post_text">
 						<p>Premium Quality</p>
 						<h3>조명</h3>
-						<a href="../new/list.do?sort=0&cate1=조명" class="feature_btn">바로가기 <i
-							class="fas fa-play"></i></a> <img
-							src="../template/img/feature/401.png" alt="">
+						<a href="../new/list.do?sort=0&cate1=조명" class="feature_btn">바로가기
+							<i class="fas fa-play"></i>
+						</a> <img src="../template/img/feature/401.png" alt="">
 					</div>
 				</div>
 			</div>
@@ -160,7 +161,7 @@
 				<div class="col-lg-12">
 					<div class="section_tittle text-center">
 						<h2>
-							새상품(2줄 슬라이드 -> 추천??) <span>shop</span>
+							새상품 추천 <span>shop</span>
 						</h2>
 					</div>
 				</div>
@@ -168,190 +169,26 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="product_list_slider owl-carousel">
-						<div class="single_product_list_slider">
-							<div class="row align-items-center justify-content-between">
-								<div class="col-lg-3 col-sm-6">
-									<div class="single_product_item">
-										<img src="../template/img/product/product_1.png" alt="">
-										<div class="single_product_text">
-											<h4>Quartz Belt Watch</h4>
-											<h3>$150.00</h3>
-											<a href="#" class="add_cart">+ add to cart<i
-												class="ti-heart"></i></a>
+						<c:forEach var="list" items="${ccArr }">
+							<div class="single_product_list_slider">
+								<div class="row align-items-center justify-content-between">
+									<c:forEach var="i" items="${list }">
+										<div class="col-lg-3 col-sm-6">
+											<div class="single_product_item">
+												<img src="${i.img }" alt="">
+												<div class="single_product_text">
+													<h4>${i.title }</h4>
+													<h3>${i.price }</h3>
+													<a href="../new/detail.do?no=${i.no }" class="add_cart">+
+														add to cart<i class="ti-heart"></i>
+													</a>
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-sm-6">
-									<div class="single_product_item">
-										<img src="../template/img/product/product_2.png" alt="">
-										<div class="single_product_text">
-											<h4>Quartz Belt Watch</h4>
-											<h3>$150.00</h3>
-											<a href="#" class="add_cart">+ add to cart<i
-												class="ti-heart"></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-sm-6">
-									<div class="single_product_item">
-										<img src="../template/img/product/product_3.png" alt="">
-										<div class="single_product_text">
-											<h4>Quartz Belt Watch</h4>
-											<h3>$150.00</h3>
-											<a href="#" class="add_cart">+ add to cart<i
-												class="ti-heart"></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-sm-6">
-									<div class="single_product_item">
-										<img src="../template/img/product/product_4.png" alt="">
-										<div class="single_product_text">
-											<h4>Quartz Belt Watch</h4>
-											<h3>$150.00</h3>
-											<a href="#" class="add_cart">+ add to cart<i
-												class="ti-heart"></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-sm-6">
-									<div class="single_product_item">
-										<img src="../template/img/product/product_5.png" alt="">
-										<div class="single_product_text">
-											<h4>Quartz Belt Watch</h4>
-											<h3>$150.00</h3>
-											<a href="#" class="add_cart">+ add to cart<i
-												class="ti-heart"></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-sm-6">
-									<div class="single_product_item">
-										<img src="../template/img/product/product_6.png" alt="">
-										<div class="single_product_text">
-											<h4>Quartz Belt Watch</h4>
-											<h3>$150.00</h3>
-											<a href="#" class="add_cart">+ add to cart<i
-												class="ti-heart"></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-sm-6">
-									<div class="single_product_item">
-										<img src="../template/img/product/product_7.png" alt="">
-										<div class="single_product_text">
-											<h4>Quartz Belt Watch</h4>
-											<h3>$150.00</h3>
-											<a href="#" class="add_cart">+ add to cart<i
-												class="ti-heart"></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-sm-6">
-									<div class="single_product_item">
-										<img src="../template/img/product/product_8.png" alt="">
-										<div class="single_product_text">
-											<h4>Quartz Belt Watch</h4>
-											<h3>$150.00</h3>
-											<a href="#" class="add_cart">+ add to cart<i
-												class="ti-heart"></i></a>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
-						</div>
-						<div class="single_product_list_slider">
-							<div class="row align-items-center justify-content-between">
-								<div class="col-lg-3 col-sm-6">
-									<div class="single_product_item">
-										<img src="../template/img/product/product_1.png" alt="">
-										<div class="single_product_text">
-											<h4>Quartz Belt Watch</h4>
-											<h3>$150.00</h3>
-											<a href="#" class="add_cart">+ add to cart<i
-												class="ti-heart"></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-sm-6">
-									<div class="single_product_item">
-										<img src="../template/img/product/product_2.png" alt="">
-										<div class="single_product_text">
-											<h4>Quartz Belt Watch</h4>
-											<h3>$150.00</h3>
-											<a href="#" class="add_cart">+ add to cart<i
-												class="ti-heart"></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-sm-6">
-									<div class="single_product_item">
-										<img src="../template/img/product/product_3.png" alt="">
-										<div class="single_product_text">
-											<h4>Quartz Belt Watch</h4>
-											<h3>$150.00</h3>
-											<a href="#" class="add_cart">+ add to cart<i
-												class="ti-heart"></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-sm-6">
-									<div class="single_product_item">
-										<img src="../template/img/product/product_4.png" alt="">
-										<div class="single_product_text">
-											<h4>Quartz Belt Watch</h4>
-											<h3>$150.00</h3>
-											<a href="#" class="add_cart">+ add to cart<i
-												class="ti-heart"></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-sm-6">
-									<div class="single_product_item">
-										<img src="../template/img/product/product_5.png" alt="">
-										<div class="single_product_text">
-											<h4>Quartz Belt Watch</h4>
-											<h3>$150.00</h3>
-											<a href="#" class="add_cart">+ add to cart<i
-												class="ti-heart"></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-sm-6">
-									<div class="single_product_item">
-										<img src="../template/img/product/product_6.png" alt="">
-										<div class="single_product_text">
-											<h4>Quartz Belt Watch</h4>
-											<h3>$150.00</h3>
-											<a href="#" class="add_cart">+ add to cart<i
-												class="ti-heart"></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-sm-6">
-									<div class="single_product_item">
-										<img src="../template/img/product/product_7.png" alt="">
-										<div class="single_product_text">
-											<h4>Quartz Belt Watch</h4>
-											<h3>$150.00</h3>
-											<a href="#" class="add_cart">+ add to cart<i
-												class="ti-heart"></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-sm-6">
-									<div class="single_product_item">
-										<img src="../template/img/product/product_8.png" alt="">
-										<div class="single_product_text">
-											<h4>Quartz Belt Watch</h4>
-											<h3>$150.00</h3>
-											<a href="#" class="add_cart">+ add to cart<i
-												class="ti-heart"></i></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -406,15 +243,15 @@
 			<div class="row align-items-center justify-content-between" id="comm">
 				<div class="col-lg-12">
 
-						<div>
-							<div class="single_product_item col-lg-3"  v-for="vo in comm_data">
-								<img :src="vo.filename" alt="" height="200px" width="300px">
-								<div class="single_product_text">
-									<a :href="'../comm/detail.do?no='+vo.no+'&page=1'"><h4>{{vo.subject}}</h4></a>
-									<h3>{{vo.id}}</h3>
-								</div>
+					<div>
+						<div class="single_product_item col-lg-3" v-for="vo in comm_data">
+							<img :src="vo.filename" alt="" height="200px" width="300px">
+							<div class="single_product_text">
+								<a :href="'../comm/detail.do?no='+vo.no+'&page=1'"><h4>{{vo.subject}}</h4></a>
+								<h3>{{vo.id}}</h3>
 							</div>
 						</div>
+					</div>
 
 				</div>
 			</div>
@@ -484,10 +321,10 @@
 					<div class="single_client_logo">
 						<a href="https://ohou.se/"><img
 							src="../template/img/client_logo/3.jpg" alt=""></a>
-					</div>					
+					</div>
 				</div>
 			</div>
-		</div> 
+		</div>
 	</section>
 	<!--::subscribe_area part end::-->
 	<script>

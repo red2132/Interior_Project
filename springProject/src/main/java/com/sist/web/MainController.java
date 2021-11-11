@@ -23,6 +23,17 @@ public class MainController {
 		List<String> cateList = dao.nCategory();
 		List<String> secondCateList = sdao.sCategory();
 		
+		int row=3;
+		int col=4;
+		NewItemVO[][] ccArr = new NewItemVO[row][col];
+		List<NewItemVO> l = dao.randData(row*col);
+		for(int i=0;i<row;i++) {
+			for(int j=0;j<col;j++) {
+				ccArr[i][j]=l.get(i*col+j);
+			}
+		}
+		model.addAttribute("ccArr",ccArr);
+		
 		model.addAttribute("cateList", cateList);
 		model.addAttribute("secondCateList", secondCateList);
 		model.addAttribute("main_jsp", "../main/home.jsp");

@@ -149,5 +149,10 @@ public interface NewItemMapper {
 	
 	/////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////
-	
+	@Select("SELECT no,img,title,price,num "
+			+ "FROM(SELECT no,img,title,price,rownum as num "
+			+ "FROM(SELECT no,img,title,price "
+			+ "FROM new_item ORDER BY dbms_random.random))"
+			+ "WHERE num <= #{n}")
+	public List<NewItemVO> randData(int n);
 }

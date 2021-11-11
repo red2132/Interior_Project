@@ -134,5 +134,8 @@ public class NewItemDAO {
     }
 	//////////////////////////////////////
 	//////////////////////////////////////
+    public List<NewItemVO> randData(int n){
+    	return mp.randData(n);
+    }
 	
 }
