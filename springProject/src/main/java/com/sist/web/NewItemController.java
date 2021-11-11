@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.taglibs.standard.lang.jstl.test.beans.PublicBean1;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +18,7 @@ import com.sist.dao.NewItemDAO;
 import com.sist.vo.NewItemVO;
 import com.sist.vo.ReplyVO;
 import com.sist.vo.CartVO;
+import com.sist.data.*;
 
 @Controller
 public class NewItemController {
@@ -182,9 +182,9 @@ public class NewItemController {
 	@GetMapping("page/goodsAdminYes.do")
 	public String page_goodsAdminYes(int no,HttpSession session)
 	{
-		String name=(String)session.getAttribute("name");
+		String id=(String)session.getAttribute("id");
 		CartVO vo=dao.cartYesData(no);
-//		MailSender.naverMailSend(vo,name);
+		MailSender.gmailMailSend(vo, id);
 		dao.goodsAdminYes(no);
 		return "redirect:../page/adminpage.do";
 	}
