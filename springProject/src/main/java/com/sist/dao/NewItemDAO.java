@@ -137,5 +137,11 @@ public class NewItemDAO {
     public List<NewItemVO> randData(int n){
     	return mp.randData(n);
     }
-	
+    public List<NewItemVO> newItemFindData(Map map){
+    	return mp.newItemFindData(map);
+    }
+    
+    public int newItemFindcnt(Map map) {
+    	return mp.newItemFindcnt(map);
+    }
 }

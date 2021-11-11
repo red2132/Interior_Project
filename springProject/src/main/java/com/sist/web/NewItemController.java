@@ -26,7 +26,7 @@ public class NewItemController {
 	private NewItemDAO dao;
 	
 	@RequestMapping("new/list.do")
-	public String list(int sort,String page,String cate1,String cate2,Model model) {
+	public String list(String[] fs,String ss,int sort,String page,String cate1,String cate2,Model model) {
 		List<String> cateList = dao.nCategory();
 		model.addAttribute("cateList", cateList);
 	
@@ -42,20 +42,31 @@ public class NewItemController {
 		
 		// 목록
 		Map map=new HashMap();
+		
 		int n=9;
 		int end=n*curpage;
 		int start=end-n+1;
 		map.put("sort", sort);
 		map.put("start", start);
 		map.put("end", end);
-		map.put("cate1", cate1);
-		map.put("cate2", cate2);
-		List<NewItemVO> nList=dao.categorySelectData(map);
-		
-		//List<NewItemVO> nList=dao.nList(map);
-		
-		// 상품 갯수
-		int cnt = dao.itemCnt(map);
+		List<NewItemVO> nList;
+		int cnt;
+		if(ss==null) {
+			map.put("cate1", cate1);
+			map.put("cate2", cate2);
+			nList=dao.categorySelectData(map);
+			cnt = dao.itemCnt(map);
+			System.out.println("검색 없이 출력");
+		}
+		else {
+			map.put("fsArr", fs);
+			map.put("ss", ss);
+			nList=dao.newItemFindData(map);
+			for(String s :fs)
+				System.out.println(s+"체크");
+			System.out.println("검색 "+ss+" 출력");
+			cnt=dao.newItemFindcnt(map);
+		}
 		
 		// pagination
 		int totalpage=dao.nTotalPage();

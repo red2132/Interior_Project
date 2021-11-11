@@ -155,4 +155,33 @@ public interface NewItemMapper {
 			+ "FROM new_item ORDER BY dbms_random.random))"
 			+ "WHERE num <= #{n}")
 	public List<NewItemVO> randData(int n);
+	
+	// 찾기 => 동적 쿼리 (마이바티스)
+			@Select({ "<script>" + 
+							"SELECT no,img,title,regdate,price " 
+								+ "FROM new_item WHERE "
+									+ "<trim prefix=\"(\" suffix=\")\" prefixOverrides=\"OR\">" 
+										+ "<foreach collection=\"fsArr\" item=\"fd\">"
+											+ "<trim prefix=\"OR\">" 
+												+ "<choose>" 
+													+ "<when test=\"fd=='T'.toString()\">" 
+														+ "title LIKE '%'||#{ss}||'%'"
+													+ "</when>" 
+													+ "<when test=\"fd=='C'.toString()\">" 
+														+ "cmt LIKE '%'||#{ss}||'%'" 
+													+ "</when>"
+												+ "</choose>"
+											+ "</trim>"
+										+ "</foreach>"
+									+ "</trim>" 
+							+ "</script>" })
+			public List<NewItemVO> newItemFindData(Map map); // 검색 리스트
+			
+			// 검색 결과 갯수
+				@Select({ "<script>" + "SELECT COUNT(*) " + "FROM new_item " + "WHERE "
+						+ "<trim prefix=\"(\" suffix=\")\" prefixOverrides=\"OR\">" + "<foreach collection=\"fsArr\" item=\"fd\">"
+						+ "<trim prefix=\"OR\">" + "<choose>" + "<when test=\"fd=='T'.toString()\">" + "title LIKE '%'||#{ss}||'%'"
+						+ "</when>" + "<when test=\"fd=='C'.toString()\">" + "cmt LIKE '%'||#{ss}||'%'" + "</when>" + "</choose>"
+						+ "</trim>" + "</foreach>" + "</trim>" + "</script>" })
+			public int newItemFindcnt(Map map);
 }

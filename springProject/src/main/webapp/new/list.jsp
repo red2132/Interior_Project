@@ -122,41 +122,27 @@
 											class="primary-border circle arrow">
 									</div>
 								</form>
-								
-							
-								
-
-								<!--             <form method="post" action="../replyboard/find.do">
-	         <input type="checkbox" value="N" class="input-sm" name="fs">이름
-	         <input type="checkbox" value="S" class="input-sm" name="fs">제목
-	         <input type="checkbox" value="C" class="input-sm" name="fs">내용
-	         <input type=text name=ss size=15 class="input-sm">
-	         <input type=submit class="btn btn-sm btn-success" value="검색">
-	        </form> -->
-
-								<!-- 아직 검색 구현 안됨 -->
-								<div class="single_product_menu d-flex">
-									<input type="checkbox" value="T" name=find>제목 <input
-										type="checkbox" value="C" name=find>내용
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="search"
-											aria-describedby="inputGroupPrepend">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroupPrepend"><i
-												class="ti-search"></i></span>
+								<form method="get" action="../new/list.do?" id=frm>
+									<input type="hidden" name=sort value=0>
+									<input type="hidden" name=cate1 value="${cate1}">
+									<div class="single_product_menu d-flex">
+										<input type="checkbox" value="T" class="input-sm" name="fs" checked="checked">이름 
+										<input type="checkbox" value="C" class="input-sm" name="fs">내용
+										<div class="input-group">
+											<input type=text name=ss size=10 class="form-control" placeholder="search">
+											<div class="input-group-prepend">												
+												<i class="ti-search" onclick="document.getElementById('frm').submit();" style="cursor: pointer; margin-left:200px;"></i>												</div>
 										</div>
 									</div>
-								</div>
+								</form>
 							</div>
 						</div>
 					</div>
-
 					<div class="row align-items-center latest_product_inner">
 						<c:forEach var="vo" items="${nList }">
 							<div class="col-lg-4 col-sm-6">
 								<div class="single_product_item">
-									<a
-										href="../new/detail.do?no=${vo.no }&cate1=${cate1 }&cate2=${cate2 }">
+									<a href="../new/detail.do?no=${vo.no }&cate1=${cate1 }&cate2=${cate2 }">
 										<img src="${vo.img }">
 										<div class="single_product_text">
 											<h4>${vo.title }</h4>
@@ -239,38 +225,9 @@
 						</div>
 					</div>
 				</c:forEach>
-
-				<!-- <div class="single_product_item">
-                            <img src="img/product/product_2.png" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
-                            </div>
-                        </div>
-                        <div class="single_product_item">
-                            <img src="img/product/product_3.png" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
-                            </div>
-                        </div>
-                        <div class="single_product_item">
-                            <img src="img/product/product_4.png" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
-                            </div>
-                        </div>
-                        <div class="single_product_item">
-                            <img src="img/product/product_5.png" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
-                            </div>
-                        </div> -->
 			</div>
 		</div>
 	</section>
-	<!-- 추천 슬라이드 -->
+	<!-- 추천 -->
 </body>
 </html>
