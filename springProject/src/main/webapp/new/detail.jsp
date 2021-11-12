@@ -12,6 +12,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script type="text/javascript">
+
+let u = 0;// 전역변수
 $(function(){	
 	$('#cartInsertBtn').click(function(){
 		$('#replyForm').submit();
@@ -28,6 +30,32 @@ $(function(){
 		$('#total').text(total+"원");
 		$('#amount').val(count);
 	})
+	//댓글 등록 버튼
+	$('#insertBtn').click(function() {
+		let msg = $('#msg').val();
+		if (msg.trim() == "") {
+			$('#msg').focus();
+			return;
+		}
+		$('#replyForm').submit();
+	})
+	//댓글 수정
+	$('.updates').click(function() {
+		$('.up').hide();// 출력된 수정창을 닫는다
+		let no = $(this).attr("data-value"); // 출력할 위치를 확인 (어떤것이 수정할 지 확인 )
+		if (u == 0) // 열고
+		{
+			u = 1; // 닫기
+			$('#u' + no).show();
+			$(this).text("취소");
+		} else // 닫기
+		{
+			u = 0; // 열기 
+			$('#u' + no).hide();
+			$(this).text("수정");
+		}
+	})
+
 })
 </script>
 </head>

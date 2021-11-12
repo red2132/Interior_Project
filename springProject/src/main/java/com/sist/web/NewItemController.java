@@ -145,7 +145,16 @@ public class NewItemController {
 		attr.addAttribute("no",no);
 		return "redirect:../new/detail.do";
 	}
-	
+	//댓글 수정
+	@PostMapping("new/replyUpdate.do")
+	public String new_replyUpdate(int no,String content,int rno, RedirectAttributes attr) {
+		Map map = new HashMap();
+		map.put("content", content);
+		map.put("no", rno);
+		dao.replyUpdate(map);
+		attr.addAttribute("no", no);
+		return "redirect:../new/detail.do";
+	}
 	
 	
 	

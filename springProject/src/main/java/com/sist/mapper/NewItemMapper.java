@@ -62,6 +62,8 @@ public interface NewItemMapper {
 	@Select("SELECT COUNT(*) FROM reply WHERE item_no=#{item_no} AND cate=#{cate}")
 	public int replyCnt(Map map);
 	
+	
+	
 	// 댓글가져오기
 		@Select("SELECT no,item_no,cate,content,pwd,id,TO_CHAR(regdate,'YYYY-MM-DD hh24:mi:ss') as dbday " + "FROM reply "
 				+ "WHERE item_no=#{item_no} AND cate=#{cate}" + "ORDER BY regdate desc")
