@@ -21,7 +21,7 @@ public class PageController {
 	
    
 	@GetMapping("mypage.do")
-	public String page_mypage(Model model, HttpSession session)
+	public String page_mypage_main(Model model, HttpSession session)
 	{
 		String interestingCate = "";
 		String id = (String)session.getAttribute("id");
