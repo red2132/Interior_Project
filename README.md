@@ -7,12 +7,11 @@
 나는 그 중 인테리어 공유 커뮤니티를 담당해서 제작했다.
 
 ## 개발 환경
-사용 언어: java, javascript, HTML5
-DB: Oracle
-FrameWork: Spring
-화면 관련 기술: Jquery, vueJs
-DB 통신 관련 기술: Ajax, mybatis,
-
+사용 언어: java, javascript, HTML5  
+DB: Oracle  
+FrameWork: Spring  
+화면 관련 기술: Jquery, vueJs  
+DB 통신 관련 기술: Ajax, mybatis  
 
 ## 요구사항 분석
 
